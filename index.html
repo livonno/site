@@ -1,586 +1,678 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" class="scroll-smooth">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Livonno — Aceleração Órbita para e-commerce de beleza</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
-<style>
-  :root{
-    --void:#0E0C14;
-    --void-2:#14111C;
-    --card:#1A1724;
-    --card-2:#1F1B2A;
-    --line:#2B2638;
-    --line-soft:#241F30;
-    --text:#F1EDF6;
-    --text-soft:#A79FB8;
-    --text-dim:#6E6680;
-    --impulso:#F0653C;
-    --impulso-soft:#F6C9B8;
-    --gravidade:#2E9678;
-    --gravidade-soft:#BFDCD3;
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Livonno — Aceleração Especializada no Mercado de Saúde</title>
+  <meta name="description" content="A Livonno instala na sua clínica o sistema completo de atração e conversão de pacientes particulares de alto valor. Tráfego, comercial e IA — do clique ao fechamento." />
+  <meta name="theme-color" content="#000000" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%23000000'/%3E%3Ccircle cx='50' cy='50' r='26' fill='none' stroke='%23CCFF00' stroke-width='6'/%3E%3Ccircle cx='76' cy='50' r='9' fill='%23CCFF00'/%3E%3C/svg%3E" />
 
-    --sp-1:8px; --sp-2:14px; --sp-3:22px; --sp-4:30px; --sp-5:44px;
-    --sp-6:64px; --sp-7:92px; --sp-8:128px;
+  <!-- Fontes: Archivo (display) · Instrument Serif (acento "variável de física") · Manrope (texto) · IBM Plex Mono (telemetria) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700;800;900&family=IBM+Plex+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet" />
 
-    --fs-eyebrow:12.5px; --fs-body:16px; --fs-body-lg:17.5px;
-    --fs-h4:19px; --fs-h3:23px; --fs-h2:34px; --fs-h1:56px;
-  }
-  *{ box-sizing:border-box; }
-  html{ scroll-behavior:smooth; }
-  body{
-    margin:0; background:var(--void); color:var(--text);
-    font-family:'IBM Plex Sans', sans-serif; line-height:1.6;
-    font-size:var(--fs-body); -webkit-font-smoothing:antialiased;
-  }
-  h1,h2,h3,h4{ font-family:'Space Grotesk', sans-serif; letter-spacing:-0.015em; margin:0; }
-  .mono{ font-family:'IBM Plex Mono', monospace; letter-spacing:0; }
-  a{ color:inherit; }
-  .wrap{ max-width:1120px; margin:0 auto; padding:0 32px; position:relative; z-index:2; }
-  ::selection{ background:var(--impulso); color:#fff; }
+  <!-- Tailwind via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            neon: '#CCFF00',
+            carbon: '#0A0A0B',
+          },
+          fontFamily: {
+            display: ['Archivo', 'system-ui', 'sans-serif'],
+            serifacc: ['"Instrument Serif"', 'Georgia', 'serif'],
+            body: ['Manrope', 'system-ui', 'sans-serif'],
+            mono: ['"IBM Plex Mono"', 'ui-monospace', 'monospace'],
+          },
+        },
+      },
+    };
+  </script>
 
-  .btn{
-    display:inline-flex; align-items:center; gap:9px;
-    background:var(--impulso); color:#fff; font-weight:600;
-    padding:17px 30px; border-radius:4px; text-decoration:none;
-    font-size:15.5px; border:1px solid var(--impulso);
-    box-shadow:0 0 28px rgba(240,101,60,.28);
-    transition:background .15s ease, transform .15s ease, box-shadow .15s ease;
-  }
-  .btn:hover{ background:#d9572f; transform:translateY(-1px); box-shadow:0 0 36px rgba(240,101,60,.4); }
-  .btn.ghost{ background:transparent; color:var(--text); border:1px solid var(--line); box-shadow:none; }
-  .btn.ghost:hover{ border-color:var(--impulso); color:var(--impulso-soft); box-shadow:none; }
+  <style>
+    ::selection { background: #CCFF00; color: #000; }
+    html { scroll-padding-top: 6rem; }
+    body { background: #000; }
 
-  .eyebrow{
-    font-family:'IBM Plex Mono'; font-size:var(--fs-eyebrow); letter-spacing:.12em; text-transform:uppercase;
-    display:flex; align-items:center; gap:10px; margin-bottom:var(--sp-3); font-weight:500; color:var(--text-dim);
-  }
-  .eyebrow::before{ content:""; width:20px; height:1px; background:currentColor; opacity:.6; flex-shrink:0; }
-  .eyebrow.fire{ color:var(--impulso); }
-  .eyebrow.teal{ color:var(--gravidade); }
+    /* Textura de granulação sutil (premium) */
+    .grain::before {
+      content: '';
+      position: fixed; inset: 0; z-index: 60; pointer-events: none; opacity: .028;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
 
-  .hero-badge{
-    display:inline-flex; align-items:center; gap:10px;
-    font-family:'IBM Plex Mono'; font-size:14px; letter-spacing:.02em;
-    color:var(--text-soft); background:var(--card);
-    border:1px solid var(--line); border-radius:999px;
-    padding:10px 20px 10px 16px; margin-bottom:var(--sp-4);
-  }
-  .hero-badge strong{ color:var(--text); font-weight:600; }
-  .hero-badge .dot{
-    width:8px; height:8px; border-radius:50%; background:var(--impulso); flex-shrink:0;
-    box-shadow:0 0 10px 2px rgba(240,101,60,.6);
-  }
+    /* Órbitas do campo gravitacional */
+    @keyframes orbit-spin { to { transform: rotate(360deg); } }
+    .orbit-g { transform-origin: 400px 400px; animation: orbit-spin var(--t, 60s) linear infinite; }
+    .orbit-rev { animation-direction: reverse; }
+    .fade-mask {
+      -webkit-mask-image: radial-gradient(closest-side, #000 55%, transparent 100%);
+      mask-image: radial-gradient(closest-side, #000 55%, transparent 100%);
+    }
 
-  .starfield{ position:relative; overflow:hidden; }
-  .starfield::before{
-    content:""; position:absolute; inset:0; pointer-events:none; z-index:0;
-    background-image:
-      radial-gradient(1px 1px at 22px 44px, rgba(241,237,246,.55) 50%, transparent 51%),
-      radial-gradient(1px 1px at 118px 92px, rgba(241,237,246,.30) 50%, transparent 51%),
-      radial-gradient(1.6px 1.6px at 196px 26px, rgba(246,201,184,.45) 50%, transparent 51%),
-      radial-gradient(1px 1px at 64px 168px, rgba(241,237,246,.38) 50%, transparent 51%),
-      radial-gradient(1.4px 1.4px at 236px 148px, rgba(191,220,211,.40) 50%, transparent 51%),
-      radial-gradient(1px 1px at 158px 196px, rgba(241,237,246,.25) 50%, transparent 51%);
-    background-size:280px 230px; background-repeat:repeat;
-  }
-  .nebula::after{
-    content:""; position:absolute; inset:0; pointer-events:none; z-index:0;
-    background:
-      radial-gradient(56% 42% at 82% 30%, rgba(240,101,60,.10), transparent 70%),
-      radial-gradient(48% 40% at 12% 86%, rgba(46,150,120,.08), transparent 72%);
-  }
+    /* Partículas sendo puxadas pelo buraco negro */
+    @keyframes collapse {
+      0%   { transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy))) scale(1); opacity: 0; }
+      12%  { opacity: .75; }
+      100% { transform: translate(-50%, -50%) scale(.1); opacity: 0; }
+    }
+    .bh-dot {
+      position: absolute; left: 50%; top: 45%;
+      width: 5px; height: 5px; border-radius: 9999px; background: rgba(204,255,0,.7);
+      animation: collapse var(--dur, 7s) ease-in infinite; animation-delay: var(--d, 0s);
+    }
 
-  header.hero{ padding:var(--sp-5) 0 var(--sp-8); }
-  .nav{ display:flex; align-items:center; justify-content:space-between; padding-bottom:calc(var(--sp-8) + 8px); gap:48px; }
-  .nav .brand{ font-family:'Space Grotesk'; font-weight:600; font-size:40px; flex-shrink:0; letter-spacing:-0.02em; }
-  .nav .brand span{ color:var(--impulso); }
-  .nav .btn.ghost{ padding:12px 24px; font-size:14px; flex-shrink:0; }
-  .nav-right{ display:flex; align-items:center; gap:40px; margin-left:auto; }
-  .nav-links{ display:flex; align-items:center; gap:42px; padding:8px 40px 8px 8px; border-right:1px solid var(--line); }
-  .nav-link{
-    font-family:'IBM Plex Mono'; font-size:12px; letter-spacing:.1em; text-transform:uppercase;
-    color:var(--text-soft); text-decoration:none; position:relative; padding:8px 0; transition:color .2s ease;
-  }
-  .nav-link::after{ content:""; position:absolute; left:0; right:100%; bottom:0; height:1px; background:var(--impulso); transition:right .25s ease; }
-  .nav-link:hover{ color:var(--text); }
-  .nav-link:hover::after{ right:0; }
+    /* Grade de fundo (seção Método) */
+    .grid-bg {
+      background-image:
+        linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px);
+      background-size: 56px 56px;
+    }
 
-  .hero-inner{ position:relative; }
-  h1.headline{
-    font-size:var(--fs-h1); font-weight:600; line-height:1.08;
-    margin-bottom:var(--sp-4); max-width:15ch;
-  }
-  h1 .w-impulso{ color:var(--impulso); }
-  h1 .w-gravidade{ color:var(--gravidade); }
-  .hero p.sub{ font-size:var(--fs-body-lg); color:var(--text-soft); max-width:52ch; margin:0 0 var(--sp-5); }
-  .hero p.sub strong{ color:var(--text); font-weight:600; }
-  .hero-ctas{ display:flex; gap:14px; flex-wrap:wrap; margin-bottom:var(--sp-3); }
-  .hero-note{ font-size:13.5px; color:var(--text-dim); }
+    /* Revelação ao rolar */
+    .reveal { opacity: 0; transform: translateY(26px); transition: opacity .8s cubic-bezier(.16,1,.3,1), transform .8s cubic-bezier(.16,1,.3,1); transition-delay: var(--rd, 0s); }
+    .reveal.revealed { opacity: 1; transform: none; }
 
-  .hero-orbit{
-    position:absolute; top:50%; right:-260px; transform:translateY(-52%);
-    width:680px; height:680px; z-index:1; pointer-events:none;
-  }
-  .orbit-ring{ position:absolute; border-radius:50%; border:1px solid var(--line); inset:0; }
-  .orbit-ring.r2{ inset:17%; border-color:#332D42; }
-  .orbit-ring.r3{ inset:34%; border-color:#3B3450; }
-  .core{
-    position:absolute; inset:44.5%; border-radius:50%;
-    background:radial-gradient(circle at 38% 34%, #FFF6EE, #E8DCD2 62%, #B9AEA6);
-    box-shadow:0 0 60px rgba(241,237,246,.25);
-  }
-  .satellite{ position:absolute; animation:spin linear infinite; }
-  .satellite span{ position:absolute; top:0; left:50%; transform:translate(-50%,-50%); border-radius:50%; }
-  .sat-impulso{ inset:0; animation-duration:11s; }
-  .sat-impulso span{ width:18px; height:18px; background:var(--impulso); box-shadow:0 0 26px 5px rgba(240,101,60,.55); }
-  .sat-gravidade{ inset:17%; animation-duration:17s; animation-direction:reverse; }
-  .sat-gravidade span{ width:14px; height:14px; background:var(--gravidade); box-shadow:0 0 20px 4px rgba(46,150,120,.55); }
-  @keyframes spin{ to{ transform:rotate(360deg); } }
-  @media (prefers-reduced-motion:reduce){ .satellite{ animation:none; } }
+    /* FAQ */
+    summary { list-style: none; }
+    summary::-webkit-details-marker { display: none; }
+    .faq-icon { transition: transform .35s cubic-bezier(.16,1,.3,1); }
+    details[open] .faq-icon { transform: rotate(45deg); }
 
-  section.data{ padding:var(--sp-7) 0; border-top:1px solid var(--line-soft); background:var(--void-2); }
-  .data-head{ max-width:56ch; margin-bottom:var(--sp-5); }
-  .data-head h2{ font-size:var(--fs-h2); font-weight:600; line-height:1.22; }
-  .data-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--line-soft); border:1px solid var(--line-soft); border-radius:6px; overflow:hidden; }
-  .data-cell{ background:var(--card); padding:var(--sp-4) var(--sp-3); }
-  .data-cell .num{ font-weight:600; font-size:33px; line-height:1; }
-  .data-cell .num.up::after{ content:"↑"; color:var(--impulso); margin-left:5px; font-size:22px; }
-  .data-cell .label{ font-size:13.5px; color:var(--text-soft); margin-top:var(--sp-2); line-height:1.45; }
-  .data-source{ font-size:12.5px; color:var(--text-dim); margin-top:var(--sp-3); }
+    @keyframes soft-pulse { 0%,100% { opacity: .35; } 50% { opacity: 1; } }
+    .pulse-dot { animation: soft-pulse 2.4s ease-in-out infinite; }
 
-  section.story{ padding:var(--sp-7) 0; border-top:1px solid var(--line-soft); background:var(--void-2); }
-  .story-grid{ display:grid; grid-template-columns:1.1fr .9fr; gap:64px; align-items:center; }
-  .story-text h2{ font-size:30px; font-weight:600; line-height:1.28; margin-bottom:var(--sp-3); max-width:18ch; }
-  .story-text p{ color:var(--text-soft); font-size:16px; max-width:52ch; margin:0 0 var(--sp-2); }
-  .story-text p.story-turn{ color:var(--text); font-weight:500; margin-top:var(--sp-3); }
-  .story-art{ display:flex; justify-content:center; }
-  .story-art svg{ width:100%; max-width:360px; height:auto; }
+    a:focus-visible, button:focus-visible, summary:focus-visible { outline: 2px solid #CCFF00; outline-offset: 3px; border-radius: 4px; }
 
-  section.how{ padding:var(--sp-8) 0; }
-  .how-head{ max-width:60ch; margin-bottom:var(--sp-6); }
-  .how-head h2{ font-size:var(--fs-h2); font-weight:600; margin-bottom:var(--sp-2); line-height:1.22; }
-  .how-head p{ color:var(--text-soft); font-size:var(--fs-body-lg); max-width:58ch; margin:0; }
-
-  .step{ display:grid; grid-template-columns:56px 1fr; gap:var(--sp-4); padding:var(--sp-5) 0; border-top:1px solid var(--line-soft); }
-  .step:last-child{ border-bottom:1px solid var(--line-soft); }
-  .step-num{ font-family:'IBM Plex Mono'; font-size:13.5px; color:var(--text-dim); padding-top:5px; }
-  .step h3{ font-size:var(--fs-h3); font-weight:600; margin-bottom:var(--sp-2); }
-  .step p{ color:var(--text-soft); font-size:var(--fs-body); max-width:64ch; }
-  .step .tag{
-    display:inline-block; font-family:'IBM Plex Mono'; font-size:11.5px; letter-spacing:.05em;
-    padding:4px 11px; border-radius:3px; margin-bottom:var(--sp-2);
-    background:var(--card-2); color:var(--text-soft); border:1px solid var(--line);
-  }
-
-  .pillars{ display:grid; grid-template-columns:1fr 1fr; gap:var(--sp-3); margin-top:var(--sp-3); }
-  .pillar{
-    background:linear-gradient(160deg, var(--card-2), var(--card));
-    border:1px solid var(--line); border-radius:8px; padding:var(--sp-4);
-    position:relative; overflow:hidden;
-  }
-  .pillar::before{ content:""; position:absolute; top:0; left:0; right:0; height:2px; }
-  .pillar.impulso::before{ background:linear-gradient(90deg, var(--impulso), transparent); }
-  .pillar.gravidade::before{ background:linear-gradient(90deg, var(--gravidade), transparent); }
-  .pillar-mark{ width:26px; height:26px; margin-bottom:var(--sp-2); }
-  .pillar h4{ font-size:var(--fs-h4); margin-bottom:var(--sp-1); }
-  .pillar.impulso h4{ color:var(--impulso); }
-  .pillar.gravidade h4{ color:var(--gravidade); }
-  .pillar p{ font-size:14.5px; color:var(--text-soft); margin:0; line-height:1.55; }
-
-  section.promise{ padding:var(--sp-8) 0; background:var(--void-2); border-top:1px solid var(--line-soft); border-bottom:1px solid var(--line-soft); }
-  .promise .wrap{ max-width:820px; }
-  blockquote{ margin:0; font-family:'Space Grotesk'; font-weight:500; font-size:29px; line-height:1.38; letter-spacing:-0.01em; }
-  blockquote .w-impulso{ color:var(--impulso); }
-  blockquote .w-gravidade{ color:var(--gravidade); }
-  blockquote cite{ display:block; font-family:'IBM Plex Mono'; font-style:normal; font-size:13px; color:var(--text-dim); margin-top:var(--sp-4); letter-spacing:.05em; }
-
-  section.forwho{ padding:var(--sp-8) 0; }
-  .fw-grid{ display:grid; grid-template-columns:1fr 1fr; gap:var(--sp-6); }
-  .fw-col h2{ font-size:26px; font-weight:600; margin-bottom:var(--sp-3); line-height:1.28; }
-  .fw-list{ list-style:none; margin:0; padding:0; }
-  .fw-list li{ padding:var(--sp-2) 0; border-top:1px solid var(--line-soft); font-size:14.5px; color:var(--text-soft); display:flex; gap:11px; line-height:1.55; }
-  .fw-list li::before{ content:"—"; color:var(--gravidade); flex-shrink:0; }
-  .fw-col.no .fw-list li::before{ color:var(--text-dim); }
-  .fw-list li:last-child{ border-bottom:1px solid var(--line-soft); }
-  .fw-list li strong{ color:var(--text); }
-
-  section.cta{ padding:var(--sp-8) 0; text-align:center; border-top:1px solid var(--line-soft); }
-  section.cta h2{ font-size:36px; font-weight:600; margin-bottom:var(--sp-2); line-height:1.18; }
-  section.cta h2 .w-impulso{ color:var(--impulso); }
-  section.cta p{ color:var(--text-soft); max-width:48ch; margin:0 auto var(--sp-5); font-size:var(--fs-body-lg); }
-  .cta-row{ display:flex; gap:14px; justify-content:center; flex-wrap:wrap; }
-  footer{ color:var(--text-dim); text-align:center; padding:var(--sp-6) 0 var(--sp-5); font-size:13px; border-top:1px solid var(--line-soft); position:relative; z-index:2; }
-  footer .brand{ font-family:'Space Grotesk'; color:var(--text-soft); margin-bottom:6px; display:block; font-size:15px; }
-  footer .footer-brand{ font-size:40px; font-weight:600; color:var(--text); letter-spacing:-0.02em; margin-bottom:16px; }
-  footer .footer-brand span{ color:var(--impulso); }
-
-  section.legal-trust{ background:var(--void); border-top:1px solid var(--line-soft); padding:var(--sp-6) 0 var(--sp-5); }
-  .trust-badges{ display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin-bottom:var(--sp-5); }
-  .badge{
-    display:flex; align-items:center; gap:10px; background:var(--card);
-    border:1px solid var(--line-soft); border-radius:8px; padding:14px 16px;
-  }
-  .badge svg{ width:20px; height:20px; flex-shrink:0; }
-  .badge span{ font-size:12.5px; color:var(--text-soft); line-height:1.35; }
-
-  .legal-company{
-    display:flex; flex-wrap:wrap; justify-content:center; gap:10px 32px; font-size:13.5px; color:var(--text-soft);
-    padding:var(--sp-3) 0; border-top:1px solid var(--line-soft); border-bottom:1px solid var(--line-soft);
-    margin-bottom:var(--sp-3);
-  }
-  .legal-item{ display:flex; align-items:center; gap:8px; }
-  .legal-item svg{ width:16px; height:16px; flex-shrink:0; opacity:.8; }
-  .legal-company strong{ color:var(--text); font-weight:600; }
-  .legal-responsibility{ text-align:center; font-size:12px; color:var(--text-dim); max-width:60ch; margin:0 auto var(--sp-4); line-height:1.55; }
-  .cnpj-row{ display:flex; align-items:center; gap:10px; }
-
-  .legal-docs{ display:flex; flex-direction:column; gap:10px; }
-  .legal-docs details{
-    background:var(--card); border:1px solid var(--line-soft); border-radius:8px; padding:16px 20px;
-  }
-  .legal-docs summary{
-    cursor:pointer; font-family:'Space Grotesk'; font-weight:600; font-size:15px; color:var(--text);
-    list-style:none; display:flex; align-items:center; justify-content:space-between;
-  }
-  .legal-docs summary::-webkit-details-marker{ display:none; }
-  .legal-docs summary::after{ content:"+"; font-family:'IBM Plex Mono'; color:var(--text-dim); font-size:18px; }
-  .legal-docs details[open] summary::after{ content:"−"; }
-  .legal-content{ margin-top:14px; padding-top:14px; border-top:1px solid var(--line-soft); }
-  .legal-content p{ font-size:13.5px; color:var(--text-soft); line-height:1.65; margin:0 0 12px; }
-  .legal-content p:last-child{ margin-bottom:0; }
-  .legal-content strong{ color:var(--text); }
-  .legal-content .legal-note{ font-style:italic; color:var(--text-dim); font-size:12.5px; }
-
-  .footer-legal-links{ margin-top:14px; font-size:12.5px; }
-  .footer-legal-links a{ color:var(--text-soft); text-decoration:none; }
-  .footer-legal-links a:hover{ color:var(--impulso-soft); }
-  .footer-cnpj{ margin-top:8px; font-size:11.5px; color:var(--text-dim); }
-
-  .wa-float{
-    position:fixed; right:28px; bottom:28px; z-index:50;
-    width:76px; height:76px; border-radius:50%;
-    display:flex; align-items:center; justify-content:center;
-    background:#14111C; border:1px solid var(--line);
-    box-shadow:0 6px 24px rgba(0,0,0,.4), 0 0 0 0 rgba(37,211,102,.5);
-    animation:wa-pulse 2.6s ease-out infinite;
-    transition:transform .15s ease;
-  }
-  .wa-float:hover{ transform:translateY(-3px) scale(1.04); }
-  .wa-float svg{ width:40px; height:40px; }
-  @keyframes wa-pulse{
-    0%{ box-shadow:0 6px 24px rgba(0,0,0,.4), 0 0 0 0 rgba(37,211,102,.45); }
-    70%{ box-shadow:0 6px 24px rgba(0,0,0,.4), 0 0 0 14px rgba(37,211,102,0); }
-    100%{ box-shadow:0 6px 24px rgba(0,0,0,.4), 0 0 0 0 rgba(37,211,102,0); }
-  }
-  @media (prefers-reduced-motion:reduce){ .wa-float{ animation:none; } }
-  @media (max-width:860px){ .wa-float{ width:64px; height:64px; right:18px; bottom:18px; } .wa-float svg{ width:34px; height:34px; } .trust-badges{ grid-template-columns:1fr 1fr; } }
-
-  @media (max-width:860px){
-    :root{ --sp-7:60px; --sp-8:80px; --fs-h1:38px; --fs-h2:27px; }
-    .nav-links{ display:none; }
-    .nav .brand{ font-size:28px; }
-    .story-grid{ grid-template-columns:1fr; gap:var(--sp-4); }
-    .story-art{ order:-1; }
-    .story-art svg{ max-width:260px; }
-    .hero-orbit{ width:420px; height:420px; right:-200px; top:38%; opacity:.5; }
-    h1.headline{ max-width:none; }
-    .data-grid{ grid-template-columns:repeat(2,1fr); }
-    .pillars, .fw-grid{ grid-template-columns:1fr; }
-    .nav{ padding-bottom:var(--sp-6); }
-    blockquote{ font-size:22px; }
-    section.cta h2{ font-size:28px; }
-  }
-</style>
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation: none !important; transition: none !important; }
+      .reveal { opacity: 1 !important; transform: none !important; }
+      html { scroll-behavior: auto; }
+    }
+  </style>
+  <noscript><style>.reveal { opacity: 1; transform: none; }</style></noscript>
 </head>
-<body>
 
-<header class="hero starfield nebula">
-  <div class="wrap">
-    <nav class="nav">
-      <div class="brand">Livonno<span>.</span></div>
-      <div class="nav-right">
-        <div class="nav-links">
-          <a href="https://livonno.com.br" class="nav-link">Home</a>
-          <a href="#como-funciona" class="nav-link">Como funciona</a>
-          <a href="#cta" class="nav-link">Contato</a>
-        </div>
-        <a href="#cta" class="btn ghost">Peça seu Raio-X</a>
+<!-- ============================================================
+  ⚠️ ANTES DE PUBLICAR:
+  1. Substitua 5511999999999 pelo número real do WhatsApp (com DDI 55)
+     em TODOS os links wa.me (busque por "5511999999999").
+  2. Substitua o CNPJ no rodapé.
+============================================================= -->
+
+<body class="grain font-body bg-black text-gray-300 antialiased overflow-x-hidden">
+
+  <!-- ================= MENU TOPO ================= -->
+  <header class="fixed inset-x-0 top-0 z-50 border-b border-white/[0.06] bg-black/70 backdrop-blur-xl">
+    <nav class="mx-auto flex h-[72px] max-w-7xl items-center justify-between px-5 lg:px-8" aria-label="Navegação principal">
+      <a href="#hero" class="flex items-center gap-2 font-display text-lg font-800 tracking-tight text-white" style="font-weight:800">
+        <svg width="22" height="22" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="30" fill="none" stroke="#CCFF00" stroke-width="8"/><circle cx="80" cy="50" r="10" fill="#CCFF00"/></svg>
+        LIVONNO
+      </a>
+
+      <div class="hidden items-center gap-8 md:flex">
+        <a href="#metodo" class="text-sm font-medium text-gray-400 transition hover:text-neon">O Método</a>
+        <a href="#para-quem" class="text-sm font-medium text-gray-400 transition hover:text-neon">Para Quem</a>
+        <a href="#servicos" class="text-sm font-medium text-gray-400 transition hover:text-neon">Serviços</a>
+        <a href="#faq" class="text-sm font-medium text-gray-400 transition hover:text-neon">FAQ</a>
+        <a href="https://wa.me/5511999999999?text=Ol%C3%A1!%20Quero%20acelerar%20minha%20cl%C3%ADnica%20com%20a%20Livonno.%20Podemos%20conversar%3F" target="_blank" rel="noopener"
+           class="rounded-full bg-neon px-5 py-2.5 text-sm font-bold text-black transition hover:-translate-y-0.5 hover:shadow-[0_0_28px_rgba(204,255,0,.4)]">
+          Agendar Diagnóstico
+        </a>
       </div>
+
+      <button id="menu-btn" class="md:hidden text-white p-2" aria-label="Abrir menu" aria-expanded="false" aria-controls="mobile-menu">
+        <svg id="icon-open" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        <svg id="icon-close" class="hidden" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
     </nav>
-    <div class="hero-inner">
-      <div class="hero-orbit" aria-hidden="true">
-        <div class="orbit-ring"></div>
-        <div class="orbit-ring r2"></div>
-        <div class="orbit-ring r3"></div>
-        <div class="satellite sat-impulso"><span></span></div>
-        <div class="satellite sat-gravidade"><span></span></div>
-        <div class="core"></div>
-      </div>
-      <div class="hero-badge">
-        <span class="dot"></span>
-        <span>Aceleração Exclusiva para <strong>Cosméticos</strong> e <strong>Beleza</strong></span>
-      </div>
-      <h1 class="headline"><span class="w-impulso">Impulso</span> pra atrair.<br><span class="w-gravidade">Gravidade</span> pra reter.<br>Aceleração pra crescer.</h1>
-      <p class="sub">O anúncio subiu <strong>12%</strong> só em 2026, e trazer cliente novo custa <strong>35% mais</strong> do que há 3 anos. As marcas de beleza que crescem nesse cenário dominam as 2 forças de uma loja saudável: atrair com o custo controlado e transformar quem já comprou em receita recorrente. A <strong>Aceleração Órbita</strong> existe pra colocar as duas a favor da sua loja.</p>
-      <div class="hero-ctas">
-        <a href="#cta" class="btn">Peça seu Raio-X Órbita</a>
-        <a href="#como-funciona" class="btn ghost">Como funciona</a>
-      </div>
-      <div class="hero-note">Diagnóstico real da sua loja · 15 minutos · sem custo e sem compromisso</div>
-    </div>
-  </div>
-</header>
 
-<section class="data">
-  <div class="wrap">
-    <div class="data-head">
-      <div class="eyebrow fire">O problema, em número</div>
-      <h2>Não é impressão sua — é o mercado inteiro sentindo o mesmo aperto</h2>
-    </div>
-    <div class="data-grid">
-      <div class="data-cell">
-        <div class="num up mono">12,15%</div>
-        <div class="label">de aumento no custo do Meta Ads no Brasil, desde janeiro de 2026</div>
-      </div>
-      <div class="data-cell">
-        <div class="num up mono">35%</div>
-        <div class="label">de alta no custo de trazer cliente novo (CAC), nos últimos 3 anos</div>
-      </div>
-      <div class="data-cell">
-        <div class="num mono">8–15%</div>
-        <div class="label">é a margem operacional média do varejo online no Brasil hoje</div>
-      </div>
-      <div class="data-cell">
-        <div class="num mono">36%</div>
-        <div class="label">dos lojistas dizem que o maior problema é não ter tempo pra tudo</div>
+    <div id="mobile-menu" class="hidden border-t border-white/[0.06] bg-black/95 backdrop-blur-xl md:hidden">
+      <div class="flex flex-col gap-1 px-5 py-4">
+        <a href="#metodo" class="mobile-link rounded-lg px-3 py-3 text-base text-gray-300 hover:bg-white/5 hover:text-neon">O Método</a>
+        <a href="#para-quem" class="mobile-link rounded-lg px-3 py-3 text-base text-gray-300 hover:bg-white/5 hover:text-neon">Para Quem</a>
+        <a href="#servicos" class="mobile-link rounded-lg px-3 py-3 text-base text-gray-300 hover:bg-white/5 hover:text-neon">Serviços</a>
+        <a href="#faq" class="mobile-link rounded-lg px-3 py-3 text-base text-gray-300 hover:bg-white/5 hover:text-neon">FAQ</a>
+        <a href="https://wa.me/5511999999999?text=Ol%C3%A1!%20Quero%20acelerar%20minha%20cl%C3%ADnica%20com%20a%20Livonno.%20Podemos%20conversar%3F" target="_blank" rel="noopener"
+           class="mobile-link mt-2 rounded-full bg-neon px-5 py-3.5 text-center text-base font-bold text-black">
+          Agendar Diagnóstico
+        </a>
       </div>
     </div>
-    <div class="data-source">Fontes: reajuste Meta Ads Brasil 2026 (repasse de PIS/COFINS e ISS) · benchmarks de CAC e margem do setor · pesquisa E-Commerce Brasil com lojistas.</div>
-  </div>
-</section>
+  </header>
 
-<section class="story">
-  <div class="wrap story-grid">
-    <div class="story-text">
-      <div class="eyebrow fire">A realidade, sem filtro</div>
-      <h2>É quase meia-noite e a aba do anúncio ainda está aberta</h2>
-      <p>O CPA subiu de novo essa semana — a terceira vez esse mês. As vendas continuam entrando, mas a margem no fim do mês está cada vez mais apertada. Não tem outra pessoa pra dividir isso: comprar, embalar, responder direct, revisar o anúncio — é tudo você.</p>
-      <p>No fundo, você sabe que ali na sua lista de clientes tem gente que comprou, adorou o produto, e nunca mais recebeu uma mensagem sua. Falta tempo. Falta ferramenta. Falta alguém que entenda de cosmético de verdade, não só de tráfego genérico.</p>
-      <p class="story-turn">A Aceleração Órbita nasceu pra essa realidade — pra loja crescer nas duas frentes ao mesmo tempo, sem sobrecarregar ainda mais quem já faz de tudo sozinho.</p>
+  <main>
+    <!-- ================= HERO — A PROMESSA ================= -->
+    <section id="hero" class="relative flex min-h-[100svh] items-center overflow-hidden pt-[72px]">
+      <!-- Campo gravitacional -->
+      <div class="pointer-events-none absolute inset-0" aria-hidden="true">
+        <svg class="fade-mask absolute left-1/2 top-1/2 h-[150vmin] w-[150vmin] -translate-x-1/2 -translate-y-1/2 opacity-70" viewBox="0 0 800 800" fill="none">
+          <circle cx="400" cy="400" r="150" stroke="#CCFF00" stroke-opacity="0.16" />
+          <circle cx="400" cy="400" r="250" stroke="#CCFF00" stroke-opacity="0.09" />
+          <circle cx="400" cy="400" r="350" stroke="#CCFF00" stroke-opacity="0.05" />
+          <g class="orbit-g" style="--t:34s">
+            <circle cx="550" cy="400" r="3.5" fill="#CCFF00" />
+            <circle cx="550" cy="400" r="9" fill="#CCFF00" opacity="0.15" />
+          </g>
+          <g class="orbit-g orbit-rev" style="--t:58s">
+            <circle cx="650" cy="400" r="3" fill="#CCFF00" opacity="0.8" />
+          </g>
+          <g class="orbit-g" style="--t:92s">
+            <circle cx="750" cy="400" r="2.5" fill="#CCFF00" opacity="0.55" />
+          </g>
+          <circle cx="400" cy="400" r="4" fill="#CCFF00" opacity="0.6" />
+        </svg>
+        <div class="absolute left-1/2 top-1/2 h-[60vmin] w-[60vmin] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(204,255,0,0.07),transparent_65%)]"></div>
+      </div>
+
+      <div class="relative mx-auto w-full max-w-5xl px-5 py-20 text-center lg:px-8">
+        <span class="reveal inline-flex items-center gap-2.5 rounded-full border border-neon/25 bg-neon/[0.05] px-4 py-2 font-mono text-[10px] uppercase tracking-[0.28em] text-neon sm:text-[11px]">
+          <span class="pulse-dot h-1.5 w-1.5 rounded-full bg-neon"></span>
+          Aceleração Especializada no Mercado de Saúde
+        </span>
+
+        <h1 class="reveal mt-8 font-display font-black leading-[0.98] tracking-[-0.03em] text-white" style="--rd:.1s; font-size:clamp(2.7rem,8.5vw,5.6rem)">
+          <span class="block">Agenda cheia não é sorte.</span>
+          <span class="mt-1 block font-serifacc font-normal italic tracking-normal text-neon">É física.</span>
+        </h1>
+
+        <p class="reveal mx-auto mt-7 max-w-2xl text-base leading-relaxed text-gray-400 sm:text-lg" style="--rd:.2s">
+          Enquanto a maioria das clínicas espera o paciente aparecer, nós construímos o campo que o atrai. A Livonno instala na sua operação o sistema completo — do anúncio calibrado para o público de alta renda ao <em class="font-serifacc not-italic text-gray-200">“sim”</em> conduzido pela sua equipe — que transforma protocolos de alto valor em faturamento previsível. Sem depender de convênio, indicação ou sorte.
+        </p>
+
+        <div class="reveal mt-10 flex flex-col items-center gap-4" style="--rd:.3s">
+          <a href="https://wa.me/5511999999999?text=Ol%C3%A1!%20Quero%20acelerar%20minha%20cl%C3%ADnica%20com%20a%20Livonno.%20Podemos%20conversar%3F" target="_blank" rel="noopener"
+             class="group inline-flex items-center gap-2.5 rounded-full bg-neon px-8 py-4 text-base font-bold text-black transition hover:-translate-y-0.5 hover:shadow-[0_0_40px_rgba(204,255,0,.45)]">
+            Quero o Diagnóstico da Minha Clínica
+            <span class="transition-transform group-hover:translate-x-1">→</span>
+          </a>
+          <p class="font-mono text-[11px] tracking-wide text-gray-500">
+            Sessão estratégica de 30 min · Processo seletivo — poucas clínicas por mês
+          </p>
+        </div>
+
+        <ul class="reveal mx-auto mt-14 flex max-w-3xl flex-wrap items-center justify-center gap-x-8 gap-y-3 font-mono text-[11px] text-gray-500" style="--rd:.4s">
+          <li class="flex items-center gap-2"><span class="text-neon">+</span> Funil completo: do clique ao fechamento</li>
+          <li class="flex items-center gap-2"><span class="text-neon">+</span> Foco exclusivo em saúde high-ticket</li>
+          <li class="flex items-center gap-2"><span class="text-neon">+</span> IA + time comercial treinado</li>
+        </ul>
+
+        <p class="reveal mt-10 font-mono text-[10px] tracking-[0.3em] text-gray-700" style="--rd:.5s" aria-hidden="true">[ F = m · a ]</p>
+      </div>
+    </section>
+
+    <!-- ================= O BURACO NEGRO — A DOR ================= -->
+    <section id="buraco-negro" class="relative overflow-hidden border-t border-white/[0.06] bg-[#050506]">
+      <!-- Disco de acreção + partículas sendo engolidas -->
+      <div class="pointer-events-none absolute inset-0" aria-hidden="true">
+        <div class="absolute left-1/2 top-[45%] h-[540px] w-[540px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,transparent_36%,rgba(204,255,0,0.05)_44%,transparent_54%)]"></div>
+        <span class="bh-dot" style="--dx:-260px; --dy:-140px; --dur:7s;  --d:0s"></span>
+        <span class="bh-dot" style="--dx:240px;  --dy:-90px;  --dur:8s;  --d:1.6s"></span>
+        <span class="bh-dot" style="--dx:-180px; --dy:170px;  --dur:6.5s;--d:3.1s"></span>
+        <span class="bh-dot" style="--dx:290px;  --dy:130px;  --dur:9s;  --d:4.4s"></span>
+        <span class="bh-dot" style="--dx:60px;   --dy:-230px; --dur:7.5s;--d:5.2s"></span>
+      </div>
+
+      <div class="relative mx-auto max-w-6xl px-5 py-24 lg:px-8 lg:py-32">
+        <div class="max-w-3xl">
+          <p class="reveal flex items-center gap-3 font-mono text-[11px] uppercase tracking-[0.28em] text-neon/80">
+            <span class="h-1.5 w-1.5 bg-neon"></span> O buraco negro do marketing médico
+          </p>
+          <h2 class="reveal mt-5 font-display text-3xl font-black leading-tight tracking-[-0.02em] text-white sm:text-4xl lg:text-5xl" style="--rd:.1s">
+            Você já sabe para onde vai o dinheiro que <span class="font-serifacc font-normal italic">some</span> todo mês.
+          </h2>
+          <p class="reveal mt-6 leading-relaxed text-gray-400" style="--rd:.2s">
+            Impulsionar post. Contratar o “menino do tráfego” da vez. Assinar mais uma agência que promete leads. O roteiro se repete: relatórios coloridos cheios de cliques, alcance e impressões — e uma agenda que continua refém de convênio e indicação.
+          </p>
+          <p class="reveal mt-4 leading-relaxed text-gray-400" style="--rd:.25s">
+            Na física, o lugar onde as coisas entram e nunca mais voltam tem nome: <span class="text-gray-200">buraco negro</span>. No marketing médico, ele tem três bocas.
+          </p>
+        </div>
+
+        <div class="mt-14 grid gap-5 md:grid-cols-3">
+          <article class="reveal rounded-2xl border border-white/10 bg-white/[0.02] p-7 transition hover:border-white/25" style="--rd:.1s">
+            <span class="font-mono text-sm text-gray-600">01</span>
+            <h3 class="mt-4 font-display text-lg font-bold text-white">Leads curiosos não são pacientes.</h3>
+            <p class="mt-3 text-sm leading-relaxed text-gray-400">
+              Agência genérica compra clique barato de quem pergunta “quanto custa?” e desaparece. Volume não paga boleto. Paciente qualificado tem renda, desejo e urgência — e atrair esse perfil exige outra engenharia de campanha.
+            </p>
+          </article>
+          <article class="reveal rounded-2xl border border-white/10 bg-white/[0.02] p-7 transition hover:border-white/25" style="--rd:.2s">
+            <span class="font-mono text-sm text-gray-600">02</span>
+            <h3 class="mt-4 font-display text-lg font-bold text-white">O vazamento acontece no WhatsApp.</h3>
+            <p class="mt-3 text-sm leading-relaxed text-gray-400">
+              O lead chega… e morre na recepção. Sua secretária foi treinada para agendar horário, não para conduzir a venda de um protocolo high-ticket. Ela informa o preço, não faz follow-up — e o paciente que custou caro para atrair fecha com o concorrente que soube conversar.
+            </p>
+          </article>
+          <article class="reveal rounded-2xl border border-white/10 bg-white/[0.02] p-7 transition hover:border-white/25" style="--rd:.3s">
+            <span class="font-mono text-sm text-gray-600">03</span>
+            <h3 class="mt-4 font-display text-lg font-bold text-white">Sem processo, não existe escala.</h3>
+            <p class="mt-3 text-sm leading-relaxed text-gray-400">
+              Sem CRM, sem script, sem cadência de follow-up, sem métrica de conversão. O que não é medido não é gerenciado. E o que não é gerenciado nunca vira previsibilidade.
+            </p>
+          </article>
+        </div>
+
+        <div class="reveal mx-auto mt-16 max-w-3xl text-center" style="--rd:.15s">
+          <p class="text-lg leading-relaxed text-gray-300 sm:text-xl">
+            A verdade que nenhuma agência te contou: <strong class="font-semibold text-white">o problema nunca foi só o tráfego. É o sistema inteiro.</strong><br class="hidden sm:block" />
+            E é exatamente por isso que a Livonno <span class="font-serifacc italic text-neon">não é uma agência</span>.
+          </p>
+          <a href="#metodo" class="mt-8 inline-flex items-center gap-2 rounded-full border border-neon/40 px-6 py-3 text-sm font-semibold text-neon transition hover:bg-neon/10">
+            Conheça o Método <span aria-hidden="true">↓</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= O MÉTODO — A ACELERAÇÃO ================= -->
+    <section id="metodo" class="relative overflow-hidden border-t border-white/[0.06]">
+      <div class="grid-bg fade-mask pointer-events-none absolute inset-0 opacity-70" aria-hidden="true"></div>
+
+      <div class="relative mx-auto max-w-6xl px-5 py-24 lg:px-8 lg:py-32">
+        <div class="mx-auto max-w-3xl text-center">
+          <p class="reveal flex items-center justify-center gap-3 font-mono text-[11px] uppercase tracking-[0.28em] text-neon/80">
+            <span class="h-1.5 w-1.5 bg-neon"></span> O Método Livonno
+          </p>
+          <h2 class="reveal mt-5 font-display text-3xl font-black leading-tight tracking-[-0.02em] text-white sm:text-4xl lg:text-5xl" style="--rd:.1s">
+            Três forças. Um único movimento: <span class="font-serifacc font-normal italic text-neon">aceleração.</span>
+          </h2>
+          <p class="reveal mt-6 leading-relaxed text-gray-400" style="--rd:.2s">
+            Não vendemos peças soltas. Instalamos um sistema em que cada etapa alimenta a seguinte — da atenção do paciente certo ao contrato assinado e ao retorno recorrente.
+          </p>
+        </div>
+
+        <div class="mt-14 grid gap-5 lg:grid-cols-3">
+          <!-- Pilar 01 -->
+          <article class="reveal group rounded-2xl border border-white/10 bg-gradient-to-b from-white/[0.04] to-transparent p-8 transition duration-300 hover:-translate-y-1 hover:border-neon/40" style="--rd:.1s">
+            <div class="flex h-12 w-12 items-center justify-center rounded-xl border border-neon/25 text-neon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                <circle cx="12" cy="12" r="9" opacity=".35" /><circle cx="12" cy="12" r="5.5" opacity=".7" /><circle cx="12" cy="12" r="1.8" fill="currentColor" stroke="none" />
+              </svg>
+            </div>
+            <p class="mt-6 font-mono text-[11px] uppercase tracking-[0.22em] text-neon/70">Pilar 01</p>
+            <h3 class="mt-2 font-display text-xl font-bold text-white">Atração Gravitacional</h3>
+            <p class="mt-3 text-sm leading-relaxed text-gray-400">
+              Tráfego pago de elite no Meta Ads, desenhado para o paciente de alta renda. Criativos que vendem desejo, critério e autoridade — nunca desconto. Segmentação, oferta e posicionamento calibrados para atrair quem pode e quer pagar pelo seu protocolo. Sua clínica para de perseguir pacientes e passa a atraí-los.
+            </p>
+          </article>
+
+          <!-- Pilar 02 -->
+          <article class="reveal group rounded-2xl border border-white/10 bg-gradient-to-b from-white/[0.04] to-transparent p-8 transition duration-300 hover:-translate-y-1 hover:border-neon/40" style="--rd:.2s">
+            <div class="flex h-12 w-12 items-center justify-center rounded-xl border border-neon/25 text-neon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M3 7h7M3 17h7M3 12h11" /><path d="m14 5 7 7-7 7" />
+              </svg>
+            </div>
+            <p class="mt-6 font-mono text-[11px] uppercase tracking-[0.22em] text-neon/70">Pilar 02</p>
+            <h3 class="mt-2 font-display text-xl font-bold text-white">Impulso de Conversão</h3>
+            <p class="mt-3 text-sm leading-relaxed text-gray-400">
+              Massa atraída sem energia de movimento não vira receita. Treinamos a sua secretária — ou estruturamos o seu SDR — com script, quebra de objeções, cadência de follow-up e postura comercial de alto padrão. O “quanto custa?” deixa de ser o fim da conversa e vira o início da venda.
+            </p>
+          </article>
+
+          <!-- Pilar 03 -->
+          <article class="reveal group rounded-2xl border border-white/10 bg-gradient-to-b from-white/[0.04] to-transparent p-8 transition duration-300 hover:-translate-y-1 hover:border-neon/40" style="--rd:.3s">
+            <div class="flex h-12 w-12 items-center justify-center rounded-xl border border-neon/25 text-neon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                <ellipse cx="12" cy="12" rx="9.5" ry="4" transform="rotate(-24 12 12)" /><circle cx="12" cy="12" r="2" fill="currentColor" stroke="none" /><circle cx="19.4" cy="8.6" r="1.4" fill="currentColor" stroke="none" />
+              </svg>
+            </div>
+            <p class="mt-6 font-mono text-[11px] uppercase tracking-[0.22em] text-neon/70">Pilar 03</p>
+            <h3 class="mt-2 font-display text-xl font-bold text-white">Órbita Inteligente <span class="text-gray-500">(IA &amp; Automação)</span></h3>
+            <p class="mt-3 text-sm leading-relaxed text-gray-400">
+              Inteligência artificial no WhatsApp qualificando leads em segundos. Filtros que separam curiosos de compradores. Automação que garante resposta imediata — inclusive às 23h de um domingo. Sua operação atende mais com menos esforço e mantém cada paciente girando dentro do ecossistema da clínica: retorno, recorrência, novos protocolos.
+            </p>
+          </article>
+        </div>
+
+        <div class="reveal mt-16 text-center" style="--rd:.15s">
+          <p class="font-display text-xl font-bold tracking-tight text-white sm:text-2xl">
+            Atração <span class="text-neon">·</span> Impulso <span class="text-neon">·</span> Órbita
+          </p>
+          <p class="mx-auto mt-3 max-w-xl text-sm leading-relaxed text-gray-400">
+            Quando as três forças atuam juntas, crescer deixa de ser um evento — e vira uma constante.
+          </p>
+          <a href="https://wa.me/5511999999999?text=Ol%C3%A1!%20Quero%20acelerar%20minha%20cl%C3%ADnica%20com%20a%20Livonno.%20Podemos%20conversar%3F" target="_blank" rel="noopener"
+             class="group mt-8 inline-flex items-center gap-2.5 rounded-full bg-neon px-7 py-3.5 text-sm font-bold text-black transition hover:-translate-y-0.5 hover:shadow-[0_0_32px_rgba(204,255,0,.4)]">
+            Aplicar para um Diagnóstico
+            <span class="transition-transform group-hover:translate-x-1">→</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= PARA QUEM É / NÃO É ================= -->
+    <section id="para-quem" class="border-t border-white/[0.06] bg-carbon">
+      <div class="mx-auto max-w-6xl px-5 py-24 lg:px-8 lg:py-32">
+        <div class="max-w-3xl">
+          <p class="reveal flex items-center gap-3 font-mono text-[11px] uppercase tracking-[0.28em] text-neon/80">
+            <span class="h-1.5 w-1.5 bg-neon"></span> Filtro de qualificação
+          </p>
+          <h2 class="reveal mt-5 font-display text-3xl font-black leading-tight tracking-[-0.02em] text-white sm:text-4xl lg:text-5xl" style="--rd:.1s">
+            Não trabalhamos com qualquer clínica. E isso é <span class="font-serifacc font-normal italic">proposital.</span>
+          </h2>
+          <p class="reveal mt-6 leading-relaxed text-gray-400" style="--rd:.2s">
+            Aceleração exige massa crítica. Filtramos na entrada para proteger o resultado — o seu e o nosso.
+          </p>
+        </div>
+
+        <div class="mt-14 grid gap-5 lg:grid-cols-2">
+          <!-- É PARA -->
+          <div class="reveal rounded-2xl border border-neon/25 bg-neon/[0.03] p-8" style="--rd:.1s">
+            <p class="font-mono text-[11px] uppercase tracking-[0.22em] text-neon">[ Perfil ideal ]</p>
+            <h3 class="mt-3 font-display text-xl font-bold text-white">A Livonno é para você que:</h3>
+            <ul class="mt-6 space-y-4">
+              <li class="flex gap-3 text-sm leading-relaxed text-gray-300">
+                <svg class="mt-0.5 h-5 w-5 shrink-0 text-neon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10" opacity=".3"/><path d="m8 12.5 2.7 2.7L16 9.5"/></svg>
+                Vende (ou quer estruturar) protocolos de alto valor: implantes hormonais, terapias injetáveis, canetas emagrecedoras, soroterapia, medicina da longevidade.
+              </li>
+              <li class="flex gap-3 text-sm leading-relaxed text-gray-300">
+                <svg class="mt-0.5 h-5 w-5 shrink-0 text-neon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10" opacity=".3"/><path d="m8 12.5 2.7 2.7L16 9.5"/></svg>
+                Já tem uma clínica estruturada e quer transformar o particular na principal fonte de receita.
+              </li>
+              <li class="flex gap-3 text-sm leading-relaxed text-gray-300">
+                <svg class="mt-0.5 h-5 w-5 shrink-0 text-neon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10" opacity=".3"/><path d="m8 12.5 2.7 2.7L16 9.5"/></svg>
+                Enxerga marketing como investimento com retorno mensurável — não como despesa.
+              </li>
+              <li class="flex gap-3 text-sm leading-relaxed text-gray-300">
+                <svg class="mt-0.5 h-5 w-5 shrink-0 text-neon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10" opacity=".3"/><path d="m8 12.5 2.7 2.7L16 9.5"/></svg>
+                Está disposto a treinar (ou deixar que a gente treine) a equipe que atende seus pacientes.
+              </li>
+              <li class="flex gap-3 text-sm leading-relaxed text-gray-300">
+                <svg class="mt-0.5 h-5 w-5 shrink-0 text-neon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10" opacity=".3"/><path d="m8 12.5 2.7 2.7L16 9.5"/></svg>
+                Busca previsibilidade e escala, não “postzinho no Instagram”.
+              </li>
+            </ul>
+          </div>
+
+          <!-- NÃO É PARA -->
+          <div class="reveal rounded-2xl border border-white/10 bg-white/[0.015] p-8" style="--rd:.2s">
+            <p class="font-mono text-[11px] uppercase tracking-[0.22em] text-gray-500">[ Fora do perfil ]</p>
+            <h3 class="mt-3 font-display text-xl font-bold text-gray-300">A Livonno <span class="text-white">não</span> é para você que:</h3>
+            <ul class="mt-6 space-y-4">
+              <li class="flex gap-3 text-sm leading-relaxed text-gray-500">
+                <svg class="mt-0.5 h-5 w-5 shrink-0 text-gray-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="10" opacity=".3"/><path d="M9 9l6 6M15 9l-6 6"/></svg>
+                Vive exclusivamente de convênio e não pretende mudar.
+              </li>
+              <li class="flex gap-3 text-sm leading-relaxed text-gray-500">
+                <svg class="mt-0.5 h-5 w-5 shrink-0 text-gray-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="10" opacity=".3"/><path d="M9 9l6 6M15 9l-6 6"/></svg>
+                Procura milagre em 7 dias com investimento mínimo.
+              </li>
+              <li class="flex gap-3 text-sm leading-relaxed text-gray-500">
+                <svg class="mt-0.5 h-5 w-5 shrink-0 text-gray-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="10" opacity=".3"/><path d="M9 9l6 6M15 9l-6 6"/></svg>
+                Acredita que “quem é bom de verdade não precisa de marketing”.
+              </li>
+              <li class="flex gap-3 text-sm leading-relaxed text-gray-500">
+                <svg class="mt-0.5 h-5 w-5 shrink-0 text-gray-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="10" opacity=".3"/><path d="M9 9l6 6M15 9l-6 6"/></svg>
+                Não aceita processo, métrica e rotina comercial na clínica.
+              </li>
+              <li class="flex gap-3 text-sm leading-relaxed text-gray-500">
+                <svg class="mt-0.5 h-5 w-5 shrink-0 text-gray-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="10" opacity=".3"/><path d="M9 9l6 6M15 9l-6 6"/></svg>
+                Quer apenas alguém para “cuidar das redes sociais”.
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <p class="reveal mt-10 text-center text-sm text-gray-500" style="--rd:.1s">
+          Se você se reconheceu na coluna do <span class="text-neon">perfil ideal</span>, o que vem a seguir é o seu mapa de voo.
+        </p>
+      </div>
+    </section>
+
+    <!-- ================= SERVIÇOS — A ÓRBITA COMPLETA ================= -->
+    <section id="servicos" class="border-t border-white/[0.06]">
+      <div class="mx-auto max-w-6xl px-5 py-24 lg:px-8 lg:py-32">
+        <div class="max-w-3xl">
+          <p class="reveal flex items-center gap-3 font-mono text-[11px] uppercase tracking-[0.28em] text-neon/80">
+            <span class="h-1.5 w-1.5 bg-neon"></span> Nossos serviços
+          </p>
+          <h2 class="reveal mt-5 font-display text-3xl font-black leading-tight tracking-[-0.02em] text-white sm:text-4xl lg:text-5xl" style="--rd:.1s">
+            Tudo o que mantém sua clínica em <span class="font-serifacc font-normal italic">órbita</span> de crescimento.
+          </h2>
+        </div>
+
+        <div class="mt-12 border-t border-white/10">
+          <div class="reveal group grid grid-cols-[44px_1fr] items-baseline gap-x-4 border-b border-white/10 px-2 py-7 transition hover:bg-white/[0.02] sm:grid-cols-[64px_1fr_auto] md:gap-x-6 md:px-4">
+            <span class="font-mono text-sm text-neon/50 transition group-hover:text-neon">01</span>
+            <div>
+              <h3 class="font-display text-lg font-bold text-white transition group-hover:text-neon">Gestão de Tráfego Pago (Meta Ads)</h3>
+              <p class="mt-1.5 max-w-2xl text-sm leading-relaxed text-gray-400">Campanhas, criativos e segmentação de alta renda para protocolos high-ticket. Otimizamos por custo por paciente — não por clique.</p>
+            </div>
+            <span class="hidden font-mono text-gray-600 transition group-hover:translate-x-1 group-hover:text-neon sm:block" aria-hidden="true">→</span>
+          </div>
+
+          <div class="reveal group grid grid-cols-[44px_1fr] items-baseline gap-x-4 border-b border-white/10 px-2 py-7 transition hover:bg-white/[0.02] sm:grid-cols-[64px_1fr_auto] md:gap-x-6 md:px-4" style="--rd:.05s">
+            <span class="font-mono text-sm text-neon/50 transition group-hover:text-neon">02</span>
+            <div>
+              <h3 class="font-display text-lg font-bold text-white transition group-hover:text-neon">IA no WhatsApp</h3>
+              <p class="mt-1.5 max-w-2xl text-sm leading-relaxed text-gray-400">Agente de inteligência artificial que responde em segundos, qualifica, filtra curiosos e agenda avaliações 24 horas por dia, 7 dias por semana.</p>
+            </div>
+            <span class="hidden font-mono text-gray-600 transition group-hover:translate-x-1 group-hover:text-neon sm:block" aria-hidden="true">→</span>
+          </div>
+
+          <div class="reveal group grid grid-cols-[44px_1fr] items-baseline gap-x-4 border-b border-white/10 px-2 py-7 transition hover:bg-white/[0.02] sm:grid-cols-[64px_1fr_auto] md:gap-x-6 md:px-4" style="--rd:.1s">
+            <span class="font-mono text-sm text-neon/50 transition group-hover:text-neon">03</span>
+            <div>
+              <h3 class="font-display text-lg font-bold text-white transition group-hover:text-neon">Consultoria Comercial para Secretárias &amp; SDRs</h3>
+              <p class="mt-1.5 max-w-2xl text-sm leading-relaxed text-gray-400">Treinamento prático, scripts, playbook de vendas consultivas e acompanhamento contínuo do time que fecha.</p>
+            </div>
+            <span class="hidden font-mono text-gray-600 transition group-hover:translate-x-1 group-hover:text-neon sm:block" aria-hidden="true">→</span>
+          </div>
+
+          <div class="reveal group grid grid-cols-[44px_1fr] items-baseline gap-x-4 border-b border-white/10 px-2 py-7 transition hover:bg-white/[0.02] sm:grid-cols-[64px_1fr_auto] md:gap-x-6 md:px-4" style="--rd:.15s">
+            <span class="font-mono text-sm text-neon/50 transition group-hover:text-neon">04</span>
+            <div>
+              <h3 class="font-display text-lg font-bold text-white transition group-hover:text-neon">Processos &amp; CRM</h3>
+              <p class="mt-1.5 max-w-2xl text-sm leading-relaxed text-gray-400">Implantação do funil comercial da clínica: pipeline de pacientes, cadências de follow-up e rotina de gestão.</p>
+            </div>
+            <span class="hidden font-mono text-gray-600 transition group-hover:translate-x-1 group-hover:text-neon sm:block" aria-hidden="true">→</span>
+          </div>
+
+          <div class="reveal group grid grid-cols-[44px_1fr] items-baseline gap-x-4 border-b border-white/10 px-2 py-7 transition hover:bg-white/[0.02] sm:grid-cols-[64px_1fr_auto] md:gap-x-6 md:px-4" style="--rd:.2s">
+            <span class="font-mono text-sm text-neon/50 transition group-hover:text-neon">05</span>
+            <div>
+              <h3 class="font-display text-lg font-bold text-white transition group-hover:text-neon">Inteligência de Dados</h3>
+              <p class="mt-1.5 max-w-2xl text-sm leading-relaxed text-gray-400">Painel com as métricas que importam de verdade: custo por paciente, taxa de conversão da recepção e retorno sobre cada real investido.</p>
+            </div>
+            <span class="hidden font-mono text-gray-600 transition group-hover:translate-x-1 group-hover:text-neon sm:block" aria-hidden="true">→</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= FAQ ================= -->
+    <section id="faq" class="border-t border-white/[0.06] bg-carbon">
+      <div class="mx-auto max-w-4xl px-5 py-24 lg:px-8 lg:py-32">
+        <p class="reveal flex items-center gap-3 font-mono text-[11px] uppercase tracking-[0.28em] text-neon/80">
+          <span class="h-1.5 w-1.5 bg-neon"></span> Perguntas frequentes
+        </p>
+        <h2 class="reveal mt-5 max-w-2xl font-display text-3xl font-black leading-tight tracking-[-0.02em] text-white sm:text-4xl" style="--rd:.1s">
+          As perguntas que todo médico inteligente faz antes de fechar com a gente.
+        </h2>
+
+        <div class="mt-12 space-y-3">
+          <details class="reveal group rounded-xl border border-white/10 bg-white/[0.02] transition hover:border-white/20" style="--rd:.05s">
+            <summary class="flex cursor-pointer items-center justify-between gap-4 p-5 font-medium text-white sm:p-6">
+              “Já passei por três agências e nenhuma funcionou. Por que com a Livonno seria diferente?”
+              <span class="faq-icon shrink-0 font-mono text-neon" aria-hidden="true">+</span>
+            </summary>
+            <p class="px-5 pb-6 text-sm leading-relaxed text-gray-400 sm:px-6">
+              Porque agências param exatamente onde o problema começa. Elas entregam o lead e lavam as mãos; nós assumimos o funil inteiro — anúncio, atendimento, conversão e processo. Nossa métrica de sucesso não é clique nem alcance: é paciente fechado e faturamento. Quando o resultado depende de um sistema, e não da sorte, ele se repete.
+            </p>
+          </details>
+
+          <details class="reveal group rounded-xl border border-white/10 bg-white/[0.02] transition hover:border-white/20" style="--rd:.1s">
+            <summary class="flex cursor-pointer items-center justify-between gap-4 p-5 font-medium text-white sm:p-6">
+              “Minha secretária não tem perfil de vendas. Isso inviabiliza o trabalho?”
+              <span class="faq-icon shrink-0 font-mono text-neon" aria-hidden="true">+</span>
+            </summary>
+            <p class="px-5 pb-6 text-sm leading-relaxed text-gray-400 sm:px-6">
+              Ao contrário — é exatamente para isso que o Pilar de Conversão existe. Entregamos script, treinamento prático e acompanhamento até a sua equipe dominar a condução comercial. E a IA cobre os horários, o volume e os filtros que nenhum humano alcança sozinho. Perfil se lapida; processo se instala.
+            </p>
+          </details>
+
+          <details class="reveal group rounded-xl border border-white/10 bg-white/[0.02] transition hover:border-white/20" style="--rd:.15s">
+            <summary class="flex cursor-pointer items-center justify-between gap-4 p-5 font-medium text-white sm:p-6">
+              “Em quanto tempo vejo resultado?”
+              <span class="faq-icon shrink-0 font-mono text-neon" aria-hidden="true">+</span>
+            </summary>
+            <p class="px-5 pb-6 text-sm leading-relaxed text-gray-400 sm:px-6">
+              Os primeiros pacientes qualificados costumam chegar já nas primeiras semanas de campanha. Mas aceleração é movimento composto: nos primeiros 90 dias calibramos público, oferta e atendimento — e é aí que a curva ganha inclinação de verdade. Desconfie de quem promete explosão em 7 dias: velocidade sem direção é só verba queimada.
+            </p>
+          </details>
+
+          <details class="reveal group rounded-xl border border-white/10 bg-white/[0.02] transition hover:border-white/20" style="--rd:.2s">
+            <summary class="flex cursor-pointer items-center justify-between gap-4 p-5 font-medium text-white sm:p-6">
+              “Anunciar tratamentos médicos não fere as normas do CFM?”
+              <span class="faq-icon shrink-0 font-mono text-neon" aria-hidden="true">+</span>
+            </summary>
+            <p class="px-5 pb-6 text-sm leading-relaxed text-gray-400 sm:px-6">
+              Anunciar errado, sim. Nossas campanhas são construídas dentro das diretrizes vigentes de publicidade médica: comunicação baseada em autoridade, critério e educação — sem sensacionalismo, sem promessa de resultado. Isso protege o seu CRM e, de quebra, é exatamente a linguagem que o paciente de alto padrão respeita.
+            </p>
+          </details>
+
+          <details class="reveal group rounded-xl border border-white/10 bg-white/[0.02] transition hover:border-white/20" style="--rd:.25s">
+            <summary class="flex cursor-pointer items-center justify-between gap-4 p-5 font-medium text-white sm:p-6">
+              “Quanto custa a aceleração?”
+              <span class="faq-icon shrink-0 font-mono text-neon" aria-hidden="true">+</span>
+            </summary>
+            <p class="px-5 pb-6 text-sm leading-relaxed text-gray-400 sm:px-6">
+              Menos do que uma agenda ociosa. O investimento depende do diagnóstico: tamanho da operação, ticket dos protocolos e maturidade comercial da equipe. Por isso o primeiro passo é a sessão estratégica — e você sai dela com um plano claro, contratando ou não. O que garantimos desde já: não trabalhamos com pacote de prateleira, e só aceitamos clínicas em que enxergamos retorno real.
+            </p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= CTA FINAL ================= -->
+    <section id="cta" class="relative overflow-hidden border-t border-white/[0.06]">
+      <div class="pointer-events-none absolute inset-0" aria-hidden="true">
+        <svg class="fade-mask absolute left-1/2 top-1/2 h-[120vmin] w-[120vmin] -translate-x-1/2 -translate-y-1/2 opacity-60" viewBox="0 0 800 800" fill="none">
+          <circle cx="400" cy="400" r="140" stroke="#CCFF00" stroke-opacity="0.14" />
+          <circle cx="400" cy="400" r="240" stroke="#CCFF00" stroke-opacity="0.08" />
+          <circle cx="400" cy="400" r="340" stroke="#CCFF00" stroke-opacity="0.04" />
+          <g class="orbit-g orbit-rev" style="--t:46s"><circle cx="540" cy="400" r="3" fill="#CCFF00" /></g>
+          <g class="orbit-g" style="--t:80s"><circle cx="640" cy="400" r="2.5" fill="#CCFF00" opacity=".6" /></g>
+        </svg>
+        <div class="absolute left-1/2 top-1/2 h-[50vmin] w-[50vmin] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(204,255,0,0.08),transparent_65%)]"></div>
+      </div>
+
+      <div class="relative mx-auto max-w-4xl px-5 py-28 text-center lg:px-8 lg:py-36">
+        <h2 class="reveal font-display font-black leading-[1.02] tracking-[-0.03em] text-white" style="font-size:clamp(2rem,6vw,3.8rem)">
+          Seu concorrente não é melhor que você.<br class="hidden sm:block" />
+          Ele só tem mais <span class="font-serifacc font-normal italic text-neon">gravidade.</span>
+        </h2>
+        <p class="reveal mx-auto mt-6 max-w-xl leading-relaxed text-gray-400" style="--rd:.1s">
+          Agende o diagnóstico estratégico e descubra, em 30 minutos, onde a sua clínica está perdendo pacientes — e o plano exato para inverter essa força.
+        </p>
+        <div class="reveal mt-10 flex flex-col items-center gap-4" style="--rd:.2s">
+          <a href="https://wa.me/5511999999999?text=Ol%C3%A1!%20Quero%20acelerar%20minha%20cl%C3%ADnica%20com%20a%20Livonno.%20Podemos%20conversar%3F" target="_blank" rel="noopener"
+             class="group inline-flex items-center gap-2.5 rounded-full bg-neon px-9 py-4 text-base font-bold text-black transition hover:-translate-y-0.5 hover:shadow-[0_0_44px_rgba(204,255,0,.5)]">
+            Agendar Diagnóstico Estratégico
+            <span class="transition-transform group-hover:translate-x-1">→</span>
+          </a>
+          <p class="font-mono text-[11px] tracking-wide text-gray-500">Resposta em até 24h úteis · Processo seletivo</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ================= RODAPÉ ================= -->
+  <footer class="border-t border-white/[0.06] bg-black">
+    <div class="mx-auto max-w-7xl px-5 py-14 lg:px-8">
+      <div class="grid gap-10 md:grid-cols-4">
+        <div class="md:col-span-1">
+          <a href="#hero" class="flex items-center gap-2 font-display text-lg text-white" style="font-weight:800">
+            <svg width="20" height="20" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="30" fill="none" stroke="#CCFF00" stroke-width="8"/><circle cx="80" cy="50" r="10" fill="#CCFF00"/></svg>
+            LIVONNO
+          </a>
+          <p class="mt-3 text-sm leading-relaxed text-gray-500">Aceleração especializada no mercado de saúde.</p>
+        </div>
+        <div>
+          <p class="font-mono text-[11px] uppercase tracking-[0.22em] text-gray-600">Navegação</p>
+          <ul class="mt-4 space-y-2.5 text-sm">
+            <li><a href="#metodo" class="text-gray-500 transition hover:text-neon">O Método</a></li>
+            <li><a href="#para-quem" class="text-gray-500 transition hover:text-neon">Para Quem</a></li>
+            <li><a href="#servicos" class="text-gray-500 transition hover:text-neon">Serviços</a></li>
+            <li><a href="#faq" class="text-gray-500 transition hover:text-neon">FAQ</a></li>
+          </ul>
+        </div>
+        <div>
+          <p class="font-mono text-[11px] uppercase tracking-[0.22em] text-gray-600">Legal</p>
+          <ul class="mt-4 space-y-2.5 text-sm">
+            <li><a href="#" class="text-gray-500 transition hover:text-neon">Política de Privacidade</a></li>
+            <li><a href="#" class="text-gray-500 transition hover:text-neon">Termos de Uso</a></li>
+          </ul>
+        </div>
+        <div>
+          <p class="font-mono text-[11px] uppercase tracking-[0.22em] text-gray-600">Social</p>
+          <ul class="mt-4 space-y-2.5 text-sm">
+            <li><a href="#" class="text-gray-500 transition hover:text-neon">Instagram</a></li>
+            <li><a href="#" class="text-gray-500 transition hover:text-neon">LinkedIn</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="mt-12 flex flex-col gap-2 border-t border-white/[0.06] pt-6 text-xs text-gray-600 md:flex-row md:items-center md:justify-between">
+        <p>© 2026 Livonno — Todos os direitos reservados · CNPJ 00.000.000/0000-00</p>
+        <p>Resultados variam conforme estrutura, investimento e execução de cada clínica.</p>
+      </div>
     </div>
-    <div class="story-art" aria-hidden="true">
-      <svg viewBox="0 0 420 420" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <circle cx="340" cy="55" r="1.4" fill="#A79FB8"/>
-        <circle cx="300" cy="28" r="1" fill="#6E6680"/>
-        <circle cx="380" cy="95" r="1" fill="#6E6680"/>
-        <circle cx="45" cy="35" r="1.2" fill="#A79FB8"/>
-        <circle cx="20" cy="80" r="1" fill="#6E6680"/>
-        <circle cx="360" cy="35" r="11" stroke="#332D42" stroke-width="1"/>
-        <path d="M357 30a6.2 6.2 0 100 10.6 5.3 5.3 0 010-10.6z" fill="#3B3450"/>
+  </footer>
 
-        <!-- laptop, shifted right -->
-        <rect x="168" y="168" width="222" height="150" rx="9" stroke="#332D42" stroke-width="1.5" fill="#1A1724"/>
-        <rect x="184" y="186" width="190" height="98" rx="4" fill="#14111C" stroke="#241F30"/>
-        <path d="M195 260 L228 248 L252 272 L276 228 L300 254 L324 214 L352 226"
-              fill="none" stroke="#F0653C" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" opacity="0.85"/>
-        <path d="M352 226 C 336 198, 296 194, 280 206" fill="none" stroke="#2E9678" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
-        <circle cx="280" cy="206" r="4" fill="#2E9678"/>
-        <circle cx="280" cy="206" r="8" stroke="#2E9678" stroke-width="1" opacity="0.5"/>
-        <rect x="222" y="322" width="60" height="10" rx="5" fill="#241F30"/>
-
-        <!-- worried figure, seated at the laptop -->
-        <path d="M18 392 Q22 300 60 274 Q95 252 130 274 Q166 298 168 392 Z" fill="#1A1724" stroke="#332D42" stroke-width="1.5"/>
-        <ellipse cx="94" cy="216" rx="35" ry="39" fill="#1A1724" stroke="#332D42" stroke-width="1.5"/>
-        <path d="M60 214 Q57 196 66 184" stroke="#332D42" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-
-        <!-- furrowed worried brow -->
-        <path d="M76 208 L90 214" stroke="#8A8298" stroke-width="2" stroke-linecap="round"/>
-        <path d="M112 208 L98 214" stroke="#8A8298" stroke-width="2" stroke-linecap="round"/>
-        <path d="M93 202 L91 208" stroke="#6E6680" stroke-width="1.2" stroke-linecap="round"/>
-        <path d="M99 202 L101 208" stroke="#6E6680" stroke-width="1.2" stroke-linecap="round"/>
-
-        <!-- downturned mouth -->
-        <path d="M82 240 Q94 234 106 240" stroke="#8A8298" stroke-width="1.6" stroke-linecap="round" fill="none"/>
-
-        <!-- hand resting on forehead/temple -->
-        <path d="M48 202 Q34 190 36 170 Q40 152 58 150 Q74 152 76 170 Q77 184 66 196 Q58 204 48 202Z"
-              fill="#1A1724" stroke="#332D42" stroke-width="1.5"/>
-        <path d="M52 168 L60 172 M52 178 L61 181 M53 188 L62 190" stroke="#332D42" stroke-width="1.1" stroke-linecap="round"/>
+  <!-- ================= WHATSAPP FLUTUANTE ================= -->
+  <a href="https://wa.me/5511999999999?text=Ol%C3%A1!%20Quero%20acelerar%20minha%20cl%C3%ADnica%20com%20a%20Livonno.%20Podemos%20conversar%3F" target="_blank" rel="noopener"
+     class="group fixed bottom-5 right-5 z-50 flex items-center gap-3" aria-label="Falar com um estrategista no WhatsApp">
+    <span class="hidden rounded-full border border-white/10 bg-black/85 px-4 py-2 font-mono text-[11px] text-gray-300 backdrop-blur transition group-hover:border-neon/40 group-hover:text-neon md:block">
+      Falar com um estrategista
+    </span>
+    <span class="relative flex h-14 w-14 items-center justify-center rounded-full bg-neon text-black shadow-[0_0_30px_rgba(204,255,0,.35)] transition group-hover:scale-105">
+      <span class="pointer-events-none absolute inset-0 rounded-full bg-neon/40 animate-ping" style="animation-duration:2.6s"></span>
+      <svg class="relative" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M12 3a9 9 0 0 0-7.8 13.5L3 21l4.7-1.2A9 9 0 1 0 12 3Z" />
+        <path d="M8.7 8.4c.3-.7 1-.8 1.4-.3l.9 1.2c.3.4.2.9-.1 1.2l-.5.5c.5 1 1.4 1.9 2.4 2.4l.5-.5c.3-.3.8-.4 1.2-.1l1.2.9c.5.4.4 1.1-.3 1.4-.9.4-2 .3-3.2-.4-1.5-.8-2.7-2-3.5-3.5-.7-1.2-.8-2.3-.4-3.2Z" fill="currentColor" stroke="none" />
       </svg>
-    </div>
-  </div>
-</section>
+    </span>
+  </a>
 
-<section class="how" id="como-funciona">
-  <div class="wrap">
-    <div class="how-head">
-      <div class="eyebrow fire">Como funciona</div>
-      <h2>Primeiro o diagnóstico. Depois a aceleração.</h2>
-      <p>Toda proposta da Livonno nasce de um Raio-X real da sua loja — assim o plano que chega na sua mesa é feito sob medida pra sua operação, na fase em que ela está.</p>
-    </div>
+  <script>
+    // Menu mobile
+    const btn = document.getElementById('menu-btn');
+    const menu = document.getElementById('mobile-menu');
+    const iconOpen = document.getElementById('icon-open');
+    const iconClose = document.getElementById('icon-close');
+    function toggleMenu(force) {
+      const willOpen = typeof force === 'boolean' ? force : menu.classList.contains('hidden');
+      menu.classList.toggle('hidden', !willOpen);
+      iconOpen.classList.toggle('hidden', willOpen);
+      iconClose.classList.toggle('hidden', !willOpen);
+      btn.setAttribute('aria-expanded', String(willOpen));
+      btn.setAttribute('aria-label', willOpen ? 'Fechar menu' : 'Abrir menu');
+    }
+    btn.addEventListener('click', () => toggleMenu());
+    document.querySelectorAll('.mobile-link').forEach(l => l.addEventListener('click', () => toggleMenu(false)));
 
-    <div class="step">
-      <div class="step-num mono">01</div>
-      <div>
-        <span class="tag">sem custo · 15 min</span>
-        <h3>Raio-X Órbita</h3>
-        <p>Analisamos sua loja por dentro — tráfego, checkout, o comportamento de quem coloca produto no carrinho — e apresentamos achados específicos da <em>sua</em> operação, com dado real na mesa.</p>
-      </div>
-    </div>
+    // Revelação ao rolar
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) { e.target.classList.add('revealed'); io.unobserve(e.target); }
+      });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
 
-    <div class="step">
-      <div class="step-num mono">02</div>
-      <div>
-        <span class="tag">proposta sob medida</span>
-        <h3>Aceleração Órbita</h3>
-        <p>Com o que o Raio-X encontrou, montamos a sua Aceleração: a dose certa de cada um dos dois pilares, na proporção que a sua loja precisa agora.</p>
-        <div class="pillars">
-          <div class="pillar impulso">
-            <svg class="pillar-mark" viewBox="0 0 26 26" fill="none"><path d="M4 22L22 4M22 4H10M22 4V16" stroke="#F0653C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            <h4>Órbita Impulso</h4>
-            <p>Cliente novo entrando com o custo de aquisição sob controle. Campanhas pensadas pra margem, no ritmo do mercado de beleza.</p>
-          </div>
-          <div class="pillar gravidade">
-            <svg class="pillar-mark" viewBox="0 0 26 26" fill="none"><circle cx="13" cy="13" r="9" stroke="#2E9678" stroke-width="2"/><circle cx="13" cy="13" r="2.5" fill="#2E9678"/></svg>
-            <h4>Órbita Gravidade</h4>
-            <p>Quem já comprou volta a comprar. Recuperação de carrinho, reativação de base e réguas de recompra transformando sua base em receita recorrente.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="promise">
-  <div class="wrap">
-    <div class="eyebrow teal">Nossa promessa</div>
-    <blockquote>
-      "Sua loja de beleza crescendo em duas frentes ao mesmo tempo: <span class="w-impulso">cliente novo entrando</span> com o custo sob controle, e <span class="w-gravidade">quem já comprou voltando</span> pra comprar de novo — receita que a sua marca constrói e o leilão de anúncio não leva."
-      <cite>— Livonno · Método Órbita</cite>
-    </blockquote>
-  </div>
-</section>
-
-<section class="forwho">
-  <div class="wrap fw-grid">
-    <div class="fw-col yes">
-      <div class="eyebrow fire">Pra quem é</div>
-      <h2>Loja de beleza que já vende — e está pronta pra acelerar</h2>
-      <ul class="fw-list">
-        <li><strong>Atendemos exclusivamente e-commerce de cosméticos, perfumaria e beleza</strong></li>
-        <li>É o único mercado em que atuamos, e conhecemos o ritmo dele</li>
-        <li>Dono(a) que ainda cuida do próprio marketing e decide rápido</li>
-        <li>Já anuncia, sente o custo subir e quer que a base de clientes trabalhe a favor da loja</li>
-      </ul>
-    </div>
-    <div class="fw-col no">
-      <div class="eyebrow">Pra quem ainda não é</div>
-      <h2>Sendo diretos, pra respeitar o seu tempo</h2>
-      <ul class="fw-list">
-        <li>Loja em fase de escolher o que vai vender — o melhor momento pra aceleração vem depois da validação</li>
-        <li>Operação grande, com time de marketing próprio já estruturado</li>
-        <li>Quem prefere fechar números antes da conversa — nossos números nascem do Raio-X da sua loja</li>
-      </ul>
-    </div>
-  </div>
-</section>
-
-<section class="cta starfield nebula" id="cta">
-  <div class="wrap">
-    <h2>Vamos colocar sua loja <span class="w-impulso">em órbita</span>?</h2>
-    <p>Peça seu Raio-X Órbita: 15 minutos sobre a sua operação, com achados reais na mesa.</p>
-    <div class="cta-row">
-      <a href="mailto:contato@livonno.com.br?subject=Quero%20meu%20Raio-X%20%C3%93rbita" class="btn">Pedir por e-mail</a>
-      <a href="https://wa.me/55" class="btn ghost">Chamar no WhatsApp</a>
-    </div>
-  </div>
-</section>
-
-<a href="https://wa.me/55" class="wa-float" aria-label="Chamar a Livonno no WhatsApp" target="_blank" rel="noopener">
-  <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M16 4C9.4 4 4 9.4 4 16c0 2.2.6 4.3 1.7 6.1L4 28l6.1-1.6c1.7.9 3.7 1.5 5.9 1.5 6.6 0 12-5.4 12-12S22.6 4 16 4z" fill="#25D366"/>
-    <path d="M22.1 19.1c-.3-.2-1.9-1-2.2-1.1-.3-.1-.5-.2-.7.2-.2.3-.8 1-1 1.3-.2.2-.4.3-.7.1-.3-.2-1.4-.5-2.6-1.6-1-.9-1.6-2-1.8-2.3-.2-.3 0-.5.1-.6.1-.1.3-.3.5-.5.2-.2.2-.3.3-.5.1-.2 0-.4 0-.6-.1-.2-.7-1.7-1-2.3-.3-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.4s1.1 2.8 1.2 3c.1.2 2.1 3.2 5 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.9-.8 2.1-1.5.3-.7.3-1.3.2-1.5-.1-.1-.3-.2-.6-.4z" fill="#fff"/>
-  </svg>
-</a>
-
-<section class="legal-trust">
-  <div class="wrap">
-    <div class="trust-badges">
-      <div class="badge">
-        <svg viewBox="0 0 24 24" fill="none"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3z" stroke="#2E9678" stroke-width="1.6" stroke-linejoin="round"/><path d="M9 12l2 2 4-4" stroke="#2E9678" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        <span>CNPJ ativo e verificável</span>
-      </div>
-      <div class="badge">
-        <svg viewBox="0 0 24 24" fill="none"><rect x="5" y="10" width="14" height="10" rx="2" stroke="#2E9678" stroke-width="1.6"/><path d="M8 10V7a4 4 0 018 0v3" stroke="#2E9678" stroke-width="1.6"/></svg>
-        <span>Site seguro (SSL)</span>
-      </div>
-      <div class="badge">
-        <svg viewBox="0 0 24 24" fill="none"><rect x="4" y="5" width="16" height="14" rx="2" stroke="#2E9678" stroke-width="1.6"/><path d="M4 9h16" stroke="#2E9678" stroke-width="1.6"/><circle cx="8" cy="14" r="1.3" fill="#2E9678"/></svg>
-        <span>Dados protegidos conforme a LGPD</span>
-      </div>
-      <div class="badge">
-        <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="3.2" stroke="#2E9678" stroke-width="1.6"/><path d="M5 20c0-3.9 3.1-7 7-7s7 3.1 7 7" stroke="#2E9678" stroke-width="1.6" stroke-linecap="round"/></svg>
-        <span>Atendimento direto</span>
-      </div>
-    </div>
-
-    <div class="legal-company">
-      <div class="legal-item">
-        <svg viewBox="0 0 24 24" fill="none"><rect x="3" y="6" width="18" height="14" rx="2" stroke="#8A8298" stroke-width="1.6"/><path d="M3 10h18" stroke="#8A8298" stroke-width="1.6"/><path d="M7 6V4h10v2" stroke="#8A8298" stroke-width="1.6"/></svg>
-        <span><strong>Razão Social:</strong> Livonno Consultoria LTDA</span>
-      </div>
-      <div class="legal-item cnpj-row">
-        <svg viewBox="0 0 24 24" fill="none"><rect x="4" y="4" width="16" height="16" rx="2" stroke="#8A8298" stroke-width="1.6"/><path d="M8 9h8M8 13h8M8 17h5" stroke="#8A8298" stroke-width="1.6" stroke-linecap="round"/></svg>
-        <span><strong>CNPJ:</strong> <span id="cnpj-text">65.686.749/0001-80</span></span>
-      </div>
-    </div>
-    <p class="legal-responsibility">A Livonno Consultoria LTDA é a responsável legal pelo conteúdo, pelas ofertas e pelo tratamento de dados divulgados neste site, nos termos da legislação brasileira vigente e aplicável.</p>
-
-    <div class="legal-docs">
-      <details>
-        <summary>Política de Privacidade</summary>
-        <div class="legal-content">
-          <p><strong>1. Quem somos.</strong> A Livonno Consultoria LTDA (CNPJ 65.686.749/0001-80) trata dados pessoais de visitantes e clientes deste site em conformidade com a Lei Geral de Proteção de Dados (Lei 13.709/2018 — LGPD).</p>
-          <p><strong>2. Dados que coletamos.</strong> Nome, e-mail, telefone/WhatsApp e informações da sua loja, quando você solicita o Raio-X Órbita ou entra em contato conosco. Também podemos coletar dados de navegação (páginas visitadas, tempo no site) para melhorar a experiência.</p>
-          <p><strong>3. Para que usamos.</strong> Para responder seu contato, realizar o diagnóstico Raio-X Órbita, elaborar propostas e, quando autorizado, enviar comunicações sobre nossos serviços.</p>
-          <p><strong>4. Compartilhamento.</strong> Não vendemos seus dados. Podemos compartilhar informações com ferramentas de e-mail, agendamento e analytics estritamente necessárias para operar o site e a prospecção, sempre com o cuidado devido.</p>
-          <p><strong>5. Seus direitos.</strong> Você pode solicitar acesso, correção, exclusão ou portabilidade dos seus dados a qualquer momento, conforme o Art. 18 da LGPD, pelo e-mail contato@livonno.com.br.</p>
-          <p><strong>6. Retenção.</strong> Mantemos seus dados pelo tempo necessário para as finalidades descritas acima ou conforme exigido por lei.</p>
-          <p><strong>7. Alterações.</strong> Esta política pode ser atualizada periodicamente; a versão vigente estará sempre disponível nesta página.</p>
-          <p class="legal-note">Este texto é um modelo inicial e não substitui a revisão de um advogado especializado em proteção de dados antes da publicação oficial do site.</p>
-        </div>
-      </details>
-
-      <details>
-        <summary>Termos de Uso</summary>
-        <div class="legal-content">
-          <p><strong>1. Aceitação.</strong> Ao usar este site, você concorda com estes Termos de Uso e com a nossa Política de Privacidade.</p>
-          <p><strong>2. Nossos serviços.</strong> A Livonno oferece diagnóstico (Raio-X Órbita) e serviços de aquisição e retenção de clientes (Aceleração Órbita) para e-commerces de cosméticos e beleza. O diagnóstico inicial não representa proposta comercial nem compromisso de resultado.</p>
-          <p><strong>3. Resultados.</strong> Não garantimos resultados específicos de vendas, tráfego ou receita — cada loja tem uma realidade diferente, e qualquer estimativa é discutida individualmente após o diagnóstico.</p>
-          <p><strong>4. Propriedade intelectual.</strong> Os textos, nomes (incluindo "Método Órbita", "Raio-X Órbita" e "Aceleração Órbita"), design e conteúdo deste site pertencem à Livonno Consultoria LTDA.</p>
-          <p><strong>5. Limitação de responsabilidade.</strong> A Livonno não se responsabiliza por decisões de negócio tomadas unicamente com base no conteúdo deste site, sem uma proposta formal.</p>
-          <p><strong>6. Foro e legislação.</strong> Estes termos são regidos pelas leis brasileiras, com foro eleito para dirimir eventuais controvérsias.</p>
-          <p class="legal-note">Este texto é um modelo inicial e não substitui a revisão de um advogado antes da publicação oficial do site.</p>
-        </div>
-      </details>
-    </div>
-  </div>
-</section>
-
-<footer>
-  <span class="brand footer-brand">Livonno<span>.</span></span>
-  Método Órbita · aceleração exclusiva para e-commerce de cosméticos e beleza
-  <div class="footer-legal-links">
-    <a href="#" onclick="document.querySelectorAll('.legal-docs details')[0].open=true; document.querySelector('.legal-docs').scrollIntoView({behavior:'smooth'}); return false;">Política de Privacidade</a>
-    ·
-    <a href="#" onclick="document.querySelectorAll('.legal-docs details')[1].open=true; document.querySelector('.legal-docs').scrollIntoView({behavior:'smooth'}); return false;">Termos de Uso</a>
-  </div>
-  <div class="footer-cnpj">Livonno Consultoria LTDA · CNPJ 65.686.749/0001-80</div>
-</footer>
-
-
+    // FAQ: mantém apenas um item aberto
+    const faqs = document.querySelectorAll('#faq details');
+    faqs.forEach(d => d.addEventListener('toggle', () => {
+      if (d.open) faqs.forEach(o => { if (o !== d) o.open = false; });
+    }));
+  </script>
 </body>
 </html>
