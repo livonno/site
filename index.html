@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Livonno — Assessoria de Retenção para E-commerce de Moda</title>
 <meta name="description" content="Sua loja não tem um problema de tráfego. Tem um problema de segunda compra. A Livonno opera a receita que já está dentro do seu e-commerce de moda: recuperação, RFM, ciclo de vida e reativação.">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='10' fill='%230a0a0a'/%3E%3Ctext x='27' y='47' font-family='Arial, sans-serif' font-weight='700' font-size='42' text-anchor='middle' fill='%23f5f5f5'%3EL%3C/text%3E%3Crect x='42' y='38' width='9' height='9' fill='%23ccff00'/%3E%3C/svg%3E">
 <script src="https://cdn.tailwindcss.com"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -72,7 +73,7 @@ tailwind.config = {
 <!-- ============ NAV ============ -->
 <header class="fixed top-0 inset-x-0 z-50 border-b border-line bg-ink/85 backdrop-blur">
   <div class="mx-auto max-w-6xl px-5 h-16 flex items-center justify-between">
-    <a href="#" class="font-display font-bold text-lg tracking-tight">Livonno<span class="text-lima">.</span></a>
+    <a href="#" class="font-display font-bold text-2xl md:text-[1.7rem] tracking-tight">Livonno<span class="text-lima">.</span></a>
     <nav class="hidden md:flex items-center gap-7 text-sm text-dim">
       <a href="#servicos" class="hover:text-white transition-colors">O que fazemos</a>
       <a href="#metodo" class="hover:text-white transition-colors">Como funciona</a>
@@ -206,10 +207,10 @@ tailwind.config = {
   <div class="mx-auto max-w-6xl px-5">
     <div class="reveal max-w-3xl">
       <p class="eyebrow mb-4">O diagnóstico em uma frase</p>
-      <h2 class="font-display font-bold text-3xl md:text-4xl tracking-tight">Sua loja perde dinheiro em três lugares ao mesmo tempo</h2>
+      <h2 class="font-display font-bold text-3xl md:text-4xl tracking-tight">Sua loja perde dinheiro em quatro lugares ao mesmo tempo</h2>
     </div>
 
-    <div class="mt-12 grid md:grid-cols-3 gap-5">
+    <div class="mt-12 grid md:grid-cols-2 gap-5">
       <div class="reveal bg-panel border border-line rounded-sm p-7">
         <p class="font-mono text-xs text-lima tracking-widest uppercase">Vazamento 01</p>
         <h3 class="font-display font-bold text-xl mt-3">No meio do caminho</h3>
@@ -228,9 +229,30 @@ tailwind.config = {
         <p class="mt-4 text-dim leading-relaxed text-[.95rem]">Milhares de clientes que compraram uma vez e sumiram. Cada um deles custou dinheiro.</p>
         <p class="mt-4 text-neutral-300 text-[.95rem]">Estão todos lá, no banco de dados, recebendo o mesmo e-mail de novidade que vai para todo mundo igual.</p>
       </div>
+      <div class="reveal bg-panel border border-line rounded-sm p-7">
+        <p class="font-mono text-xs text-lima tracking-widest uppercase">Vazamento 04</p>
+        <h3 class="font-display font-bold text-xl mt-3">Na indicação que não acontece</h3>
+        <p class="mt-4 text-dim leading-relaxed text-[.95rem]">Moda é o produto mais social que existe: a peça aparece no corpo, a amiga pergunta onde comprou, e a resposta é uma venda de graça.</p>
+        <p class="mt-4 text-neutral-300 text-[.95rem]">Mas ninguém pede a indicação, ninguém facilita, ninguém recompensa. O canal de aquisição mais barato do mundo fica parado no zero.</p>
+      </div>
     </div>
 
     <p class="reveal mt-10 text-lg text-dim max-w-3xl">Enquanto isso, o CAC sobe todo ano e a margem da moda continua apertada. <span class="text-white">É por isso que você fatura mais e não sobra mais.</span></p>
+  </div>
+</section>
+
+<!-- ============ PREVISIBILIDADE ============ -->
+<section id="previsibilidade" class="py-20 md:py-28 border-b border-line">
+  <div class="mx-auto max-w-4xl px-5">
+    <div class="reveal border-l-2 border-lima pl-6 md:pl-10">
+      <p class="eyebrow mb-4">O que está em jogo</p>
+      <h2 class="font-display font-bold text-3xl md:text-5xl tracking-tight leading-tight">A palavra que todo dono de loja busca: <span class="text-lima">previsibilidade</span></h2>
+      <div class="mt-7 space-y-5 text-lg leading-relaxed text-dim">
+        <p><strong class="text-white">Anúncio é leilão.</strong> O preço do clique muda todo dia, a regra muda sem aviso e a plataforma decide quanto você paga. Ninguém constrói previsão em cima de leilão.</p>
+        <p><strong class="text-white">Base é ativo.</strong> Comportamento de recompra é padrão — e padrão se mede, se projeta e vira número no planejamento. Quem opera a própria base começa o mês sabendo o piso do faturamento: quanto entra de recompra, de recuperação e de reativação, antes do primeiro real de mídia.</p>
+        <p>É a única receita do e-commerce que dá para prever. E é o que separa quem <span class="text-white">planeja coleção, compra de estoque e negociação com fornecedor</span> de quem torce.</p>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -360,6 +382,21 @@ tailwind.config = {
         </ul>
       </div>
 
+      <!-- 07 Indicação -->
+      <div class="reveal grid md:grid-cols-[220px_1fr] gap-6 md:gap-10">
+        <div>
+          <p class="font-mono text-lima text-sm">07</p>
+          <h3 class="font-display font-bold text-2xl mt-1">Indicação</h3>
+          <p class="text-neutral-500 text-sm mt-2 italic">Retenção que gera aquisição</p>
+        </div>
+        <ul class="grid sm:grid-cols-2 gap-x-8 gap-y-3 text-neutral-300 text-[.95rem]">
+          <li class="border-l border-line pl-4">Programa indique-e-ganhe estruturado, com recompensa dupla: para quem indica e para quem chega</li>
+          <li class="border-l-2 border-lima pl-4 text-white font-medium">O pedido de indicação disparado no momento certo: NPS alto, pós-entrega e segmento Campeões</li>
+          <li class="border-l border-line pl-4">Giftback de indicação integrado às campanhas de base</li>
+          <li class="border-l border-line pl-4">Mensuração: quantos clientes novos chegaram por indicação — a custo zero de mídia</li>
+        </ul>
+      </div>
+
     </div>
   </div>
 </section>
@@ -369,7 +406,7 @@ tailwind.config = {
   <div class="mx-auto max-w-6xl px-5">
     <div class="reveal max-w-3xl">
       <p class="eyebrow mb-4">Como funciona</p>
-      <h2 class="font-display font-bold text-3xl md:text-4xl tracking-tight">Três fases. Sem surpresa e sem contrato de fé.</h2>
+      <h2 class="font-display font-bold text-3xl md:text-4xl tracking-tight">Três fases. Você sabe exatamente o que acontece em cada uma.</h2>
     </div>
     <div class="mt-12 grid md:grid-cols-3 gap-5">
       <div class="reveal bg-panel border border-line rounded-sm p-7">
@@ -432,6 +469,7 @@ tailwind.config = {
           <li class="flex gap-3"><span class="text-lima">→</span>Ciclo de vida completo: boas-vindas, pós-compra, janela de recompra por categoria, cross-sell, VIP</li>
           <li class="flex gap-3"><span class="text-lima">→</span>Reativação contínua: win-back, inativos, escoamento de estoque parado</li>
           <li class="flex gap-3"><span class="text-lima">→</span>Prevenção: risco de churn, experiência ruim, devolução → troca</li>
+          <li class="flex gap-3"><span class="text-lima">→</span>Sistema de indicação: indique-e-ganhe operado com Campeões e NPS alto</li>
           <li class="flex gap-3"><span class="text-lima">→</span>Calendário de campanhas casado com o calendário de coleção</li>
           <li class="flex gap-3"><span class="text-lima">→</span>Reunião quinzenal com decisão — não com relatório</li>
         </ul>
@@ -587,10 +625,6 @@ tailwind.config = {
         <summary class="font-display font-medium text-lg">Em quanto tempo vejo resultado?</summary>
         <p class="pb-6 text-dim leading-relaxed">Recuperação de abandono e de pagamento não concluído aparece nas primeiras semanas. Reativação de base, em 30 a 60 dias. A curva de recompra e o efeito no LTV maturam entre 6 e 12 meses — por isso trabalhamos com contrato mínimo de 6 meses.</p>
       </details>
-      <details>
-        <summary class="font-display font-medium text-lg">Quais marcas vocês já atenderam?</summary>
-        <p class="pb-6 text-dim leading-relaxed">Estamos selecionando as primeiras lojas de moda para trabalhar em profundidade, com condição especial de entrada em troca do direito de publicar os números. Se você quer um fornecedor com dez cases prontos, não somos nós — ainda. Se você quer alguém que vai tratar sua operação como a mais importante da carteira, conversa comigo.</p>
-      </details>
     </div>
   </div>
 </section>
@@ -605,8 +639,7 @@ tailwind.config = {
     </p>
     <p class="reveal mt-3 text-neutral-500">Se depois disso você quiser tocar sozinho, o material é seu.</p>
     <div class="reveal mt-10">
-      <!-- SUBSTITUIR o número do WhatsApp -->
-      <a href="https://wa.me/5500000000000?text=Quero%20agendar%20o%20diagn%C3%B3stico%20da%20minha%20base" class="inline-block bg-lima text-ink font-display font-bold px-10 py-4 rounded-sm text-lg hover:brightness-110 hover:-translate-y-0.5 transition">Agendar o diagnóstico</a>
+      <a href="https://wa.me/5537958280657?text=Quero%20agendar%20o%20diagn%C3%B3stico%20da%20minha%20base" class="inline-block bg-lima text-ink font-display font-bold px-10 py-4 rounded-sm text-lg hover:brightness-110 hover:-translate-y-0.5 transition">Agendar o diagnóstico</a>
       <p class="mt-4 text-sm text-neutral-500">Resposta em até 1 dia útil. Se sua loja não se encaixar no perfil, a gente te diz na primeira conversa.</p>
     </div>
   </div>
@@ -616,9 +649,16 @@ tailwind.config = {
 <footer class="border-t border-line py-10">
   <div class="mx-auto max-w-6xl px-5 flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-neutral-600">
     <p class="font-display font-bold text-neutral-300">Livonno<span class="text-lima">.</span> <span class="font-body font-normal text-neutral-600">— Assessoria de Retenção para E-commerce de Moda</span></p>
-    <p class="font-mono text-xs">livonno.com.br · CNPJ 00.000.000/0000-00</p>
+    <p class="font-mono text-xs">Livonno Consultoria LTDA · CNPJ 65.686.749/0001-80 · livonno.com.br</p>
   </div>
 </footer>
+
+<!-- Botão flutuante WhatsApp -->
+<a href="https://wa.me/5537958280657?text=Quero%20agendar%20o%20diagn%C3%B3stico%20da%20minha%20base"
+   aria-label="Falar no WhatsApp"
+   class="fixed bottom-5 right-5 z-50 bg-lima text-ink p-4 rounded-full shadow-lg shadow-lima/20 hover:brightness-110 hover:-translate-y-0.5 transition">
+  <svg viewBox="0 0 448 512" class="w-6 h-6" fill="currentColor" aria-hidden="true"><path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7.9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"/></svg>
+</a>
 
 <script>
   const io = new IntersectionObserver((entries) => {
