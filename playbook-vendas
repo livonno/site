@@ -1,0 +1,1353 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Playbook de Entrega e Setup — Livonno</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='10' fill='%230a0a0a'/%3E%3Ctext x='27' y='47' font-family='Arial' font-weight='700' font-size='42' text-anchor='middle' fill='%23f5f5f5'%3EL%3C/text%3E%3Crect x='42' y='38' width='9' height='9' fill='%23ccff00'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#0a0a0a;--panel:#121212;--panel2:#171717;--line:#242424;--lima:#ccff00;--dim:#9a9a9a;--txt:#ececec;--mut:#6f6f6f}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--ink);color:var(--txt);font-family:Inter,sans-serif;line-height:1.65;font-size:15.5px}
+.wrap{max-width:920px;margin:0 auto;padding:0 28px}
+h1,h2,h3,h4{font-family:'Space Grotesk',sans-serif;letter-spacing:-.01em;line-height:1.15}
+h2{font-size:1.9rem;margin:0 0 .4em}
+h3{font-size:1.28rem;margin:2.2em 0 .5em;color:#fff}
+h4{font-size:1.02rem;margin:1.6em 0 .4em;color:#fff}
+p{margin:.65em 0;color:var(--dim)}
+strong{color:#fff;font-weight:600}
+a{color:var(--lima);text-decoration:none}
+.eyebrow{font-family:'IBM Plex Mono',monospace;font-size:.7rem;letter-spacing:.24em;text-transform:uppercase;color:var(--lima)}
+.mono{font-family:'IBM Plex Mono',monospace}
+code{font-family:'IBM Plex Mono',monospace;font-size:.85em;background:var(--panel2);border:1px solid var(--line);padding:.1em .45em;border-radius:3px;color:#dcdcdc}
+/* ---- capa ---- */
+.cover{min-height:96vh;display:flex;flex-direction:column;justify-content:center;position:relative;border-bottom:1px solid var(--line);overflow:hidden}
+.cover .orbit{position:absolute;right:-140px;top:50%;transform:translateY(-50%);opacity:.9}
+.cover h1{font-size:clamp(2.4rem,5.4vw,4rem);margin:.5em 0 .3em;max-width:14ch}
+.cover h1 .g{color:var(--lima)}
+.badge{display:inline-block;font-family:'IBM Plex Mono',monospace;font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;border:1px solid var(--line);padding:.55em 1em;border-radius:3px;color:var(--dim);margin-top:2.4em}
+/* ---- fases ---- */
+.fase{border-top:1px solid var(--line);padding:74px 0 30px;position:relative}
+.fase-num{font-family:'Space Grotesk';font-weight:700;font-size:5.2rem;color:transparent;-webkit-text-stroke:1px #2c2c2c;position:absolute;top:26px;right:0;line-height:1;user-select:none}
+.fase-meta{font-family:'IBM Plex Mono',monospace;font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:var(--mut);margin:.4em 0 1.2em}
+/* ---- tabelas ---- */
+table{width:100%;border-collapse:collapse;margin:1.1em 0;font-size:.88rem}
+th{font-family:'IBM Plex Mono',monospace;font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;color:var(--mut);text-align:left;padding:.6em .8em;border-bottom:1px solid var(--line)}
+td{padding:.68em .8em;border-bottom:1px solid var(--line);vertical-align:top;color:#cfcfcf}
+tr td:first-child{color:#fff}
+.t-lima td{background:rgba(204,255,0,.05)}
+.scroll{overflow-x:auto}
+/* ---- callouts ---- */
+.co{border-left:2px solid var(--line);background:var(--panel);padding:.9em 1.1em;margin:1.1em 0;border-radius:0 4px 4px 0;font-size:.92rem;color:#cfcfcf}
+.co b{display:block;font-family:'IBM Plex Mono',monospace;font-size:.66rem;letter-spacing:.2em;text-transform:uppercase;margin-bottom:.35em}
+.co.warn{border-color:#e0a400}.co.warn b{color:#e0a400}
+.co.lock{border-color:#6ea8ff}.co.lock b{color:#6ea8ff}
+.co.ok{border-color:var(--lima)}.co.ok b{color:var(--lima)}
+.co.rule{border-color:var(--lima);background:rgba(204,255,0,.05)}.co.rule b{color:var(--lima)}
+/* ---- slot de print ---- */
+.print-slot{border:1.5px dashed rgba(204,255,0,.45);border-radius:4px;padding:1.5em 1.2em;margin:1.2em 0;text-align:center;background:rgba(204,255,0,.03)}
+.print-slot .cam{font-size:1.3rem}
+.print-slot p{margin:.3em 0 0;font-family:'IBM Plex Mono',monospace;font-size:.72rem;letter-spacing:.08em;color:#b9d84a}
+/* ---- copy blocks ---- */
+.copy{background:var(--panel);border:1px solid var(--line);border-left:2px solid var(--lima);border-radius:0 4px 4px 0;padding:1em 1.2em;margin:.9em 0;font-size:.92rem}
+.copy .tag{font-family:'IBM Plex Mono',monospace;font-size:.64rem;letter-spacing:.18em;text-transform:uppercase;color:var(--lima);display:block;margin-bottom:.5em}
+.copy .msg{color:#e6e6e6;white-space:pre-line}
+/* ---- script de atendimento ---- */
+.dialog{background:var(--panel);border:1px solid var(--line);border-radius:4px;padding:1.1em 1.2em;margin:1em 0;font-size:.92rem}
+.dialog .who{font-family:'IBM Plex Mono',monospace;font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;color:var(--mut)}
+.dialog .who.a{color:var(--lima)}
+.dialog p{margin:.25em 0 .9em;color:#e2e2e2}
+/* ---- mermaid ---- */
+.mer{background:var(--panel);border:1px solid var(--line);border-radius:4px;padding:14px;margin:1.2em 0;overflow-x:auto}
+/* ---- toc ---- */
+.toc{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:10px;margin:1.6em 0}
+.toc a{display:block;border:1px solid var(--line);border-radius:4px;padding:.9em 1em;background:var(--panel);color:#ddd;font-size:.9rem;transition:border .2s}
+.toc a:hover{border-color:var(--lima)}
+.toc a span{display:block;font-family:'IBM Plex Mono',monospace;font-size:.62rem;letter-spacing:.2em;color:var(--lima);margin-bottom:.3em}
+.check{list-style:none;padding:0}
+.check li{padding:.42em 0 .42em 1.8em;position:relative;color:#cfcfcf;border-bottom:1px solid #1b1b1b;font-size:.93rem}
+.check li:before{content:"";position:absolute;left:0;top:.72em;width:.85em;height:.85em;border:1.5px solid var(--lima);border-radius:2px}
+.foot-val{font-family:'IBM Plex Mono',monospace;font-size:.7rem;color:var(--mut);border-top:1px dashed var(--line);margin-top:2.6em;padding-top:1em}
+ul{color:var(--dim)}li{margin:.3em 0}li::marker{color:var(--lima)}
+@media print{body{-webkit-print-color-adjust:exact;print-color-adjust:exact}.fase{page-break-before:always}.cover{min-height:90vh}}
+</style>
+</head>
+<body>
+
+<!-- ============ CAPA ============ -->
+<header class="cover">
+  <svg class="orbit" width="560" height="560" viewBox="0 0 600 600" aria-hidden="true">
+    <ellipse cx="300" cy="300" rx="260" ry="260" fill="none" stroke="#242424" stroke-width="1" stroke-dasharray="3 7"/>
+    <ellipse cx="300" cy="300" rx="185" ry="185" fill="none" stroke="#1f1f1f" stroke-width="1"/>
+    <ellipse cx="300" cy="300" rx="115" ry="115" fill="none" stroke="#1d1d1d" stroke-width="1"/>
+    <circle cx="300" cy="40" r="6" fill="#ccff00"/><circle cx="512" cy="386" r="5" fill="#ccff00" opacity=".7"/>
+    <circle cx="300" cy="115" r="6" fill="#ccff00"/><circle cx="146" cy="416" r="5" fill="#ccff00" opacity=".6"/>
+    <circle cx="300" cy="185" r="7" fill="#ccff00"/><circle cx="203" cy="372" r="5" fill="#ccff00" opacity=".8"/>
+    <circle cx="300" cy="300" r="50" fill="#121212" stroke="#ccff00" stroke-width="1.4"/>
+    <text x="300" y="317" text-anchor="middle" font-family="Space Grotesk" font-weight="700" font-size="42" fill="#ccff00">L.</text>
+  </svg>
+  <div class="wrap">
+    <p class="eyebrow">Livonno · documento interno · v4.0 · julho 2026</p>
+    <h1>Playbook de <span class="g">Entrega &amp; Setup</span> de Clientes</h1>
+    <p style="max-width:52ch;font-size:1.05rem">O manual que conduz a operação de retenção de um cliente novo do contrato ao fim do 6º mês — implantação, semestre completo e renovação — sem precisar perguntar nada. Loja de treino: <strong>Aurora Vestuário</strong>. Stack padrão: <strong>Tray + edrone + WhatsApp Business API + Trustvox</strong>.</p>
+    <span class="badge">Quem executa, atualiza · não circular fora da Livonno</span>
+  </div>
+</header>
+
+<!-- ============ SUMÁRIO ============ -->
+<section class="wrap" style="padding:56px 28px 6px">
+  <p class="eyebrow">Sumário</p>
+  <div class="toc">
+    <a href="#p0"><span>Parte 0</span>Como usar este manual · stack · Aurora</a>
+    <a href="#f0"><span>Fase 0 · dia 0–2</span>Do contrato ao kickoff</a>
+    <a href="#f1"><span>Fase 1 · dia 3–9</span>Diagnóstico</a>
+    <a href="#f2"><span>Fase 2 · dia 8–16</span>Fundação técnica</a>
+    <a href="#f3"><span>Fase 3 · dia 15–45</span>Implantação na ordem de ROI</a>
+    <a href="#f4"><span>Fase 4 · contínua</span>Operação, painel e calendário</a>
+    <a href="#f5"><span>Fase 5</span>QA, go-live e manutenção</a>
+    <a href="#f6"><span>Fase 6 · mês 2–6</span>O semestre completo, mês a mês</a>
+    <a href="#cal"><span>Fase 7 · o ano</span>Calendário comercial de moda</a>
+    <a href="#grav"><span>Módulo</span>Entregas exclusivas do Gravidade</a>
+    <a href="#cron"><span>Mapa</span>Cronograma: 45 dias + semestre</a>
+    <a href="#anexos"><span>Anexos</span>Modelos, janelas, glossário</a>
+  </div>
+</section>
+
+<!-- ============ PARTE 0 ============ -->
+<section class="fase wrap" id="p0">
+  <span class="fase-num">00</span>
+  <p class="eyebrow">Parte 0</p>
+  <h2>Como usar este manual</h2>
+
+  <h3>0.1 O que este documento é</h3>
+  <p>Este é o manual de implantação da Livonno. Ele existe para que qualquer pessoa recém-contratada coloque a operação de retenção de um cliente novo no ar, do zero, seguindo as fases na ordem, executando cada passo como está escrito e colando os prints nos lugares marcados.</p>
+  <div class="co rule"><b>Regra inegociável</b>A ordem das fases segue a ordem de ROI da Livonno: primeiro o dinheiro quente, depois a segunda compra, depois a receita parada, por último a expansão. Implantar fora dessa ordem atrasa o resultado que paga o projeto e quebra a promessa comercial feita ao cliente.</div>
+
+  <h3>0.2 Política de manutenção</h3>
+  <p>Interfaces mudam sem aviso. As rotas de clique refletem as versões das ferramentas na data desta edição. As três regras:</p>
+  <ul>
+    <li><strong>Quem executa, atualiza.</strong> Botão mudou de lugar? Encontre o caminho novo, execute e edite este manual no mesmo dia.</li>
+    <li>Todo bloco tracejado de print deve ser preenchido com captura real na primeira execução em cliente real.</li>
+    <li>Cada fase termina com o campo <em>"Última validação em cliente real"</em>. Preencha sempre.</li>
+  </ul>
+
+  <h3>0.3 O stack padrão (e quando não usá-lo)</h3>
+  <div class="scroll"><table>
+    <tr><th>Camada</th><th>Ferramenta</th><th>Por quê</th></tr>
+    <tr><td>Plataforma da loja</td><td>Tray</td><td>Dominante no ICP de moda média BR, API estável, integração de 1 clique com a edrone</td></tr>
+    <tr><td>CRM · e-mail · SMS · WhatsApp · RFM</td><td>edrone</td><td>Concentra tudo num sistema só, com RFM nativo, pop-up e recomendação por IA. Feita exclusivamente para e-commerce. Suporte em português</td></tr>
+    <tr><td>WhatsApp oficial</td><td>WhatsApp Business API (Meta Cloud)</td><td>Templates aprovados, número verificado, sem risco de banimento</td></tr>
+    <tr><td>Avaliações</td><td>Trustvox</td><td>Padrão do mercado BR, integra com Tray, coleta dado de caimento</td></tr>
+    <tr><td>Painel</td><td>Planilha Google + Looker Studio</td><td>Custo zero, cliente acessa, Livonno controla a fórmula</td></tr>
+    <tr><td>Colas e exceções</td><td>n8n</td><td>Só quando a edrone não cobrir (ex.: alerta interno). Nunca para o que a edrone já faz</td></tr>
+  </table></div>
+  <div class="co rule"><b>Regra de posicionamento</b>A Livonno opera a ferramenta que o cliente já paga. Se ele chega com Klaviyo, Dito ou Mailchimp funcionando, não force migração — a lógica deste manual é idêntica em qualquer ferramenta; só as rotas de clique mudam. Migração só com justificativa documentada no diagnóstico.</div>
+
+  <h3>0.4 A loja de treino: Aurora Vestuário</h3>
+  <p>Todos os números, copies e exemplos usam a Aurora — o centro exato do ICP Livonno. Decore estes dados: as metas das fases seguintes derivam deles.</p>
+  <div class="scroll"><table>
+    <tr><th>Dado</th><th>Valor</th><th>Dado</th><th>Valor</th></tr>
+    <tr><td>Segmento</td><td>Moda feminina · casual e básicos</td><td>Plataforma</td><td>Tray</td></tr>
+    <tr><td>Visitas/mês</td><td>82.000</td><td>Pedidos/mês</td><td>~710</td></tr>
+    <tr><td>Ticket médio</td><td>R$ 189</td><td>Faturamento/mês</td><td>~R$ 134.000</td></tr>
+    <tr><td>Base de contatos</td><td>26.400</td><td>Compradoras no histórico</td><td>14.800</td></tr>
+    <tr><td>Operação</td><td>5 anos</td><td>Time de WhatsApp</td><td>3 pessoas (SAC + venda)</td></tr>
+    <tr><td>Ferramenta atual</td><td>edrone há 8 meses — só "disparo de novidade"</td><td>Pagamento</td><td>PIX 46% · cartão 41% · boleto 13%</td></tr>
+  </table></div>
+
+  <h3>0.5 Convenções</h3>
+  <ul>
+    <li><code>Caminho &gt; De &gt; Cliques</code> — rota de navegação na interface</li>
+    <li>Bloco tracejado verde — colar print real ali</li>
+    <li>Callout amarelo — erro que já custou retrabalho; azul — LGPD/segurança, não pode ser pulado; verde — critério de aceite: a etapa só termina quando aquilo for verdade</li>
+  </ul>
+</section>
+
+<!-- ============ FASE 0 ============ -->
+<section class="fase wrap" id="f0">
+  <span class="fase-num">F0</span>
+  <p class="eyebrow">Fase 0 · dia 0 a 2</p>
+  <h2>Do contrato ao kickoff</h2>
+  <p class="fase-meta">Começa na assinatura · termina com todos os acessos funcionando e a ata de kickoff enviada</p>
+
+  <h3>0.1 Matriz de acessos — colete tudo antes do kickoff</h3>
+  <p>Envie o e-mail padrão de boas-vindas (modelo abaixo) no mesmo dia da assinatura. Marque cada linha só depois de <strong>logar e confirmar</strong> — "o cliente disse que mandou" não é acesso.</p>
+  <div class="scroll"><table>
+    <tr><th>#</th><th>Acesso</th><th>Nível</th><th>Para quê</th><th>Como pedir</th></tr>
+    <tr><td>1</td><td>Painel Tray</td><td>Usuário próprio, perfil Administrador</td><td>Exportar pedidos, integração, status de pagamento</td><td><code>Minha conta &gt; Usuários &gt; Adicionar usuário</code></td></tr>
+    <tr><td>2</td><td>edrone</td><td>Usuário próprio, permissão total</td><td>Toda a operação</td><td><code>Configurações &gt; Equipe &gt; Convidar</code></td></tr>
+    <tr><td>3</td><td>DNS do domínio</td><td>Gerenciador de zona ou contato de quem tem</td><td>SPF · DKIM · DMARC</td><td>"Quem registrou o domínio da loja?" — dono ou agência de tecnologia</td></tr>
+    <tr><td>4</td><td>Meta Business Manager</td><td>Pessoa com acesso ao portfólio</td><td>WhatsApp API, verificação de marca</td><td><code>business.facebook.com &gt; Configurações &gt; Pessoas</code></td></tr>
+    <tr><td>5</td><td>Gateway de pagamento</td><td>Leitura</td><td>Boletos/PIX não pagos, cartões recusados</td><td>Acesso de visualização basta</td></tr>
+    <tr><td>6</td><td>Google Analytics</td><td>Leitura</td><td>Receita por origem (linha de base)</td><td><code>Administrador &gt; Gerenciamento de acesso</code></td></tr>
+    <tr><td>7</td><td>Número de WhatsApp p/ API</td><td>Número novo ou secundário</td><td>Fluxos e campanhas oficiais</td><td>Ver alerta abaixo</td></tr>
+    <tr><td>8</td><td>Histórico de pedidos</td><td>CSV · mínimo 24 meses</td><td>RFM e janela de recompra</td><td>Você exporta com o acesso nº 1</td></tr>
+    <tr><td>9</td><td>Trustvox</td><td>Admin</td><td>Reviews com dado de caimento</td><td>Criar conta em nome do cliente</td></tr>
+  </table></div>
+
+  <div class="co warn"><b>⚠ O erro clássico do número</b>O número conectado à API oficial NÃO pode estar em uso no app WhatsApp comum ou Business — a conexão remove o número do aplicativo. Se o cliente oferecer o número principal de atendimento, recuse e explique: o atendimento humano continua no número atual; a API usa um número novo (chip pré-pago ou número virtual). Registre a decisão na ata.</div>
+  <div class="co lock"><b>🔒 Segurança</b>Todos os acessos entram no cofre de senhas da Livonno — nunca em planilha aberta, nunca no WhatsApp. Cada cliente tem pasta própria.</div>
+  <div class="co ok"><b>✓ Critério de aceite</b>Você logou nos itens 1–6 com as credenciais recebidas e tirou print de cada tela inicial logada.</div>
+  <div class="print-slot"><div class="cam">📷</div><p>PRINT: grade 2×3 com as telas iniciais logadas — Tray · edrone · DNS · Meta BM · gateway · GA</p></div>
+
+  <h3>0.2 Modelo — e-mail de boas-vindas + acessos (enviar no dia da assinatura)</h3>
+  <div class="copy"><span class="tag">E-mail · assunto: Começamos — 9 acessos para colocar sua operação no ar</span>
+  <div class="msg">Oi, [nome do dono]!
+
+Contrato assinado — bem-vinda ao método Livonno. Antes de qualquer estratégia, preciso enxergar sua operação por dentro. São 9 acessos, e o caminho de cada um está listado abaixo (5–15 minutos no total):
+
+1. Tray — crie um usuário Administrador para operacao@livonno.com.br em Minha conta &gt; Usuários
+2. edrone — convide operacao@livonno.com.br em Configurações &gt; Equipe
+3. DNS — me diga quem registrou o domínio da loja (nome + contato)
+4. Meta Business Manager — adicione operacao@livonno.com.br em Configurações do negócio &gt; Pessoas
+5. Gateway de pagamento — um acesso de visualização
+6. Google Analytics — acesso de leitura
+7. WhatsApp — um número NOVO para a API oficial (o atendimento de vocês continua no número atual; explico na reunião)
+8. Pedidos — eu mesmo exporto, com o acesso 1
+9. Trustvox — eu crio a conta em nome da loja
+
+Assim que os itens 1–6 chegarem, confirmo um a um e marcamos o kickoff de 45 minutos — de preferência com você e [sócio/gerente] juntos.
+
+Enquanto isso, uma pergunta importante: todos os contatos da sua base vieram de compra ou cadastro na própria loja? (Pergunto por LGPD — lista de origem externa não entra na operação.)
+
+Abraço,
+Damião · Livonno</div></div>
+
+  <h3>0.3 Reunião de kickoff — 45 min, pauta fixa</h3>
+  <div class="scroll"><table>
+    <tr><th>#</th><th>Item</th><th>O que sai daqui</th></tr>
+    <tr><td>1</td><td>Reapresentar o plano fechado e a ordem de implantação (quadro de prioridades da Fase 3)</td><td>Frase obrigatória: "não vamos ligar tudo no mês 1 — vamos ligar na ordem que traz dinheiro mais rápido"</td></tr>
+    <tr><td>2</td><td>Definir o ponto focal do lado do cliente</td><td>Um nome + WhatsApp. Uma pessoa, não "o time"</td></tr>
+    <tr><td>3</td><td>Confirmar o número da API e quem responde quando uma cliente responde um fluxo</td><td>Nome do responsável + SLA de resposta</td></tr>
+    <tr><td>4</td><td>Avisar do período silencioso (1–2 semanas de fundação sem disparo)</td><td>Evita a ligação ansiosa do dia 10</td></tr>
+    <tr><td>5</td><td>Agendar as quinzenais</td><td>Dia e hora fixos, recorrentes, nos dois calendários</td></tr>
+    <tr><td>6</td><td>🔒 Origem da base (LGPD)</td><td>Resposta formal registrada em ata</td></tr>
+  </table></div>
+
+  <h4>Modelo de ata de kickoff (enviar no mesmo dia)</h4>
+  <div class="copy"><span class="tag">Ata · Kickoff Aurora Vestuário · [data]</span>
+  <div class="msg">Presentes: [dono], [sócia], Damião (Livonno)
+Ponto focal Aurora: [nome] · [WhatsApp]
+Número da API: (xx) 9xxxx-xxxx — número novo, dedicado. Atendimento humano segue no número atual.
+Quem responde fluxos: [atendente 1], em até 30 min no horário comercial.
+Origem da base: 100% compra e cadastro próprios (confirmado pelo dono). Nenhuma lista externa.
+Quinzenais: toda 2ª e 4ª terça, 10h, no Meet.
+Período silencioso: até [data] — fundação técnica e aquecimento, sem campanhas.
+Próximo marco: entrega do diagnóstico em [data].</div></div>
+
+  <p class="foot-val">Última validação da Fase 0 em cliente real: ____/____/____ por ____________</p>
+</section>
+
+<!-- ============ FASE 1 ============ -->
+<section class="fase wrap" id="f1">
+  <span class="fase-num">F1</span>
+  <p class="eyebrow">Fase 1 · dia 3 a 9</p>
+  <h2>Diagnóstico</h2>
+  <p class="fase-meta">O produto de entrada (R$ 1.900, abatível) e o "antes" de todo comparativo futuro · rigor de auditoria: este relatório será citado por 6 meses</p>
+
+  <h3>1.1 Dia 3 — Exportar o histórico de pedidos da Tray</h3>
+  <ol style="color:var(--dim)">
+    <li>Painel Tray → menu lateral <code>Vendas &gt; Pedidos</code></li>
+    <li>Filtro de período: <strong>24 meses</strong> (ou desde o início, se a loja for mais nova)</li>
+    <li><code>Status</code> = vendas concluídas/aprovadas — excluir cancelados. <em>Não</em> excluir "enviado vs. entregue": ambos contam</li>
+    <li><code>Exportar</code> → CSV → salvar como <code>aurora-pedidos-24m.csv</code> na pasta do cliente</li>
+    <li>Colunas mínimas: nº do pedido, data, e-mail (ou CPF), valor, status, forma de pagamento, itens/categoria. Se a categoria não vier, exportar também <code>Vendas &gt; Relatórios &gt; Produtos vendidos</code></li>
+  </ol>
+  <div class="print-slot"><div class="cam">📷</div><p>PRINT: tela de exportação da Tray com o filtro de 24 meses aplicado</p></div>
+
+  <h3>1.2 Dia 3–4 — Matriz RFM na planilha (fórmulas prontas)</h3>
+  <p>Crie <code>AURORA — Diagnóstico RFM</code> com as abas <code>pedidos</code> · <code>clientes</code> · <code>rfm</code> · <code>janela</code>.</p>
+
+  <h4>Passo 1 — consolidar por cliente (aba clientes; supondo B = e-mail, C = data, D = valor na aba pedidos)</h4>
+  <div class="scroll"><table>
+    <tr><th>Col.</th><th>Título</th><th>Fórmula (linha 2)</th></tr>
+    <tr><td>A</td><td>e-mail</td><td><code>=UNIQUE(pedidos!B2:B)</code></td></tr>
+    <tr><td>B</td><td>última compra</td><td><code>=MAXIFS(pedidos!C:C; pedidos!B:B; A2)</code></td></tr>
+    <tr><td>C</td><td>recência (dias)</td><td><code>=HOJE()-B2</code></td></tr>
+    <tr><td>D</td><td>frequência</td><td><code>=CONT.SE(pedidos!B:B; A2)</code></td></tr>
+    <tr><td>E</td><td>valor total</td><td><code>=SOMASE(pedidos!B:B; A2; pedidos!D:D)</code></td></tr>
+  </table></div>
+  <div class="co warn"><b>⚠ Antes de tudo</b>Se a loja identifica por CPF e o e-mail se repete com grafias diferentes, padronize na origem com <code>=MINÚSCULA(ARRUMAR(...))</code> — RFM com cliente duplicado é RFM errado.</div>
+
+  <h4>Passo 2 — pontuar R, F e M (colunas F, G, H)</h4>
+  <div class="scroll"><table>
+    <tr><th>Nota</th><th>Recência</th><th>Frequência</th><th>Valor</th></tr>
+    <tr><td>5</td><td>≤ 30 dias</td><td>≥ 6 pedidos</td><td>top 20% da base</td></tr>
+    <tr><td>4</td><td>31–60</td><td>4–5</td><td>20–40%</td></tr>
+    <tr><td>3</td><td>61–120</td><td>3</td><td>40–60%</td></tr>
+    <tr><td>2</td><td>121–240</td><td>2</td><td>60–80%</td></tr>
+    <tr><td>1</td><td>&gt; 240</td><td>1</td><td>80–100%</td></tr>
+  </table></div>
+  <p>Coluna F: <code>=SE(C2&lt;=30;5;SE(C2&lt;=60;4;SE(C2&lt;=120;3;SE(C2&lt;=240;2;1))))</code><br>
+  Coluna G: <code>=SE(D2&gt;=6;5;SE(D2&gt;=4;4;SE(D2=3;3;SE(D2=2;2;1))))</code><br>
+  Coluna H: <code>=SE(E2&gt;=PERCENTIL(E:E;0,8);5;SE(E2&gt;=PERCENTIL(E:E;0,6);4;SE(E2&gt;=PERCENTIL(E:E;0,4);3;SE(E2&gt;=PERCENTIL(E:E;0,2);2;1))))</code></p>
+
+  <h4>Passo 3 — mapear para os 8 segmentos (coluna I — a ordem das regras importa: a primeira que casar, vence)</h4>
+  <div class="scroll"><table>
+    <tr><th>Segmento</th><th>Regra R / F / M</th><th>Tratamento-padrão</th></tr>
+    <tr class="t-lima"><td>Campeãs</td><td>R ≥ 4 e F ≥ 4 e M ≥ 4</td><td>Exclusividade, acesso antecipado — nunca cupom</td></tr>
+    <tr><td>Fiéis</td><td>R ≥ 3 e F ≥ 4</td><td>Cross-sell e aumento de ticket</td></tr>
+    <tr><td>Não pode perder</td><td>R ≤ 2 e M ≥ 4</td><td>Contato 1:1 antes de qualquer régua</td></tr>
+    <tr><td>Em risco</td><td>R 2–3 e F ≥ 3</td><td>Reengajamento antes de perder</td></tr>
+    <tr><td>Promissoras</td><td>R ≥ 4 e F 2–3</td><td>Estímulo à consolidação do hábito</td></tr>
+    <tr><td>Novas</td><td>R ≥ 4 e F = 1</td><td>Jornada de 2ª compra</td></tr>
+    <tr><td>Hibernando</td><td>R 1–2 e F ≤ 2 e M ≤ 3</td><td>Win-back progressivo</td></tr>
+    <tr><td>Perdidas</td><td>R = 1 e F = 1 e M ≤ 2</td><td>Última tentativa → supressão</td></tr>
+  </table></div>
+  <div class="co ok"><b>✓ Critério de aceite</b>A soma dos 8 segmentos = total de compradoras únicas; nenhum cliente em dois segmentos. Referência Aurora: Campeãs ~4% · Fiéis ~8% · Promissoras ~14% · Novas ~12% · Em risco ~11% · Não pode perder ~2% · Hibernando ~25% · Perdidas ~24%. Distribuição diferente não é erro — é o retrato da loja; anote no relatório.</div>
+  <div class="print-slot"><div class="cam">📷</div><p>PRINT: quadro-resumo RFM com os 8 segmentos, contagem e %</p></div>
+
+  <h3>1.3 Dia 4 — Janela de recompra real (o número que ninguém tem)</h3>
+  <ol style="color:var(--dim)">
+    <li>Filtrar da aba clientes quem tem frequência ≥ 2</li>
+    <li>Na aba pedidos, criar <code>ordem do pedido</code>: <code>=CONT.SES(B:B;B2;C:C;"&lt;="&amp;C2)</code></li>
+    <li>Intervalo por cliente = data do pedido 2 − data do pedido 1 (via MAXIFS condicionais ou tabela dinâmica)</li>
+    <li>Janela geral = <code>=MED(intervalos)</code> — <strong>mediana, nunca média</strong> (meia dúzia de recompras no dia seguinte destrói a média)</li>
+    <li>Repetir por categoria do 1º item: básicos giram mais rápido que vestido</li>
+  </ol>
+  <div class="co rule"><b>Números da Aurora</b>Mediana geral 74 dias · básicos 52 · jeans 96 · vestidos 148. O disparo principal da régua de recompra fica entre 70% e 80% da janela: básicos ⇒ dia 36–42 · geral ⇒ dia 52–59.</div>
+
+  <h3>1.4 Dia 5 — Medir os vazamentos</h3>
+  <div class="scroll"><table>
+    <tr><th>Vazamento</th><th>Onde medir</th><th>O que anotar</th><th>Aurora (30 dias)</th></tr>
+    <tr><td>Carrinho/checkout</td><td>Tray <code>Vendas &gt; Carrinhos abandonados</code> (ou GA: checkouts iniciados − pedidos pagos)</td><td>Quantidade · valor</td><td>~R$ 61.000 abandonados</td></tr>
+    <tr class="t-lima"><td>Boleto/PIX não pagos</td><td>Tray <code>Pedidos</code> filtro "Aguardando pagamento" + expirados · cruzar com o gateway</td><td>Quantidade · valor · % dos pedidos gerados</td><td>121 pedidos ≈ R$ 22.900</td></tr>
+    <tr><td>Receita vinda da base</td><td>GA4 <code>Aquisição &gt; Aquisição de tráfego</code></td><td>% da receita de e-mail/SMS/WA</td><td>2,8% — linha de base do KPI central</td></tr>
+  </table></div>
+  <p><strong>Recuperar 15–20% dos não-pagos da Aurora = R$ 3.400–4.600/mês — sozinho, paga a mensalidade da Livonno.</strong> Este número abre o relatório e a reunião.</p>
+  <div class="print-slot"><div class="cam">📷</div><p>PRINT: Tray filtrada em "Aguardando pagamento" com o total de 30 dias</p></div>
+
+  <div class="co rule"><b>Réguas de mercado para comparar (citar fonte, nunca prometer)</b>
+  Recompra no Brasil: <strong>12% a 22% em 90 dias</strong> (EUA maduro: 40%+ em 30 dias) · <strong>% da receita vinda da base abaixo de 20%</strong> = dependência excessiva de mídia paga; operações maduras ficam entre <strong>30% e 40%</strong> · Bain &amp; Company: +5% de retenção pode gerar até 95% mais lucro · McKinsey: campanha por comportamento chega a 4× mais resposta · Wharton: cliente vindo por indicação tem LTV ~16% maior.<br><br>
+  <em>Uso correto no relatório: "o mercado brasileiro roda entre 12% e 22% de recompra em 90 dias — a Aurora está em X%". Uso errado: prometer qualquer um desses números como resultado da Livonno.</em></div>
+
+  <h3>1.5 Dia 5 — Cliente oculto (sábado ~21h, protocolo completo)</h3>
+  <div class="scroll"><table>
+    <tr><th>Teste</th><th>Como fazer</th><th>Cronometrar/anotar</th></tr>
+    <tr><td>Carrinho</td><td>2 peças no carrinho, sair no checkout, e-mail de teste identificado</td><td>O que chega, canal, tempo, conteúdo</td></tr>
+    <tr><td>PIX</td><td>Gerar pedido PIX e não pagar</td><td>Alguém cobra? Em quanto tempo? Quando expira?</td></tr>
+    <tr><td>WhatsApp</td><td>"esse vestido veste certinho? tenho 1,68m, uso 40"</td><td>Tempo até resposta · a resposta vende ou despacha?</td></tr>
+    <tr><td>Newsletter</td><td>Assinar com e-mail de teste</td><td>Boas-vindas chega? Em quanto tempo? Segmentado?</td></tr>
+    <tr><td>Pós-venda</td><td>(se viável) compra barata real</td><td>Transacional existe? Pedem review?</td></tr>
+  </table></div>
+  <p>Guarde <strong>prints com horário visível</strong> — entram no relatório e, anonimizados, no material comercial da Livonno.</p>
+  <div class="print-slot"><div class="cam">📷</div><p>PRINT: WhatsApp da loja — pergunta de tamanho às 21h04, resposta 11h37 do dia seguinte</p></div>
+
+  <h3>1.6 Dia 6 — Auditoria da ferramenta atual</h3>
+  <p>Na edrone: <code>Automações</code> — o que existe, o que está ativo, último disparo de cada fluxo. Depois <code>Campanhas</code> — frequência, segmentação (ou base inteira?), taxa de descadastro recente. Print de tudo. Saída: tabela "existe / ativo / funciona / falta" com as 8 frentes Livonno nas linhas.</p>
+
+  <h3>1.7 Dia 7–9 — O relatório (estrutura fixa, 10–14 páginas)</h3>
+  <div class="scroll"><table>
+    <tr><th>Bloco</th><th>Conteúdo</th></tr>
+    <tr class="t-lima"><td>1 · Resumo em uma página</td><td>Os 4 números que doem: R$ 22.900/mês sem cobrança · 49% da base hibernando/perdida · 2,8% da receita vinda da base · WhatsApp respondido em 14h36min</td></tr>
+    <tr><td>2 · Matriz RFM</td><td>Quadro dos 8 segmentos com contagem, % e valor histórico</td></tr>
+    <tr><td>3 · Janela de recompra</td><td>Mediana geral e por categoria + onde a régua vai disparar</td></tr>
+    <tr><td>4 · Vazamentos</td><td>Tabela com valores de 30 dias</td></tr>
+    <tr><td>5 · Cliente oculto</td><td>Prints com horário</td></tr>
+    <tr><td>6 · Auditoria da ferramenta</td><td>Existe / ativo / funciona / falta</td></tr>
+    <tr><td>7 · Plano na ordem de ROI</td><td>Metas por fase derivadas dos números levantados</td></tr>
+    <tr><td>8 · Próximo passo</td><td>Plano recomendado, valor, abate do diagnóstico</td></tr>
+  </table></div>
+  <div class="co warn"><b>⚠ Regra de escrita</b>Todo número do relatório tem print ou planilha por trás. Nenhuma estimativa sem rótulo de estimativa.</div>
+  <div class="co ok"><b>✓ Entrega</b>Relatório enviado ANTES da reunião (o dono lê no tempo dele e encaminha ao sócio — o comitê é de 2–3 pessoas; escreva para ser encaminhado). Reunião em até 2 dias úteis após o envio.</div>
+
+  <p class="foot-val">Última validação da Fase 1 em cliente real: ____/____/____ por ____________</p>
+</section>
+
+<!-- ============ FASE 2 ============ -->
+<section class="fase wrap" id="f2">
+  <span class="fase-num">F2</span>
+  <p class="eyebrow">Fase 2 · dia 8 a 16 · em paralelo ao fim do diagnóstico</p>
+  <h2>Fundação técnica</h2>
+  <p class="fase-meta">Nada dispara antes desta fase estar 100% verde. E-mail sem autenticação vai para spam · WhatsApp sem API é número banido · evento que não chega é régua que nunca dispara</p>
+
+  <h3>2.1 Integrar Tray ↔ edrone e validar os 6 eventos</h3>
+  <ol style="color:var(--dim)">
+    <li>Tray: <code>Aplicativos &gt; Loja de aplicativos</code> → buscar <strong>edrone</strong> → <code>Instalar</code> → autorizar</li>
+    <li>edrone: <code>Configurações &gt; Integrações</code> → Tray com status <strong>Conectada</strong> e URL correta</li>
+    <li>Aguardar a sincronização inicial (produtos, clientes, pedidos) — horas, na base da Aurora</li>
+  </ol>
+  <div class="print-slot"><div class="cam">📷</div><p>PRINT: Integrações da edrone com a Tray em status Conectada</p></div>
+
+  <p><strong>O teste que separa amador de operador — não confie no "Conectado":</strong></p>
+  <div class="scroll"><table>
+    <tr><th>#</th><th>Evento</th><th>Como provocar</th><th>Onde conferir</th><th>✓ Aceite</th></tr>
+    <tr><td>1</td><td>Produto visto</td><td>Navegar logado com e-mail de teste</td><td>Perfil do contato &gt; linha do tempo</td><td>Evento em minutos</td></tr>
+    <tr><td>2</td><td>Carrinho criado</td><td>Adicionar produto identificado</td><td>Linha do tempo</td><td>Evento com o produto certo</td></tr>
+    <tr><td>3</td><td>Checkout iniciado</td><td>Avançar até pagamento e sair</td><td>Linha do tempo</td><td>Evento registrado</td></tr>
+    <tr><td>4</td><td>Pedido não pago</td><td>Fechar em PIX/boleto e não pagar</td><td>Linha do tempo + status</td><td>Consta "aguardando"</td></tr>
+    <tr><td>5</td><td>Pedido pago</td><td>Pagar o produto-teste de R$ 5</td><td>Linha do tempo</td><td>Status vira pago</td></tr>
+    <tr><td>6</td><td>Cadastro newsletter</td><td>Assinar pop-up com e-mail novo</td><td><code>Audiência &gt; Contatos</code></td><td>Entra com origem certa</td></tr>
+  </table></div>
+  <div class="co warn"><b>⚠ Kit de teste</b>Crie na Tray um produto oculto de R$ 5 ("Cartão teste — não comprar") para os eventos 4 e 5. Depois do go-live, exclua os pedidos de teste das métricas filtrando pelo e-mail de teste. Evento não chegou? 1º reinstale o app · 2º confira se a sessão estava identificada (evento anônimo não vincula) · 3º chamado no suporte com print+horário. <strong>Não avance com evento faltando</strong> — a régua de carrinho depende do 2/3 e a de PIX depende do 4.</div>
+
+  <h3>2.2 Autenticação de e-mail: SPF · DKIM · DMARC</h3>
+  <p>Em uma linha cada: SPF diz quais servidores enviam pelo domínio · DKIM assina cada e-mail · DMARC diz o que fazer com quem falhar — e manda relatório.</p>
+  <ol style="color:var(--dim)">
+    <li>edrone: <code>Configurações &gt; Domínio de envio</code> → cadastrar <strong>subdomínio dedicado</strong> <code>news.auroravestuario.com.br</code> (isola a reputação de marketing do e-mail do dono). A tela exibirá os registros a criar</li>
+    <li>No DNS (acesso nº 3), criar <em>exatamente</em> os registros exibidos. Padrão típico:<br>
+      <code>TXT news → v=spf1 include:_spf.edrone.me ~all</code> (use o include exato da tela)<br>
+      <code>CNAME edrone._domainkey.news → valor fornecido</code> (DKIM)<br>
+      <code>CNAME de tracking → valor fornecido</code></li>
+    <li>DMARC (manual): <code>TXT _dmarc.auroravestuario.com.br → v=DMARC1; p=none; rua=mailto:dmarc@livonno.com.br; fo=1</code></li>
+    <li>Propagação 24–48h. Validar: <code>dig TXT news.auroravestuario.com.br +short</code> · Google Admin Toolbox CheckMX · e-mail de teste para um Gmail → <code>Mostrar original</code> → SPF/DKIM/DMARC = <strong>PASS</strong></li>
+    <li>mail-tester.com → nota ≥ 9/10</li>
+  </ol>
+  <div class="co warn"><b>⚠ Escada do DMARC</b>Começar em p=none (só monitorar). Após 3–4 semanas de relatórios limpos, subir para p=quarantine. Nunca ir direto a reject.</div>
+  <div class="print-slot"><div class="cam">📷</div><p>PRINT: "Mostrar original" do Gmail com SPF · DKIM · DMARC = PASS &nbsp;+&nbsp; registros criados no DNS</p></div>
+
+  <h3>2.3 Aquecimento do domínio de envio</h3>
+  <p>Subdomínio sem histórico disparando para 26 mil contatos no dia 1 = spam garantido. Criar antes: segmento <code>AQUEC-1 · Engajadas 90d</code> (compraram OU abriram/clicaram em 90 dias) e <code>AQUEC-2 · Ativas 180d</code> em <code>Audiência &gt; Segmentos</code>.</p>
+  <div class="scroll"><table>
+    <tr><th>Semana</th><th>Para quem</th><th>Volume/dia (Aurora)</th><th>Conteúdo</th></tr>
+    <tr><td>1</td><td>AQUEC-1 (miolo quente)</td><td>150–300</td><td>Útil, zero oferta: guia de medidas, bastidor de coleção</td></tr>
+    <tr><td>2</td><td>AQUEC-1 completo</td><td>500–800</td><td>Conteúdo + 1ª oferta leve</td></tr>
+    <tr><td>3</td><td>+ AQUEC-2</td><td>1.500–2.500</td><td>Campanha normal segmentada</td></tr>
+    <tr><td>4+</td><td>Base elegível completa</td><td>livre, com bom senso</td><td>Operação normal</td></tr>
+  </table></div>
+  <div class="co rule"><b>Duas regras do aquecimento</b>1) Spam/report subiu ou entrega caiu → congele o volume no patamar anterior por 3 dias. 2) Fluxos transacionais e de recuperação (volume pequeno, engajamento altíssimo) ligam já na semana 1 — eles AJUDAM a reputação.</div>
+
+  <h3>2.4 WhatsApp Business API — verificação, número e templates</h3>
+  <ol style="color:var(--dim)">
+    <li><strong>Verificação da empresa</strong> (inicie no dia 8 — maior prazo morto da fase): <code>business.facebook.com &gt; Configurações do negócio &gt; Central de segurança &gt; Verificação da empresa</code> → CNPJ + documento + site. Prazo típico 1–5 dias úteis</li>
+    <li><strong>Conectar o número</strong>: edrone <code>Configurações &gt; Canais &gt; WhatsApp</code> → fluxo Cloud API com o número do kickoff (recebe SMS de confirmação). O número não pode estar ativo em nenhum app</li>
+    <li><strong>Perfil comercial completo</strong>: logo, descrição, site, e-mail — reduz bloqueio por usuário</li>
+    <li><strong>Templates a submeter já</strong> (textos na Fase 3): <code>carrinho_lembrete_v1</code> (marketing) · <code>pix_pendente_v1</code> (utility) · <code>boleto_pendente_v1</code> (utility) · <code>pedido_status_v1</code> (utility) · <code>pos_entrega_review_v1</code> (marketing)</li>
+  </ol>
+  <div class="co warn"><b>⚠ Aprovação de template</b>Sem CAIXA ALTA excessiva · variável {{1}} com exemplo preenchido · sem encurtador suspeito · cobrança de pedido em aberto = utility (aprova mais fácil e custa menos). Reprovou? Leia o motivo, corrija O MESMO template e ressubmeta — não crie duplicado com outro nome.</div>
+  <div class="co lock"><b>🔒 Opt-in</b>Marketing ativo por WhatsApp exige consentimento: checkbox no checkout da Tray + campo no pop-up ("Quero receber novidades e o status do meu pedido por WhatsApp"). Utility sobre pedido em aberto do próprio cliente é legítimo pela natureza da transação — marketing sem opt-in, não. Na dúvida, trate como marketing.</div>
+  <div class="co ok"><b>✓ Aceite</b>Template de teste recebido no celular da Livonno com o nome verificado da loja.</div>
+  <div class="print-slot"><div class="cam">📷</div><p>PRINT: template pix_pendente_v1 aprovado + recebimento no celular com nome verificado</p></div>
+
+  <h3>2.5 SMS</h3>
+  <p>edrone <code>Configurações &gt; Canais &gt; SMS</code> — remetente e créditos. Uso Livonno é <strong>cirúrgico</strong> (rede de segurança): PIX expirando, boleto vencendo, falha de entrega. Todo SMS identifica a loja. Teste antes do go-live.</p>
+
+  <h3>2.6 Higienização e LGPD — checklist final</h3>
+  <ul class="check">
+    <li>🔒 Base revisada: só contatos de origem própria (compra/cadastro)</li>
+    <li>🔒 Descadastro testado: clicar e ver o status mudar na edrone</li>
+    <li>🔒 Política de privacidade menciona e-mail/SMS/WhatsApp (pedir ajuste se não)</li>
+    <li>Hard bounces e inválidos suprimidos</li>
+    <li>Descadastrados do histórico antigo importados como supressão — nunca reativar</li>
+  </ul>
+
+  <p class="foot-val">Última validação da Fase 2 em cliente real: ____/____/____ por ____________</p>
+</section>
+
+<!-- ============ FASE 3 ============ -->
+<section class="fase wrap" id="f3">
+  <span class="fase-num">F3</span>
+  <p class="eyebrow">Fase 3 · dia 15 a 45</p>
+  <h2>Implantação na ordem de ROI</h2>
+  <p class="fase-meta">As prioridades entram na ordem. Não abra a P2 com a P1 fora do ar — cada prioridade tem portão de saída</p>
+
+  <div class="scroll"><table>
+    <tr><th>Prioridade</th><th>O que entra</th><th>Por quê primeiro</th></tr>
+    <tr class="t-lima"><td>P1 · Dinheiro quente</td><td>Carrinho · checkout · PIX/boleto · cartão recusado</td><td>Retorno em semanas — é o que paga o projeto</td></tr>
+    <tr><td>P2 · Segunda compra</td><td>Boas-vindas · transacional · recompra por janela · cross-sell</td><td>Transforma comprador em cliente</td></tr>
+    <tr><td>P3 · Receita parada</td><td>RFM vivo · win-back · estoque parado</td><td>Dinheiro que já existe na base</td></tr>
+    <tr><td>P4 · Expansão</td><td>Review · VIP 1:1 · camada humana · NPS</td><td>Constrói o que dura</td></tr>
+  </table></div>
+
+  <div class="co rule"><b>Rota-mãe de qualquer automação na edrone</b><code>Automações &gt; Criar automação</code> → escolher o cenário pronto (a edrone tem 20+: carrinho, boas-vindas, pós-compra, reativação…) ou Criar do zero → gatilho → condições → ações (mensagens + esperas) → teste interno → Ativar. Toda automação nasce em modo teste disparando só para e-mails internos, e só vira pública após o critério de aceite.</div>
+
+  <h3 style="color:var(--lima)">PRIORIDADE 1 — Dinheiro quente (semana 1 da implantação)</h3>
+
+  <h4>3.1 Régua de carrinho e checkout abandonado</h4>
+  <p><strong>Lógica:</strong> intenção decai por minuto. O 1º toque é lembrete puro (a maioria volta só com isso); prova e urgência depois; <strong>incentivo só no fim, só para quem não voltou</strong> — desconto cedo é margem queimada para quem ia comprar de qualquer jeito.</p>
+
+  <div class="mer"><pre class="mermaid">
+flowchart TD
+    A["Gatilho: checkout iniciado sem pedido pago"] --> B{"Comprou nos últimos 60 min?"}
+    B -- sim --> Z["Encerra"]
+    B -- não --> C["15 min · WhatsApp/e-mail — lembrete simples"]
+    C --> D{"Comprou?"}
+    D -- sim --> Z
+    D -- não --> E["2 h · E-mail — caimento, medidas, composição"]
+    E --> F{"Comprou?"}
+    F -- sim --> Z
+    F -- não --> G["12 h · E-mail — prova social da mesma peça"]
+    G --> H{"Comprou?"}
+    H -- sim --> Z
+    H -- não --> I["24 h · WhatsApp — urgência real: grade acabando"]
+    I --> J{"Comprou?"}
+    J -- sim --> Z
+    J -- não --> K["48 h · E-mail — incentivo final com prazo"]
+    K --> Z
+  </pre></div>
+
+  <p><strong>Montagem:</strong> cenário Carrinho abandonado → gatilho no evento de checkout → esperas e mensagens conforme o fluxo. Saída global: <strong>pedido pago encerra em qualquer ponto</strong> (o cenário pronto já faz — confirme no teste). Proteção: 1 entrada por contato a cada 7 dias.</p>
+
+  <div class="copy"><span class="tag">Toque 1 · 15 min · WhatsApp (template carrinho_lembrete_v1)</span><div class="msg">Oi, {{nome}}! Vi que você separou {{produto}} aqui na Aurora e não finalizou. Ficou alguma dúvida de tamanho ou caimento? Me responde por aqui que eu te ajudo 💛 — Time Aurora</div></div>
+  <div class="copy"><span class="tag">Toque 2 · 2 h · E-mail · assunto: "Sobre a {{produto}} que ficou te esperando"</span><div class="msg">Foto da peça + composição + tabela de medidas + "veste fiel ao tamanho" + botão direto para o checkout. Sem oferta.</div></div>
+  <div class="copy"><span class="tag">Toque 3 · 12 h · E-mail · assunto: "Quem comprou, contou"</span><div class="msg">2–3 avaliações reais da MESMA peça, com altura e tamanho de quem avaliou ("1,68m, veste 40, comprei M: ficou certinho") + botão.</div></div>
+  <div class="copy"><span class="tag">Toque 4 · 24 h · WhatsApp</span><div class="msg">{{nome}}, passando um aviso rápido: a {{produto}} está com as últimas unidades na sua numeração. Se ainda quiser, segura a sua aqui: {{link}}
+(⚠ usar SÓ se for verdade — urgência falsa queima a marca)</div></div>
+  <div class="copy"><span class="tag">Toque 5 · 48 h · E-mail · assunto: "Fechamos com frete por nossa conta?"</span><div class="msg">Frete grátis no pedido, válido por 24 horas. Único toque com incentivo da régua.</div></div>
+
+  <div class="co ok"><b>✓ Aceite</b>Abandonar um carrinho de teste e receber os 5 toques nos tempos certos; pagar no meio e confirmar que a régua PARA.</div>
+  <div class="print-slot"><div class="cam">📷</div><p>PRINT: linha do tempo da automação na edrone com os 5 passos e esperas</p></div>
+
+  <h4>3.2 Régua de PIX e boleto pendentes — a mina de ouro</h4>
+  <p><strong>Lógica:</strong> não é marketing, é cobrança de uma compra que a cliente já decidiu fazer. Menos etapas, mais urgência, canal que chega rápido. Na Aurora são R$ 22.900/mês parados aqui; recuperar 15–20% paga a mensalidade da Livonno sozinho — por isso esta régua sobe primeiro.</p>
+
+  <div class="mer"><pre class="mermaid">
+flowchart TD
+    A["Gatilho: pedido criado — aguardando pagamento"] --> B{"PIX ou boleto?"}
+    B -- PIX --> C["10 min · WhatsApp utility — código PIX copiável"]
+    C --> D{"Pago em 2h?"}
+    D -- não --> E["2 h · SMS — seu PIX expira em breve"]
+    D -- sim --> Z["Encerra + agradecimento"]
+    E --> F{"Pago?"}
+    F -- não --> G["Na expiração · WhatsApp — gerar novo código em 1 clique"]
+    F -- sim --> Z
+    B -- boleto --> H["30 min · WhatsApp utility — linha digitável + PDF"]
+    H --> I{"Pago em 24h?"}
+    I -- não --> J["24 h · E-mail + SMS — boleto vence hoje"]
+    I -- sim --> Z
+    J --> K{"Pago?"}
+    K -- não --> L["Após vencer · WhatsApp — 2ª via ou trocar para PIX"]
+    K -- sim --> Z
+  </pre></div>
+
+  <div class="copy"><span class="tag">PIX · 10 min · WhatsApp (pix_pendente_v1 · utility)</span><div class="msg">Oi, {{nome}}! Seu pedido {{numero}} na Aurora está quase fechado — só falta o PIX de R$ {{valor}}. Código: {{codigo}} (toque para copiar). Qualquer dúvida, é só responder.</div></div>
+  <div class="copy"><span class="tag">PIX · 2 h · SMS</span><div class="msg">Aurora: seu PIX do pedido {{numero}} expira em breve. Pague em {{link}}</div></div>
+  <div class="copy"><span class="tag">PIX expirado · WhatsApp</span><div class="msg">Seu código expirou, mas o pedido ainda está reservado. Gere um novo em 1 toque: {{link}}</div></div>
+  <div class="copy"><span class="tag">Boleto vencido · WhatsApp</span><div class="msg">{{nome}}, seu boleto do pedido {{numero}} venceu. Quer a 2ª via ou prefere pagar no PIX e garantir agora? Os dois em 1 toque: {{link}}</div></div>
+
+  <div class="co warn"><b>⚠ Calibragem</b>Descubra no gateway o tempo REAL de expiração do PIX da loja (30 min? 24h?) e ajuste os tempos da régua por ele. Mensagens utility: sem oferta, sem emoji em excesso — só facilitação do pagamento.</div>
+  <div class="co ok"><b>✓ Aceite</b>Pedido PIX de teste sem pagar → toques chegam; pagar → régua encerra e o status atualiza na edrone.</div>
+
+  <h4>3.3 Cartão recusado e navegação abandonada</h4>
+  <ul>
+    <li><strong>Cartão recusado:</strong> 2 toques — imediato por WhatsApp utility ("não deu certo o pagamento — quer tentar outro cartão ou mudar para PIX? {{link}}") e +12h por e-mail. Gatilho: evento de pagamento recusado — confirme no teste qual status a Tray + gateway emitem</li>
+    <li><strong>Browse abandonado:</strong> cenário pronto; disparo único por e-mail 3–6h após visita a produto sem carrinho, com recomendação por IA. Máximo 1 por contato a cada 7 dias. Menor prioridade da P1 — pode deslizar uma semana sem culpa</li>
+  </ul>
+  <div class="co ok"><b>✓ Portão de saída da P1</b>Réguas 3.1 e 3.2 ativas, testadas ponta a ponta, e o primeiro real recuperado registrado no painel. Só então a P2 abre.</div>
+</section>
+
+<!-- ============ FASE 3 · P2 ============ -->
+<section class="fase wrap">
+  <span class="fase-num">P2</span>
+  <p class="eyebrow">Fase 3 · continuação · semana 2–3 da implantação</p>
+  <h2>Prioridade 2 — Segunda compra</h2>
+  <p class="fase-meta">Transformar compradora em cliente: boas-vindas · transacional · recompra por janela · cross-sell</p>
+
+  <h4>3.4 Pop-up de captura + régua de boas-vindas (cadastro sem compra)</h4>
+  <p><strong>Captura dentro da loja — 4 pontos, não só o pop-up:</strong> (1) pop-up de entrada com oferta, (2) barra fixa no topo em campanhas, (3) formulário no rodapé sempre disponível, (4) captura de intenção específica — "avise-me quando chegar" (6.3) e listas de interesse de data sazonal (Fase 7), que convertem muito acima da captura genérica. Meta a acompanhar no painel: <strong>taxa de captura</strong> (novos contatos ÷ visitantes únicos) — referência saudável 1,5–3%.</p>
+  <p><strong>O principal deles, o pop-up:</strong> <code>edrone &gt; Pop-ups (On-site) &gt; Criar</code> → oferta de entrada Aurora: <strong>"Primeira compra com frete grátis"</strong> (política Livonno: preferir frete a % de desconto — protege margem e não ancora a marca em promoção) → exibir após 15 segundos OU 50% de rolagem, nunca no primeiro segundo → campo de e-mail + checkbox de WhatsApp opt-in.</p>
+  <div class="scroll"><table>
+    <tr><th>Toque</th><th>Tempo</th><th>Canal</th><th>Assunto / conteúdo</th></tr>
+    <tr><td>1</td><td>Imediato</td><td>E-mail</td><td>"Seu frete grátis chegou (e um recado rápido)" — entrega do benefício + a Aurora em 3 linhas + 4 best-sellers</td></tr>
+    <tr><td>2</td><td>D+2</td><td>E-mail</td><td>"O guia que acaba com a dúvida de tamanho" — guia de medidas Aurora, zero oferta</td></tr>
+    <tr><td>3</td><td>D+5</td><td>E-mail</td><td>"Quem veste Aurora, conta" — 3 avaliações com foto e altura/tamanho de clientes reais</td></tr>
+    <tr><td>4</td><td>D+8</td><td>E-mail</td><td>"Seu frete grátis expira em 48h" — lembrete honesto do prazo + best-sellers da categoria mais vista</td></tr>
+  </table></div>
+  <div class="copy"><span class="tag">Toque 1 · e-mail · corpo (modelo)</span><div class="msg">Oi, {{nome}}! Seu frete grátis para a primeira compra está ativo — ele entra sozinho no checkout, sem cupom para lembrar.
+
+A Aurora em 3 linhas: básicos que vestem bem de verdade, tabela de medidas honesta em cada peça, e troca sem burocracia se o tamanho não ficar perfeito.
+
+Comece por aqui: [4 best-sellers com foto]
+
+Qualquer dúvida de tamanho, responde este e-mail ou chama no WhatsApp — a gente ajuda a escolher.</div></div>
+  <div class="co ok"><b>✓ Aceite</b>Cadastrar um e-mail novo no pop-up e receber o toque 1 em até 5 minutos, com o benefício funcionando no checkout.</div>
+
+  <h4>3.5 Régua transacional — as 8 etapas do pedido (o CRM que esvazia o SAC)</h4>
+  <p><strong>Lógica:</strong> cada etapa comunicada é uma pergunta a menos no WhatsApp humano. Canal principal: WhatsApp utility (chega na hora); e-mail como espelho.</p>
+  <div class="scroll"><table>
+    <tr><th>#</th><th>Etapa</th><th>Gatilho (status Tray)</th><th>Mensagem-núcleo</th></tr>
+    <tr><td>1</td><td>Pedido criado</td><td>Pedido novo</td><td>"Recebemos seu pedido {{numero}} 💛 Assim que o pagamento confirmar, te aviso por aqui."</td></tr>
+    <tr><td>2</td><td>Pagamento aprovado</td><td>Status pago</td><td>"Pagamento confirmado! Já estamos separando suas peças."</td></tr>
+    <tr><td>3</td><td>Em separação</td><td>Status em separação</td><td>"Suas peças estão sendo separadas com carinho no nosso estoque."</td></tr>
+    <tr><td>4</td><td>Enviado</td><td>Rastreio gerado</td><td>"Voou! 📦 Acompanhe aqui: {{rastreio}}"</td></tr>
+    <tr><td>5</td><td>Em trânsito</td><td>Atualização da transportadora</td><td>(opcional — só se a integração de rastreio emitir o evento)</td></tr>
+    <tr><td>6</td><td>Entregue</td><td>Status entregue</td><td>"Chegou! Se o tamanho não ficar perfeito, a troca é simples: {{link_troca}}"</td></tr>
+    <tr><td>7</td><td>Como cuidar</td><td>D+2 da entrega</td><td>"Pra sua {{categoria}} durar mais: lavar do avesso, secar à sombra, não torcer."</td></tr>
+    <tr><td>8</td><td>Pedido de avaliação</td><td>D+7 da entrega</td><td>Ponte para a régua de review (3.11) — com a pergunta de caimento</td></tr>
+  </table></div>
+  <div class="co warn"><b>⚠ Duas regras</b>1) Etapas 1–6 são utility; 7–8 têm caráter de relacionamento — por WhatsApp, respeitar opt-in. 2) Se a Tray não expuser um status intermediário (ex.: "em separação"), PULE a etapa em vez de simular — transacional falso destrói confiança.</div>
+  <div class="co ok"><b>✓ Aceite</b>Pedido de teste percorrendo criado → pago → enviado → entregue com as mensagens chegando em cada mudança de status.</div>
+  <div class="print-slot"><div class="cam">📷</div><p>PRINT: sequência das mensagens transacionais recebidas no celular de teste</p></div>
+
+  <h4>3.6 Régua de recompra por janela — o disparo no tempo da cliente</h4>
+  <p>Aqui entra o número da Fase 1.3. <strong>Regra Livonno: disparo principal entre 70% e 80% da mediana da categoria comprada.</strong> Aurora: básicos (52d) ⇒ sequência D+36–52 · geral (74d) ⇒ D+52–66.</p>
+
+  <div class="mer"><pre class="mermaid">
+flowchart TD
+    A["Gatilho: pedido pago — categoria básicos"] --> B["D+21 · E-mail — como cuidar e combinar, zero oferta"]
+    B --> C["D+36 · E-mail — reposição e novidades da categoria dela"]
+    C --> D{"Comprou?"}
+    D -- sim --> Z["Encerra e reinicia o ciclo"]
+    D -- não --> E["D+45 · WhatsApp — curadoria: 3 peças que combinam com a última compra"]
+    E --> F{"Comprou?"}
+    F -- sim --> Z
+    F -- não --> G["D+52 · E-mail — frete grátis por 72h"]
+    G --> H["D+66 · última do ciclo"]
+    H --> Z2["Sem compra: entra em Em risco / win-back"]
+  </pre></div>
+
+  <div class="copy"><span class="tag">D+36 · e-mail · assunto: "Chegou reposição do que você levou"</span><div class="msg">{{nome}}, sua {{produto}} deve estar no auge do uso — e é exatamente por isso que este e-mail existe. Chegaram cores novas do mesmo corte que você já sabe que veste bem: [3 produtos da mesma categoria]. Mesma modelagem, zero risco de errar o tamanho.</div></div>
+  <div class="copy"><span class="tag">D+45 · WhatsApp (opt-in)</span><div class="msg">Oi, {{nome}}! Separei 3 peças que conversam com a {{produto}} que você comprou — mesma pegada, dá pra montar look completo. Quer que eu mande as fotos por aqui?</div></div>
+
+  <p><strong>Montagem:</strong> uma automação por macro-categoria (básicos / jeans / vestidos), gatilho no pedido pago com filtro de categoria. Usar o bloco de <strong>recomendação por IA</strong> da edrone nos toques de curadoria. Condição global: compra em qualquer ponto encerra e reinicia o relógio.</p>
+  <div class="co warn"><b>⚠ Uma régua por vez</b>Cliente só pode estar em UMA régua de recompra — a da compra mais recente. Configure a entrada para substituir a anterior (ou condição "não está na automação X").</div>
+
+  <h4>3.7 Cross-sell pós-compra</h4>
+  <p>Toque único em D+14 do pedido pago — "quem levou {{produto}} também amou…" com recomendação por IA. Se a categoria tem janela curta, o cross-sell vira o toque de curadoria DENTRO da própria régua 3.6 (nunca os dois em paralelo). Meta: elevar itens por pedido, não frequência.</p>
+
+  <div class="co ok"><b>✓ Portão de saída da P2</b>Transacional + recompra de ao menos 1 categoria no ar, testadas ponta a ponta.</div>
+  <p class="foot-val">Última validação da P2 em cliente real: ____/____/____ por ____________</p>
+</section>
+
+<!-- ============ FASE 3 · P3 ============ -->
+<section class="fase wrap">
+  <span class="fase-num">P3</span>
+  <p class="eyebrow">Fase 3 · continuação · semana 3–4 da implantação</p>
+  <h2>Prioridade 3 — Receita parada</h2>
+  <p class="fase-meta">RFM vivo na ferramenta · win-back progressivo · estoque parado</p>
+
+  <h4>3.8 Os 8 segmentos RFM vivos na edrone</h4>
+  <p>Recriar na ferramenta, agora dinâmicos, os segmentos calculados na planilha: <code>Audiência &gt; Segmentos &gt; Criar segmento</code>, um por vez, com os filtros de recência / nº de pedidos / valor gasto da tabela da Fase 1.2. ⚠ O percentil da planilha vira <strong>faixa absoluta de R$</strong> aqui (ex.: top 20% da Aurora = gastou R$ 520+). Nomear com prefixo: <code>RFM · Campeãs</code>, <code>RFM · Em risco</code>…</p>
+  <div class="co ok"><b>✓ Aceite</b>Contagem de cada segmento na edrone bate (±10%) com a planilha do diagnóstico. Se a conta da edrone tiver painel RFM nativo, use como conferência — mas os segmentos nomeados são os que alimentam automações e campanhas.</div>
+  <div class="print-slot"><div class="cam">📷</div><p>PRINT: lista dos 8 segmentos RFM criados na edrone com as contagens</p></div>
+
+  <h4>3.9 Win-back de inativas — a régua que paga o mês 2</h4>
+  <p><strong>Entrada:</strong> sem compra há 2× a janela da loja (Aurora: 150 dias). Único lugar da operação onde a Livonno usa desconto direto — porque reativar custa menos que readquirir. Benefício progressivo: nível 1 = frete grátis · nível 2 = cupom moderado com validade curta. <code>Não pode perder</code> recebe abordagem 1:1 (3.12) ANTES de cair em régua automática.</p>
+
+  <div class="mer"><pre class="mermaid">
+flowchart TD
+    A["Entrada: sem compra há 150 dias"] --> B["Toque 1 · E-mail — o que mudou na Aurora desde sua última compra"]
+    B --> C{"Abriu ou clicou?"}
+    C -- sim --> D["Toque 2 · D+5 · E-mail — curadoria da categoria dela"]
+    C -- não --> E["Toque 2 · D+7 · E-mail — assunto radicalmente diferente"]
+    D --> F{"Comprou?"}
+    E --> F
+    F -- sim --> Z["Sai — volta ao ciclo normal"]
+    F -- não --> G["Toque 3 · D+12 · WhatsApp opt-in — frete grátis"]
+    G --> H{"Comprou?"}
+    H -- sim --> Z
+    H -- não --> I["Toque 4 · D+20 · E-mail — benefício nível 2 com prazo, última chamada honesta"]
+    I --> J{"Comprou?"}
+    J -- sim --> Z
+    J -- não --> K["Dormente: 1 contato/mês · após 90d sem sinal: supressão"]
+  </pre></div>
+
+  <div class="copy"><span class="tag">Toque 1 · e-mail · assunto: "Muita coisa mudou por aqui, {{nome}}"</span><div class="msg">Sua última compra na Aurora foi a {{produto}} — faz um tempinho. De lá pra cá: modelagem nova nos básicos, tabela de medidas refeita peça a peça e troca em 1 clique. Se valer a pena voltar, começa por aqui: [novidades da categoria dela]. Sem cupom, sem pegadinha — só o que mudou.</div></div>
+  <div class="copy"><span class="tag">Toque 2 (não abriu) · e-mail · assunto: "{{nome}}, foi algo que a gente fez?"</span><div class="msg">Pergunta honesta: você sumiu porque o tamanho não ficou bom, o frete pesou, ou só… a vida? Responde com uma palavra que eu ajusto por aqui. E se quiser dar uma segunda chance, separei o que mais sai no seu estilo: [3 produtos].</div></div>
+  <div class="copy"><span class="tag">Toque 3 · D+12 · WhatsApp (opt-in)</span><div class="msg">Oi, {{nome}}! Aqui é da Aurora. Sentimos sua falta de verdade — e pra facilitar a volta, seu próximo pedido vai com frete por nossa conta, sem valor mínimo, até domingo. Quer que eu te mande o que chegou na sua categoria?</div></div>
+  <div class="copy"><span class="tag">Toque 4 · D+20 · e-mail · assunto: "Última chamada (de verdade)"</span><div class="msg">{{nome}}, este é o último e-mail dessa sequência — prometo. {{beneficio_nivel2}} válido até {{data}}. Depois disso, você só volta a ouvir da gente 1x por mês, com o essencial. Sem drama: se a Aurora não fizer mais sentido pra você, o descadastro está aqui embaixo e funciona de verdade.</div></div>
+
+  <div class="co rule"><b>Higiene é parte da régua</b>Quem termina o fluxo sem NENHUMA abertura em 90 dias vai para supressão. Base menor e viva vale mais que base grande e morta — é isso que protege a entregabilidade de tudo que veio antes.</div>
+
+  <h4>3.10 Campanha de estoque parado — ação pontual mensal</h4>
+  <p>Processo (entra no calendário da Fase 4): cliente informa 5–10 SKUs encalhados → cruzar com a base: quem comprou a categoria/grade compatível e não viu esses itens → campanha segmentada com enquadramento de <strong>curadoria</strong> ("separamos para você"), nunca de liquidação pública. Preço especial só dentro do canal, invisível na vitrine.</p>
+  <div class="copy"><span class="tag">Modelo · e-mail · assunto: "Separei isso pensando em você"</span><div class="msg">{{nome}}, chegou reposição limitada da linha que você já comprou — e antes de abrir pro site, a gente avisa quem é de casa. [4 SKUs com foto]. Condição exclusiva desta lista, até quinta: {{condicao}}. Na vitrine, ninguém vê esse preço.</div></div>
+
+  <div class="co ok"><b>✓ Portão de saída da P3</b>8 segmentos no ar + win-back ativa + 1ª campanha de reativação disparada com resultado anotado no painel.</div>
+  <p class="foot-val">Última validação da P3 em cliente real: ____/____/____ por ____________</p>
+</section>
+
+<!-- ============ FASE 3 · P4 ============ -->
+<section class="fase wrap">
+  <span class="fase-num">P4</span>
+  <p class="eyebrow">Fase 3 · conclusão · semana 5–6 da implantação</p>
+  <h2>Prioridade 4 — Expansão</h2>
+  <p class="fase-meta">Review com dado de caimento · VIP 1:1 · camada humana com scripts e treinamento</p>
+
+  <h4>3.11 Review e prova social (Trustvox)</h4>
+  <ol style="color:var(--dim)">
+    <li><code>Tray &gt; Aplicativos &gt; Trustvox</code> → instalar → widget de avaliações na página de produto</li>
+    <li>Pedido de avaliação em <strong>D+7 da entrega</strong> — alinhado à etapa 8 da transacional. ⚠ Desligar o e-mail de review nativo da edrone OU deixar só o da Trustvox — <strong>nunca os dois</strong>. Padrão Livonno: sai pela Trustvox (publica no widget e alimenta o selo)</li>
+    <li><strong>Formulário com pergunta de caimento (obrigatório):</strong> altura · tamanho comprado · "ficou: justo / certo / folgado". É o dado que responde "serve em mim?" e derruba devolução — e vira munição para os toques de prova social das outras réguas</li>
+    <li><strong>Interceptação:</strong> avaliação ≤ 3★ dispara alerta interno (n8n → WhatsApp do ponto focal) ANTES de qualquer resposta pública — o SAC resolve no privado</li>
+  </ol>
+  <div class="copy"><span class="tag">Pedido de review · D+7 · WhatsApp (pos_entrega_review_v1)</span><div class="msg">Oi, {{nome}}! Sua {{produto}} chegou há uma semana — deu tempo de usar? Sua opinião de 30 segundos ajuda outra cliente a acertar o tamanho de primeira: {{link_review}}. E se algo não ficou perfeito, me conta por AQUI primeiro que eu resolvo. 💛</div></div>
+
+  <h4>3.12 VIP e "Não pode perder" — contato 1:1 (trabalho humano, não automação)</h4>
+  <p>Exportar mensalmente <code>RFM · Campeãs</code> e <code>RFM · Não pode perder</code> → o time do cliente faz contato pessoal com os scripts abaixo. Nada de cupom para VIP — exclusividade, não desconto.</p>
+  <div class="copy"><span class="tag">Campeã · acesso antecipado · WhatsApp 1:1</span><div class="msg">{{nome}}, aqui é a {{atendente}}, da Aurora. A coleção nova entra no site quinta — mas as nossas melhores clientes veem antes. Quer que eu te mande a prévia hoje? Qualquer peça que você amar, eu já separo no seu tamanho antes de abrir pro público.</div></div>
+  <div class="copy"><span class="tag">Não pode perder · reaproximação · WhatsApp 1:1</span><div class="msg">{{nome}}, aqui é a {{atendente}}, da Aurora. Você é uma das clientes mais especiais da nossa história e faz {{meses}} meses que a gente não te vê por aqui. Aconteceu alguma coisa com algum pedido? Se sim, eu quero resolver pessoalmente. E se foi só a correria — separei 3 peças novas com a sua cara, te mando as fotos?</div></div>
+
+  <h4>3.13 Camada humana — os 5 scripts e o treinamento do time</h4>
+  <p>Entregar ao time da Aurora e treinar. Regra geral: <strong>responder dúvida vendendo</strong>, nunca só informando. Quem responde a um fluxo de recuperação está a um passo da compra — prioridade máxima.</p>
+
+  <div class="dialog">
+    <span class="who">Cliente</span><p>"Esse vestido veste certinho? Tenho 1,68m e uso 40."</p>
+    <span class="who a">Atendente (script 1 · dúvida de tamanho)</span><p>"Oi, {{nome}}! Veste fiel sim — e melhor que a minha opinião: uma cliente de 1,67m que usa 40 comprou o M e avaliou 'ficou perfeito, nem aperta nem sobra'. Pelo seu perfil, eu iria de M sem medo. Quer que eu já separe o seu e te mande o link com ele no carrinho?"</p>
+    <p style="color:var(--mut);font-size:.85rem">Por que funciona: responde com DADO de review (não achismo), remove o risco e fecha com ação concreta.</p>
+  </div>
+
+  <div class="dialog">
+    <span class="who">Cliente</span><p>"Achei um pouco caro…"</p>
+    <span class="who a">Atendente (script 2 · objeção de preço)</span><p>"Entendo total, {{nome}}. O que faz o preço dela: algodão penteado que não deforma na terceira lavagem, costura reforçada e a troca é grátis se o tamanho não ficar bom — ou seja, zero risco pra você. E ela rende: com jeans, alfaiataria e por baixo de blazer. Se ajudar, no PIX sai por R$ {{valor_pix}}. Quer que eu feche assim?"</p>
+    <p style="color:var(--mut);font-size:.85rem">Por que funciona: valor antes de desconto; só menciona condição que JÁ existe (nunca inventa desconto no chat).</p>
+  </div>
+
+  <div class="dialog">
+    <span class="who">Cliente</span><p>"Quero devolver, ficou grande."</p>
+    <span class="who a">Atendente (script 3 · devolução → troca)</span><p>"Resolvo agora, {{nome}}! Me confirma: ficou folgado no ombro ou no comprimento? Pelo que você descrever, o P vai ficar exato — eu já separo o seu e o frete da troca é por nossa conta. Prefere trocar pelo tamanho certo ou realmente quer devolver? As duas opções são suas, sem burocracia."</p>
+    <p style="color:var(--mut);font-size:.85rem">Por que funciona: diagnóstico rápido + troca facilitada como primeira opção, devolução respeitada como segunda. Troca mantém a receita E a cliente.</p>
+  </div>
+
+  <div class="dialog">
+    <span class="who">Cliente</span><p>(respondeu ao lembrete de carrinho) "Ainda tá disponível?"</p>
+    <span class="who a">Atendente (script 4 · resposta de fluxo = prioridade máxima)</span><p>"Tá sim, {{nome}} — e no seu tamanho! Deixei separada aqui. Seu carrinho continua montado: é só tocar em {{link}} que ele abre pronto pra pagar. Se preferir, te mando o PIX por aqui mesmo e despacho hoje ainda. Como fica melhor pra você?"</p>
+    <p style="color:var(--mut);font-size:.85rem">Por que funciona: urgência a favor da cliente (despacho hoje), dois caminhos de pagamento, zero fricção.</p>
+  </div>
+
+  <div class="dialog">
+    <span class="who">Cliente</span><p>"Meu pedido tá atrasado!"</p>
+    <span class="who a">Atendente (script 5 · atraso — idealmente a loja avisa ANTES)</span><p>"{{nome}}, você tem razão e eu sinto muito. Acabei de rastrear: está em {{cidade}}, previsão nova {{data}}. Vou acompanhar pessoalmente e te aviso a cada movimento — você não precisa me cobrar. E pelo transtorno, o frete do seu próximo pedido é por nossa conta. Fechado?"</p>
+    <p style="color:var(--mut);font-size:.85rem">Por que funciona: valida a reclamação, dá informação concreta, assume o acompanhamento e compensa com algo que gera a PRÓXIMA compra.</p>
+  </div>
+
+  <div class="dialog">
+    <span class="who">Cliente</span><p>"Vou levar essa calça, pode fechar."</p>
+    <span class="who a">Atendente (script 6 · cross-sell e ticket na conversa)</span><p>"Fechado, {{nome}}! Já reservei. Só uma coisa antes de eu gerar o link: essa calça é a que mais sai junto com a nossa {{peça complementar}} — as clientes montam look completo com as duas. Quer que eu mande a foto? Se levar as duas, o frete já entra grátis (falta pouco pro seu pedido bater o valor)."</p>
+    <p style="color:var(--mut);font-size:.85rem">Por que funciona: oferece DEPOIS do sim (nunca antes — não coloca em risco a venda já feita), usa afinidade real de produto e ancora no frete, não em desconto. Regra: <strong>uma sugestão só</strong>. Duas viram empurração e derrubam a venda principal.</p>
+  </div>
+
+  <p><strong>Treinamento:</strong> 1 sessão de 90 min (gravada) percorrendo os 5 scripts com dramatização + acompanhamento de conversas reais na 1ª quinzena com feedback escrito. Compensação-padrão de atraso definida com o dono no kickoff (nunca improvisada no chat).</p>
+
+  <div class="co ok"><b>✓ Portão de saída da P4 / pré-go-live</b>Trustvox coletando com pergunta de caimento · alerta ≤3★ testado · listas VIP exportadas e entregues · treinamento realizado e gravado.</div>
+  <p class="foot-val">Última validação da P4 em cliente real: ____/____/____ por ____________</p>
+</section>
+
+<!-- ============ FASE 4 ============ -->
+<section class="fase wrap" id="f4">
+  <span class="fase-num">F4</span>
+  <p class="eyebrow">Fase 4 · do dia 45 em diante</p>
+  <h2>Operação contínua</h2>
+  <p class="fase-meta">O painel que prova · o calendário que projeta · o ritual que decide</p>
+
+  <h3>4.1 O painel de indicadores</h3>
+  <p>Planilha <code>AURORA — Painel Livonno</code> alimentada mensalmente (fontes: relatórios edrone + pedidos Tray + GA4), conectada ao Looker Studio: <code>lookerstudio.google.com &gt; Criar &gt; Fonte de dados &gt; Google Sheets</code>. Uma coluna por mês; estas linhas fixas:</p>
+  <div class="scroll"><table>
+    <tr><th>Métrica</th><th>Fórmula / fonte</th><th>Linha de base Aurora</th><th>Meta 6 meses</th></tr>
+    <tr class="t-lima"><td>% faturamento vindo da base</td><td>receita de e-mail+SMS+WA+fluxos ÷ receita total</td><td>2,8%</td><td>20–25%</td></tr>
+    <tr><td>Receita recuperada (R$)</td><td>soma das réguas carrinho + PIX/boleto + cartão</td><td>~0</td><td>R$ 8–15 mil/mês</td></tr>
+    <tr><td>Taxa de recuperação de não-pagos</td><td>pagos após régua ÷ entraram na régua</td><td>—</td><td>15–20%</td></tr>
+    <tr><td>Taxa de 2ª compra em 90d</td><td>novas com 2º pedido ≤90d ÷ novas do tri anterior</td><td>medir no mês 1</td><td>+30% relativo</td></tr>
+    <tr><td>Clientes reativadas</td><td>compras de Hibernando/Em risco no mês</td><td>—</td><td>registrar e crescer</td></tr>
+    <tr><td>LTV médio 12m</td><td>receita 12m ÷ clientes únicas 12m</td><td>R$ ~318</td><td>crescimento contínuo</td></tr>
+    <tr><td>Descadastro / spam</td><td>relatórios edrone</td><td>—</td><td>&lt;0,5% · &lt;0,08% por envio</td></tr>
+    <tr><td>Receita por campanha pontual</td><td>por ação do calendário</td><td>—</td><td>ROI ≥ 5× por ação</td></tr>
+  </table></div>
+  <div class="co warn"><b>⚠ Atribuição honesta</b>Use o padrão da edrone/GA e DOCUMENTE qual é na primeira página do painel. Nunca troque o critério no meio do contrato sem anotar — comparação quebrada é credibilidade quebrada.</div>
+
+  <h3>4.2 Calendário mensal de ações pontuais — com ROI projetado</h3>
+  <div class="co rule"><b>A fórmula antes de qualquer disparo</b>base elegível × conversão estimada × ticket = receita projetada. Conversão: usar o histórico da própria régua; sem histórico, começar conservador (1–3% e-mail · 3–8% WhatsApp opt-in) e substituir pelo realizado já no mês seguinte. Sem os quatro números, a ação não sobe. Projeção aprovada pelo dono ≠ promessa — é hipótese documentada que o realizado corrige.</div>
+  <p>Exemplo do mês 1 da Aurora, com a conta exposta (números ilustrativos de projeção — substituir pelos reais da loja):</p>
+  <div class="scroll"><table>
+    <tr><th>Semana</th><th>Cluster</th><th>Objetivo</th><th>Oferta (barreira)</th><th>Canal</th><th>Conta</th><th>Projeção</th></tr>
+    <tr><td>1</td><td>Compraram 1×</td><td>2ª compra</td><td>Frete grátis</td><td>E-mail + WA</td><td>3.100 × 1,5% × R$189</td><td>≈ R$ 8.800</td></tr>
+    <tr><td>2</td><td>Campeãs + Fiéis</td><td>LTV</td><td>Acesso antecipado à coleção</td><td>WA 1:1 + e-mail</td><td>1.780 × 3% × R$210</td><td>≈ R$ 11.200</td></tr>
+    <tr><td>3</td><td>Inativas 60–90d</td><td>Reativação</td><td>Curadoria + frete</td><td>E-mail</td><td>2.200 × 1% × R$189</td><td>≈ R$ 4.200</td></tr>
+    <tr><td>4</td><td>Estoque parado (grade compatível)</td><td>Giro</td><td>Curadoria fechada</td><td>E-mail + WA</td><td>5.000 × 1% × R$189</td><td>≈ R$ 9.400</td></tr>
+  </table></div>
+  <p>No fim do mês, a coluna "realizado" entra ao lado de cada projeção — e a conversa quinzenal usa a diferença, não a desculpa.</p>
+
+  <h3>4.3 Pressão de envio — a régua anti-fadiga</h3>
+  <ul>
+    <li>Máximo por contato: <strong>2 e-mails de campanha/semana</strong> (fluxos comportamentais fora da conta) e <strong>1 WhatsApp de marketing/semana</strong></li>
+    <li>Campeãs toleram mais · Dormentes: 1/mês</li>
+    <li>Descadastro subindo 2 meses seguidos = reduzir pressão ANTES de qualquer outra otimização</li>
+  </ul>
+
+  <h3>4.4 Teste A/B — um por mês, uma variável</h3>
+  <div class="scroll"><table>
+    <tr><th>Mês</th><th>Onde</th><th>O que testar</th></tr>
+    <tr><td>1</td><td>Carrinho · toque 1</td><td>WhatsApp vs e-mail como canal do lembrete</td></tr>
+    <tr><td>2</td><td>Carrinho · toque 5</td><td>Frete grátis vs cupom moderado</td></tr>
+    <tr><td>3</td><td>Recompra · D+36</td><td>"Reposição do que você levou" vs "novidades da categoria"</td></tr>
+    <tr><td>4</td><td>Pop-up</td><td>Frete grátis vs benefício surpresa</td></tr>
+    <tr><td>5</td><td>Win-back · toque 1</td><td>Assunto emocional vs assunto direto</td></tr>
+    <tr><td>6</td><td>Campanhas</td><td>Janela de envio (manhã vs noite)</td></tr>
+  </table></div>
+  <div class="co warn"><b>⚠ Disciplina de teste</b>Nunca vários testes ao mesmo tempo — senão você não sabe o que causou o quê. Registrar vencedor e aplicar como novo padrão antes de abrir o próximo.</div>
+
+  <h3>4.5 Ritual quinzenal com o cliente — 30 min, pauta fixa</h3>
+  <ol style="color:var(--dim)">
+    <li>Painel: as 3 linhas que mudaram (não ler o painel inteiro)</li>
+    <li>Campanhas do período: projetado × realizado, e o porquê</li>
+    <li><strong>Uma decisão</strong> a tomar com o dono — reunião sem decisão é relatório falado</li>
+    <li>Próximos 15 dias</li>
+    <li>Ata de 10 linhas enviada no mesmo dia (modelo no Anexo C)</li>
+  </ol>
+
+  <p class="foot-val">Última validação da Fase 4 em cliente real: ____/____/____ por ____________</p>
+</section>
+
+<!-- ============ FASE 5 ============ -->
+<section class="fase wrap" id="f5">
+  <span class="fase-num">F5</span>
+  <p class="eyebrow">Fase 5</p>
+  <h2>QA, go-live e manutenção</h2>
+  <p class="fase-meta">O checklist que autoriza o go-live · a rotina que segura a operação · o socorro quando algo quebra</p>
+
+  <h3>5.1 Checklist de go-live — imprimir e riscar</h3>
+  <ul class="check">
+    <li>SPF · DKIM · DMARC = PASS e mail-tester ≥ 9</li>
+    <li>6 eventos Tray→edrone validados com teste real</li>
+    <li>Templates WhatsApp aprovados · teste recebido com nome verificado</li>
+    <li>Réguas P1 ativas e testadas ponta a ponta — inclusive o encerramento por pagamento</li>
+    <li>Transacional percorrida com pedido de teste</li>
+    <li>Recompra de ao menos 1 categoria ativa com janela CALCULADA (não chutada)</li>
+    <li>8 segmentos RFM criados, batendo (±10%) com a planilha</li>
+    <li>Win-back ativa · supressão de dormentes configurada</li>
+    <li>🔒 Descadastro testado · opt-in WhatsApp implantado · base higienizada</li>
+    <li>Pop-up de captura no ar com oferta de entrada</li>
+    <li>Trustvox com pergunta de caimento · alerta ≤3★ funcionando</li>
+    <li>Painel montado com a linha de base preenchida (números do diagnóstico)</li>
+    <li>Calendário do 1º mês aprovado pelo dono com ROI projetado</li>
+    <li>Scripts entregues · treinamento realizado e gravado</li>
+    <li>Pedidos e contatos de teste excluídos das métricas</li>
+  </ul>
+
+  <h3>5.2 Rotina de monitoramento</h3>
+  <div class="scroll"><table>
+    <tr><th>Frequência</th><th>Duração</th><th>O que olhar</th></tr>
+    <tr><td>Diária (3 primeiras semanas)</td><td>5 min</td><td>Entregas · aberturas · spam rate · fila de respostas de WhatsApp sem atendimento</td></tr>
+    <tr><td>Semanal</td><td>30 min</td><td>Receita por régua · campanha da semana (projetado × realizado) · descadastros · saúde do aquecimento</td></tr>
+    <tr><td>Mensal</td><td>2 h</td><td>Fechar o painel · montar o calendário seguinte · escolher o teste A/B do mês</td></tr>
+  </table></div>
+
+  <h3>5.3 Troubleshooting — os 8 problemas mais comuns</h3>
+  <div class="scroll"><table>
+    <tr><th>Sintoma</th><th>Causa provável</th><th>Ação</th></tr>
+    <tr><td>Evento não chega na edrone</td><td>App desatualizado / permissão revogada / sessão anônima no teste</td><td>Reinstalar app · refazer teste logado · chamado edrone com print + horário</td></tr>
+    <tr><td>E-mail caindo em spam</td><td>Autenticação quebrada · aquecimento atropelado · conteúdo "gritado"</td><td>Reconferir 2.2 · congelar volume · mail-tester de novo</td></tr>
+    <tr><td>Template WhatsApp reprovado</td><td>Categoria errada · variável sem exemplo · texto promocional em utility</td><td>Ler o motivo · corrigir o MESMO template · ressubmeter</td></tr>
+    <tr><td>Cliente respondeu fluxo e ninguém viu</td><td>Fila sem dono</td><td>Responsável nomeado + alerta n8n para o ponto focal</td></tr>
+    <tr><td>Régua disparando para quem já pagou</td><td>Condição de saída ausente</td><td>Revisar a condição global de pedido pago em TODAS as réguas</td></tr>
+    <tr><td>Descadastro subindo</td><td>Pressão de envio alta · segmentação frouxa</td><td>Régua anti-fadiga · revisar tamanho e critério dos segmentos</td></tr>
+    <tr><td>Contagem do segmento ≠ planilha</td><td>Percentil mal traduzido em faixa de R$</td><td>Recalcular as faixas absolutas na edrone</td></tr>
+    <tr><td>Números do painel "caíram" do nada</td><td>Critério de atribuição mudou · pedidos de teste contando</td><td>Reconferir fonte e filtros · nunca comparar critérios diferentes</td></tr>
+  </table></div>
+
+  <h3>5.4 Entrega documentada — o handoff (obrigatório no Impulso, boa prática em todos)</h3>
+  <p>O site promete, no plano Impulso: <em>"entrega documentada — o que foi montado é seu"</em>. Isso não é o relatório de diagnóstico; é o <strong>dossiê da operação construída</strong>, entregue ao cliente em PDF + pasta no Drive. Sem ele, a promessa do plano não foi cumprida.</p>
+  <div class="scroll"><table>
+    <tr><th>#</th><th>Peça do dossiê</th><th>Conteúdo</th></tr>
+    <tr><td>1</td><td>Mapa das réguas</td><td>Cada automação: gatilho, tempos, canais, condição de saída — em diagrama e tabela</td></tr>
+    <tr><td>2</td><td>Biblioteca de copies</td><td>Todos os textos no ar, por régua e toque, editáveis</td></tr>
+    <tr><td>3</td><td>Definição dos segmentos</td><td>As regras exatas de cada segmento RFM e persona, para poder recriar</td></tr>
+    <tr><td>4</td><td>Ficha técnica</td><td>Domínio de envio, registros DNS criados, templates aprovados, integrações e onde mexer em cada uma</td></tr>
+    <tr><td>5</td><td>Painel</td><td>Planilha e Looker entregues no Drive do cliente, com a fórmula de cada métrica documentada</td></tr>
+    <tr><td>6</td><td>Números do período</td><td>Antes × depois, com a linha de base do diagnóstico</td></tr>
+    <tr><td>7</td><td>O que fazer a seguir</td><td>As frentes que ficaram de fora e em que ordem subiriam — honestidade que costuma virar upgrade</td></tr>
+  </table></div>
+  <div class="co rule"><b>Por que entregar de verdade</b>Documentação completa parece dar armas ao cliente para dispensar a Livonno. Na prática faz o contrário: prova o tamanho do que foi construído, mostra que operar aquilo exige alguém dedicado, e é o que faz o Impulso virar Órbita. Cliente que recebe caixa-preta desconfia; cliente que recebe o mapa contrata.</div>
+
+  <h3>5.5 O que a Livonno NÃO faz — decorar</h3>
+  <ul>
+    <li>Não mexe em conta de anúncio. Nem "só uma olhadinha".</li>
+    <li>🔒 Não dispara para lista comprada. Em nenhuma hipótese.</li>
+    <li>Não inventa urgência falsa ("últimas peças" que não são).</li>
+    <li>Não promete número de terceiros como benchmark do cliente.</li>
+    <li>Não liga tudo de uma vez — a ordem de ROI é cláusula do método, não sugestão.</li>
+  </ul>
+
+  <p class="foot-val">Última validação da Fase 5 em cliente real: ____/____/____ por ____________</p>
+</section>
+
+<!-- ============ FASE 6 · SEMESTRE ============ -->
+<section class="fase wrap" id="f6">
+  <span class="fase-num">F6</span>
+  <p class="eyebrow">Fase 6 · mês 2 ao mês 6</p>
+  <h2>O semestre completo — roadmap mês a mês</h2>
+  <p class="fase-meta">Os 45 dias colocam o motor no ar. O contrato é de 6 meses — e é aqui que cada entrega prometida no site entra em operação, na ordem de ROI</p>
+
+  <div class="co rule"><b>Como ler esta fase</b>Cada mês tem tema, entregas novas e rotina. As entregas novas são as frentes do site que NÃO entram nos 45 dias — porque subi-las todas de uma vez atrasaria o dinheiro quente. A regra continua: nada do mês seguinte abre com pendência do anterior.</div>
+
+  <div class="scroll"><table>
+    <tr><th>Mês</th><th>Tema</th><th>Entregas novas</th></tr>
+    <tr><td>2</td><td>Profundidade de segmentação</td><td>Camada comportamental · aniversário e datas · avise-me quando chegar</td></tr>
+    <tr><td>3</td><td>Prevenção e indicação</td><td>Régua de pré-risco · NPS + interceptação de detratores · programa de indicação</td></tr>
+    <tr><td>4</td><td>Ativos de marca</td><td>UGC · programa VIP estruturado · unificação de bases · push</td></tr>
+    <tr><td>5</td><td>Otimização e sazonal</td><td>Análise de coorte e poda · preparação de data sazonal · liquidação estratégica · limpeza semestral</td></tr>
+    <tr><td>6</td><td>Prova e renovação</td><td>Relatório semestral antes×depois · reunião de renovação · atualização do playbook</td></tr>
+  </table></div>
+
+  <h3 style="color:var(--lima)">MÊS 2 (dia 46–75) — Profundidade de segmentação</h3>
+
+  <h4>6.1 Camada comportamental — a segunda camada sobre o RFM</h4>
+  <p><strong>Lógica:</strong> o RFM diz <em>com quem</em> falar primeiro; não diz <em>que tipo</em> de cliente é. Duas clientes com a mesma recência podem precisar de mensagens opostas. Prioridade vem do RFM; conteúdo e oferta vêm do comportamento.</p>
+  <p><strong>Montagem:</strong> <code>Audiência &gt; Segmentos &gt; Criar segmento</code>, prefixo <code>COMP ·</code>, com regras objetivas sobre o histórico:</p>
+  <div class="scroll"><table>
+    <tr><th>Persona</th><th>Como identificar (regra objetiva)</th><th>O que recebe</th><th>O que nunca recebe</th></tr>
+    <tr><td>Descobridora</td><td>3+ categorias distintas · não repete SKU</td><td>Lançamento, curadoria, pré-venda de coleção</td><td>Reposição do mesmo item</td></tr>
+    <tr><td>De hábito</td><td>2+ compras na MESMA categoria/numeração</td><td>Reposição, kit, aviso de volta ao estoque</td><td>Novidade aleatória fora da categoria</td></tr>
+    <tr><td>Premium</td><td>Ticket médio ≥ 1,5× o da loja</td><td>Atendimento 1:1, acesso antecipado</td><td><strong>Cupom — nunca</strong></td></tr>
+    <tr><td>Compradora de volume</td><td>Itens por pedido ≥ 3</td><td>Combo, look completo, frete progressivo</td><td>Oferta de peça única</td></tr>
+    <tr><td>Sazonal</td><td>Compras concentradas em 1–2 meses/ano</td><td>Antecipação da estação dela</td><td>Reativação genérica fora de época</td></tr>
+    <tr><td>Caçadora de cupom</td><td>% de pedidos com cupom ≥ 70%</td><td>Lista separada, oferta controlada e espaçada</td><td>Campanha de preço cheio (não converte) e cupom frequente (vicia)</td></tr>
+  </table></div>
+  <div class="co ok"><b>✓ Aceite</b>6 segmentos COMP criados · pelo menos 1 campanha do calendário do mês usa persona como filtro de conteúdo (ex.: lançamento SÓ para Descobridoras + Campeãs).</div>
+
+  <h4>6.2 Aniversário e datas do cliente</h4>
+  <ul>
+    <li><strong>Coleta:</strong> campo de aniversário no pop-up e no cadastro do checkout + campanha única de enriquecimento para a base antiga: "complete seu cadastro e ganhe um mimo no mês do seu aniversário"</li>
+    <li><strong>Régua:</strong> D-7 · e-mail "seu presente do mês chegou" (benefício válido no mês inteiro) → D0 · WhatsApp opt-in de parabéns, pessoal e curto → D+20 · lembrete se não usou</li>
+    <li><strong>Benefício:</strong> mimo ou frete — não percentual alto. Aniversário é relação, não liquidação. Sem o dia exato? Usar "mês de cadastro" como fallback até o dado chegar</li>
+  </ul>
+  <div class="copy"><span class="tag">D0 · WhatsApp (opt-in)</span><div class="msg">{{nome}}, hoje é seu dia! 🎉 Parabéns da equipe Aurora. Seu presente de aniversário está te esperando no site — vale o mês inteiro, sem pressa. Aproveita seu dia!</div></div>
+  <div class="co ok"><b>✓ Aceite</b>Campo de coleta no ar · régua ativa · campanha de enriquecimento disparada com taxa de preenchimento anotada.</div>
+
+  <h4>6.3 Avise-me quando chegar (produto e grade em falta)</h4>
+  <p><strong>Lógica:</strong> quem pede aviso declarou intenção de compra com data marcada — é o lead mais quente da loja depois do carrinho. Em moda, o caso principal é <strong>numeração em falta</strong>.</p>
+  <ol style="color:var(--dim)">
+    <li>Ativar o "Avise-me" nativo da Tray na página de produto (incluir seleção de tamanho no formulário — sem isso o aviso volta genérico)</li>
+    <li>Volta de estoque → disparo automático se o evento chegar à edrone; se não chegar, rotina fixa: toda segunda, exportar a lista de espera da Tray e disparar campanha segmentada por produto/tamanho</li>
+    <li>Prioridade de aviso: Campeãs e Fiéis recebem 2h antes do restante — exclusividade que custa zero</li>
+  </ol>
+  <div class="copy"><span class="tag">Volta de estoque · WhatsApp/e-mail</span><div class="msg">{{nome}}, voltou! A {{produto}} no tamanho {{tamanho}} que você pediu pra avisar acabou de entrar no estoque — e essas numerações costumam ir rápido. Garanta a sua: {{link}}</div></div>
+  <div class="co ok"><b>✓ Aceite</b>Formulário com tamanho no ar · 1º ciclo de aviso disparado · conversão da lista anotada no painel (costuma ser a maior taxa da loja).</div>
+
+  <h4>6.4 Rotina do mês 2</h4>
+  <ul><li>1º teste A/B (tabela 4.4) rodando</li><li>Painel do mês 1 fechado e apresentado na quinzenal</li><li>DMARC segue em p=none, relatórios monitorados</li></ul>
+
+  <h3 style="color:var(--lima)">MÊS 3 (dia 76–105) — Prevenção e indicação</h3>
+
+  <h4>6.5 Régua de pré-risco — agir ANTES de virar inativa</h4>
+  <p><strong>Diferença para o win-back:</strong> o win-back (3.9) age aos 150 dias, quando já esfriou. O pré-risco age quando a cliente <strong>estoura 120% da janela dela sem comprar</strong> (Aurora geral: dia 89) — cedo o bastante para reverter barato.</p>
+  <ul>
+    <li>Toque 1 · e-mail de reconexão <strong>sem oferta</strong>: novidade da categoria dela + "sentimos sua falta"</li>
+    <li>Toque 2 · D+7 · pesquisa de 1 clique: "foi algo que a gente fez?" com 4 botões (tamanho não ficou bom / frete pesou / não precisei mais / só a correria) — cada resposta grava no perfil e ajusta a régua seguinte</li>
+    <li>Resposta "tamanho não ficou bom" → alerta ao time humano (script 3 de troca) — é churn evitável em cima de troca mal resolvida</li>
+  </ul>
+  <div class="co ok"><b>✓ Aceite</b>Régua ativa · respostas da pesquisa aparecendo no perfil das clientes · 1º alerta de troca tratado pelo time.</div>
+
+  <h4>6.6 NPS pós-compra + interceptação de detratores</h4>
+  <ul>
+    <li>D+21 da entrega · e-mail de 1 clique: "De 0 a 10, qual a chance de você indicar a Aurora?" (11 botões; cada um grava a nota no campo do contato — via recurso de pesquisa da edrone ou landing simples)</li>
+    <li><strong>0–6 (detratora):</strong> alerta imediato ao ponto focal → contato humano em até 4h úteis com o script 5 adaptado — resolver ANTES que vire review pública ou churn</li>
+    <li><strong>9–10 (promotora):</strong> entra na fila do programa de indicação (6.7) e do pedido de UGC (6.9)</li>
+    <li>NPS mensal entra no painel como linha nova</li>
+  </ul>
+
+  <h4>6.6b Régua de experiência ruim — atraso, extravio e troca</h4>
+  <p><strong>Lógica:</strong> a loja avisa ANTES de a cliente cobrar. Reclamação que chega ao SAC já custou confiança; reclamação antecipada pela loja vira prova de cuidado. Esta régua é automática — os scripts da 3.13 são o complemento humano dela.</p>
+  <div class="scroll"><table>
+    <tr><th>Cenário</th><th>Gatilho</th><th>Ação automática</th><th>Complemento humano</th></tr>
+    <tr><td>Atraso</td><td>Prazo prometido estourou sem entrega</td><td>WhatsApp proativo com status real + nova previsão + compensação-padrão (frete do próximo)</td><td>Script 5</td></tr>
+    <tr><td>Extravio</td><td>Rastreio sem movimento por 7 dias</td><td>Alerta interno imediato ao ponto focal + mensagem à cliente antes de ela perceber</td><td>Reenvio ou reembolso decidido pelo dono (política definida no kickoff)</td></tr>
+    <tr><td>Entrega recusada / endereço errado</td><td>Status da transportadora</td><td>WhatsApp para confirmar endereço e reagendar</td><td>Time confirma dados</td></tr>
+    <tr><td>Troca solicitada</td><td>Abertura de troca</td><td>Confirmação + prazo + link de acompanhamento</td><td>Script 3 (devolução → troca)</td></tr>
+    <tr><td>Devolução concluída</td><td>Reembolso processado</td><td>D+15: "o que não deu certo?" com curadoria da numeração correta</td><td>—</td></tr>
+  </table></div>
+  <div class="copy"><span class="tag">Extravio · WhatsApp proativo (antes de a cliente cobrar)</span><div class="msg">{{nome}}, aqui é da Aurora. Seu pedido {{numero}} está sem movimentação há alguns dias e eu já acionei a transportadora — você não precisa fazer nada. Te dou retorno até {{data}} com solução: reenvio ou reembolso, o que você preferir. Desculpa o transtorno, estou acompanhando pessoalmente.</div></div>
+  <div class="co rule"><b>Por que isso é retenção, não SAC</b>Cliente com problema BEM resolvido recompra mais que cliente sem problema nenhum. A régua transforma o pior momento da jornada no melhor argumento da marca — e alimenta a frente 5 do site (prevenção) com dado real de churn evitável.</div>
+
+  <h4>6.7 Programa de indicação (member-get-member)</h4>
+  <p><strong>Lógica:</strong> indicação não se pede para todo mundo — se pede para quem acabou de declarar amor (NPS 9–10, review 5★). Mecânica de dupla recompensa: a indicadora ganha crédito, a indicada ganha benefício de 1ª compra.</p>
+  <ol style="color:var(--dim)">
+    <li>Criar cupom nominal por indicadora: <code>Tray &gt; Marketing &gt; Cupons</code> → código <code>AURORA-{{PRIMEIRONOME}}</code> (benefício da indicada: frete grátis 1ª compra)</li>
+    <li>Planilha de rastreio: cupom → indicadora → pedidos usados → crédito devido (crédito da indicadora: R$ em vale-compra a cada indicada convertida)</li>
+    <li>Convite automático: NPS 9–10 OU review 5★ dispara o e-mail/WhatsApp do programa</li>
+    <li>Painel: linha "compras por indicação" (pedidos com cupom AURORA-*)</li>
+  </ol>
+  <div class="copy"><span class="tag">Convite · pós-NPS 9–10 · WhatsApp/e-mail</span><div class="msg">{{nome}}, você deu nota {{nota}} pra gente — obrigada de verdade! 💛 Que tal ganhar por indicar? Seu código pessoal é AURORA-{{PRIMEIRONOME}}: toda amiga que usar ganha frete grátis na primeira compra, e você ganha R$ 20 em crédito a cada uma. Sem limite. É só mandar o código pra elas.</div></div>
+  <p><strong>Giftback integrado às campanhas de base:</strong> o crédito da indicadora não fica parado esperando ela lembrar. Ele vira gatilho de campanha — <code>tem crédito disponível e não usou em 15 dias</code> entra numa régua de 2 toques ("você tem R$ {{valor}} esperando por você") e o crédito também aparece como argumento nas campanhas do calendário 4.2 para esse segmento. Crédito não usado é receita adiada, não economia.</p>
+  <p><strong>Mensuração (duas linhas novas no painel 4.1):</strong></p>
+  <ul>
+    <li><strong>Clientes novas vindas de indicação:</strong> pedidos com cupom <code>AURORA-*</code> ÷ total de novas clientes do mês — mostra a base crescendo sem custo de mídia</li>
+    <li><strong>Efeito da avaliação na conversão:</strong> comparar a taxa de conversão dos produtos com 5+ avaliações contra os que têm menos de 5 (Tray: <code>Relatórios &gt; Produtos</code> cruzado com o widget Trustvox). É o número que justifica a frente 7 inteira — e costuma surpreender o dono</li>
+  </ul>
+  <div class="co ok"><b>✓ Aceite</b>3+ cupons nominais ativos · 1ª compra por indicação registrada no painel · régua de crédito parado no ar · duas linhas novas no painel.</div>
+
+  <h4>6.8 Técnica do mês 3</h4>
+  <ul><li>DMARC sobe para <code>p=quarantine</code> se os relatórios de 3–4 semanas vierem limpos (Fase 2.2)</li></ul>
+
+  <h3 style="color:var(--lima)">MÊS 4 (dia 106–135) — Ativos de marca</h3>
+
+  <h4>6.9 UGC — conteúdo gerado pelas clientes</h4>
+  <ol style="color:var(--dim)">
+    <li>Gatilho: review 4–5★ com texto → pedido de foto: "sua foto na nossa vitrine + mimo no próximo pedido"</li>
+    <li>🔒 <strong>Autorização registrada por escrito</strong> (resposta afirmativa guardada) antes de qualquer uso — em site, régua ou rede social</li>
+    <li>Biblioteca no Drive: <code>Aurora &gt; UGC &gt; [categoria] &gt; [produto]</code>, com print da autorização junto</li>
+    <li>Uso: toques de prova social das réguas (carrinho 12h, boas-vindas D+5), página de produto, campanhas — foto real com altura/tamanho converte mais que ensaio</li>
+  </ol>
+  <div class="copy"><span class="tag">Pedido de foto · pós-review 5★</span><div class="msg">{{nome}}, sua avaliação da {{produto}} foi incrível — obrigada! Posso te pedir uma coisa? Se você tiver uma foto sua com a peça, a gente adoraria colocar na nossa vitrine de clientes reais (com os créditos que você quiser). Como agradecimento, um mimo entra no seu próximo pedido. Topa? É só mandar a foto por aqui respondendo SIM AUTORIZO.</div></div>
+
+  <h4>6.10 Programa VIP estruturado — "Aurora Prime"</h4>
+  <p>O 1:1 da P4 vira programa com regra. <strong>Critério de entrada objetivo</strong> (calibrar com o dono): 4+ pedidos em 12 meses OU R$ 800+ acumulados. <strong>Benefícios permanentes:</strong> acesso 48h antes a toda coleção · frete sempre grátis · atendimento prioritário no WhatsApp · mimo de aniversário em dobro. <strong>Regras:</strong> entrada comunicada com cerimônia (copy abaixo); revisão trimestral da lista; quem sai, sai em silêncio — nunca comunicar rebaixamento.</p>
+  <div class="copy"><span class="tag">Entrada no Prime · WhatsApp 1:1</span><div class="msg">{{nome}}, tenho uma notícia boa: você agora faz parte do Aurora Prime — o grupo das nossas clientes mais especiais. Na prática: você vê toda coleção 48h antes de todo mundo, seu frete é sempre por nossa conta e seu atendimento fura fila comigo. Sem cartão, sem mensalidade, sem pegadinha — é só o nosso obrigada por você existir por aqui. 💛</div></div>
+
+  <h4>6.11 Unificação de bases — online + loja física + marketplace</h4>
+  <ol style="color:var(--dim)">
+    <li><strong>Loja física:</strong> exportar o cadastro (CSV com CPF, nome, contato, histórico se houver) → deduplicar contra a base online por <strong>CPF primeiro, e-mail depois</strong> → importar na edrone com tag <code>origem:fisica</code> → 🔒 só entra quem tem consentimento válido de comunicação (cadastro com aceite); sem aceite, entra como registro, não como destinatário</li>
+    <li><strong>Marketplace:</strong> limite honesto — Mercado Livre/Shopee não entregam o contato da cliente. A ponte é ativa: encarte físico no pedido com QR + benefício ("cadastre-se no site e ganhe frete na próxima") que converte a compradora de marketplace em contato próprio. Tag <code>origem:marketplace-encarte</code></li>
+    <li>Painel ganha o recorte por origem: % da base e da receita por canal de entrada</li>
+  </ol>
+  <div class="co warn"><b>⚠ O que não fazer</b>Não importar lista da física sem consentimento "porque é cliente". Cliente de loja ≠ opt-in de marketing. O 🔒 da Fase 2.6 vale aqui dobrado.</div>
+
+  <h4>6.12 Push — a camada de reforço</h4>
+  <p>Se o plano da conta edrone incluir web push: opt-in discreto (nunca no primeiro segundo), uso como <strong>reforço leve</strong> — volta de estoque, novidade, lembrete de carrinho — máximo 2/semana. Se indisponível no plano, registrar como gap no playbook do cliente e seguir: push é a menor alavanca das 5 (WhatsApp age, e-mail constrói, SMS urge, push reforça).</p>
+
+  <h3 style="color:var(--lima)">MÊS 5 (dia 136–165) — Otimização e sazonal</h3>
+
+  <h4>6.13 Análise de coorte e poda de réguas</h4>
+  <ul>
+    <li>Planilha de coorte: cada mês de 1ª compra vira uma linha; colunas = % que recomprou em 30/60/90 dias. É a prova visual de que a operação move a 2ª compra — compare as coortes pré e pós Livonno</li>
+    <li><strong>Poda:</strong> régua com conversão baixa E descadastro alto por 2 meses → reescrever ou desligar. Registrar a decisão e o motivo — régua morta rodando é fadiga sem retorno</li>
+  </ul>
+
+  <h4>6.14 Preparação de data sazonal (usar o Anexo E)</h4>
+  <p>Toda grande data segue o mesmo esqueleto, começando <strong>4–6 semanas antes</strong>: teaser (sem preço) → acesso antecipado Prime/Campeãs (48h) → campanha aberta segmentada → última chamada honesta → pós-data (novas compradoras caem na régua de 2ª compra automaticamente). <strong>Black Friday tem regra própria de margem:</strong> oferta por barreira e por segmento — nunca % geral na loja inteira; quem paga preço cheio o ano todo (Premium) recebe exclusividade, não desconto maior.</p>
+
+  <h4>6.15 Troca de coleção — liquidação estratégica</h4>
+  <p>Sequência que protege a percepção de preço: 1º o canal fechado (COMP · Caçadoras de cupom + sensíveis a preço identificadas) com condição exclusiva e prazo → 2º, só depois de esgotar o canal, a vitrine pública. A loja gira o estoque sem ensinar a base inteira a esperar liquidação.</p>
+
+  <h4>6.16 Limpeza semestral (sunset)</h4>
+  <p>Sem abertura/clique/compra em 180 dias → e-mail de última chamada ("quer continuar recebendo?") → sem resposta em 15 dias, supressão. Base menor e viva protege a entregabilidade de tudo.</p>
+
+  <h3 style="color:var(--lima)">MÊS 6 (dia 166–195) — Prova e renovação</h3>
+
+  <h4>6.17 Relatório semestral — antes × depois</h4>
+  <div class="scroll"><table>
+    <tr><th>Bloco</th><th>Conteúdo</th></tr>
+    <tr class="t-lima"><td>1 · O número central</td><td>% do faturamento vindo da base: 2,8% → X% (gráfico de linha, mês a mês)</td></tr>
+    <tr><td>2 · Receita recuperada acumulada</td><td>Carrinho + PIX/boleto + cartão, em R$, semestre inteiro</td></tr>
+    <tr><td>3 · Mapa das 8 frentes</td><td>Status de cada frente do site: no ar / em teste / gap declarado</td></tr>
+    <tr><td>4 · Coortes</td><td>2ª compra em 90d, pré vs pós</td></tr>
+    <tr><td>5 · Base</td><td>Crescimento, higiene, % opt-in WhatsApp, NPS médio</td></tr>
+    <tr><td>6 · Campanhas</td><td>Projetado × realizado acumulado, ROI médio por ação</td></tr>
+    <tr><td>7 · Aprendizados</td><td>O que virou padrão da loja (testes vencedores, janelas recalculadas)</td></tr>
+    <tr><td>8 · Próximo semestre</td><td>Metas novas + o que entra (e a recomendação de plano)</td></tr>
+  </table></div>
+
+  <h4>6.18 Reunião de renovação — a mais importante do contrato</h4>
+  <ul>
+    <li>Agendar para a <strong>1ª quinzena do mês 6</strong> (nunca deixar para o 7): apresentar o relatório 6.17 e a proposta do próximo ciclo na mesma conversa</li>
+    <li><strong>Quando propor o upgrade para Gravidade:</strong> SAC de WhatsApp volumoso (o time não dá conta de ler tudo) · base 30 mil+ · dono pedindo previsão individual de recompra · operação madura nas 8 frentes</li>
+    <li>Renovação não é pedido — é a consequência natural do relatório. Se os números estiverem no lugar, a pergunta certa é "o que vamos buscar nos próximos 6 meses?"</li>
+  </ul>
+
+  <h4>6.19 Atualizar o playbook do cliente</h4>
+  <p>Tudo que virou padrão no semestre (janelas recalculadas, testes vencedores, copies ajustadas, gaps declarados) entra no playbook da loja. <strong>Quem executa, atualiza</strong> — e o playbook atualizado é o ativo que faz o mês 7 começar melhor que o mês 1.</p>
+
+  <p class="foot-val">Última validação da Fase 6 em cliente real: ____/____/____ por ____________</p>
+</section>
+
+<!-- ============ FASE 7 · CALENDÁRIO ANUAL ============ -->
+<section class="fase wrap" id="cal">
+  <span class="fase-num">F7</span>
+  <p class="eyebrow">Fase 7 · o ano inteiro</p>
+  <h2>Calendário comercial de moda</h2>
+  <p class="fase-meta">As 12 datas que movem faturamento em moda feminina no Brasil · sobrepostas ao ciclo de coleção · com antecedência, público e oferta definidos</p>
+
+  <div class="co rule"><b>Por que este calendário existe</b>Data sazonal não se planeja na semana da data — se planeja com 4 a 6 semanas. Loja de moda que só lembra da Black Friday em novembro já perdeu o teaser, o acesso antecipado e a captura de lista de interesse. Este calendário entra na reunião quinzenal de <strong>dezembro/janeiro</strong> e vira o esqueleto do ano.</div>
+
+  <h3>7.1 O ano em uma tabela</h3>
+  <p>Intensidade: ●●● alta (planejar como projeto) · ●● média (campanha própria) · ● baixa (só um toque, sem esforço de produção).</p>
+  <div class="scroll"><table>
+    <tr><th>Mês</th><th>Data / momento</th><th>Int.</th><th>Quem recebe</th><th>Ângulo e oferta (barreira, não % geral)</th><th>Começar em</th></tr>
+    <tr><td>Jan</td><td>Liquidação de verão / virada de coleção</td><td>●●●</td><td>Caçadoras de cupom → depois base geral · <strong>nunca</strong> Premium primeiro</td><td>Canal fechado antes da vitrine (6.15). Giro de estoque, não queima de marca</td><td>Dez, semana 2</td></tr>
+    <tr><td>Jan–Fev</td><td>Volta às aulas</td><td>●●</td><td>Compradoras de infantil · base com filhos declarados</td><td>Kit, combo, frete progressivo. Gancho de troca de tamanho</td><td>Jan, semana 1</td></tr>
+    <tr><td>Fev</td><td>Carnaval</td><td>●●</td><td>Descobridoras · compradoras de praia/festa</td><td>Curadoria de look, não desconto. Frete expresso é o benefício real (prazo aperta)</td><td>Jan, semana 3</td></tr>
+    <tr><td>Mar</td><td>Dia da Mulher (08/03)</td><td>●●</td><td>Base feminina inteira</td><td>Mensagem de marca + mimo. <strong>Cuidado:</strong> data de causa; oferta agressiva soa oportunista</td><td>Fev, semana 3</td></tr>
+    <tr class="t-lima"><td>Mar</td><td>Dia do Consumidor (15/03)</td><td>●●●</td><td>Base engajada · carrinhos dos últimos 60d · inativas 60–90d</td><td>A "Black Friday do 1º semestre" no e-commerce BR. Excelente para reativar sem gastar a marca</td><td>Fev, semana 2</td></tr>
+    <tr><td>Abr</td><td>Lançamento outono/inverno</td><td>●●</td><td>Prime + Campeãs 48h antes · depois Descobridoras</td><td>Acesso antecipado. Zero desconto — é coleção nova</td><td>Mar, semana 3</td></tr>
+    <tr class="t-lima"><td>Mai</td><td><strong>DIA DAS MÃES</strong> (2º domingo)</td><td>●●●</td><td>Base inteira, segmentada por relação com a data</td><td>A maior data do 1º semestre para moda feminina. Ver playbook 7.2</td><td>Abr, semana 1</td></tr>
+    <tr><td>Jun</td><td>Dia dos Namorados (12/06)</td><td>●●</td><td>Base geral · ângulo duplo: presentear e se presentear</td><td>Look de encontro, curadoria, embalagem especial. Vale-presente resolve o "não sei o tamanho dela"</td><td>Mai, semana 3</td></tr>
+    <tr><td>Jun–Jul</td><td>Alto inverno · festa junina</td><td>●</td><td>Compradoras de inverno · regional</td><td>Conteúdo e curadoria. Data pequena para moda feminina urbana</td><td>Jun, semana 1</td></tr>
+    <tr><td>Jul</td><td>Liquidação de inverno</td><td>●●●</td><td>Canal fechado → depois vitrine</td><td>Mesmo protocolo de janeiro (6.15)</td><td>Jun, semana 3</td></tr>
+    <tr><td>Ago</td><td>Dia dos Pais (2º domingo)</td><td>●</td><td>Só se a loja tiver linha masculina ou presenteável</td><td>Se não tiver, <strong>pular sem culpa</strong> — campanha forçada gasta base</td><td>Jul, semana 3</td></tr>
+    <tr><td>Set</td><td>Lançamento primavera</td><td>●●</td><td>Prime + Campeãs 48h antes</td><td>Acesso antecipado, cores novas</td><td>Ago, semana 3</td></tr>
+    <tr><td>Set</td><td>Dia do Cliente (15/09)</td><td>●●</td><td>Campeãs · Fiéis · Prime</td><td>Data perfeita para retenção pura: agradecimento e exclusividade, sem desconto</td><td>Ago, semana 4</td></tr>
+    <tr><td>Out</td><td>Dia das Crianças (12/10)</td><td>●●</td><td>Compradoras de infantil (●●● se a loja for infantil)</td><td>Kit, presente, troca garantida por tamanho</td><td>Set, semana 2</td></tr>
+    <tr class="t-lima"><td>Nov</td><td><strong>BLACK FRIDAY</strong> (última sexta) + Cyber Monday</td><td>●●●</td><td>Base inteira, em ondas por segmento</td><td>Maior data do ano. Ver playbook 7.3 — e a regra de margem</td><td>Set, semana 4</td></tr>
+    <tr class="t-lima"><td>Dez</td><td><strong>NATAL</strong> + Ano Novo</td><td>●●●</td><td>Base inteira · ângulo presente + look de réveillon</td><td>Ver playbook 7.4. Prazo de entrega é o argumento, não preço</td><td>Nov, semana 1</td></tr>
+  </table></div>
+
+  <div class="co warn"><b>⚠ A regra que protege o ano inteiro</b>Uma loja não pode fazer 16 campanhas de desconto por ano — a base aprende a nunca comprar a preço cheio. Da tabela acima, no máximo <strong>4 datas por ano</strong> carregam desconto real (tipicamente: liquidação de verão, liquidação de inverno, Black Friday e uma terceira à escolha do dono). Todas as outras se sustentam em <strong>acesso, curadoria, prazo, embalagem ou frete</strong>. Levar isso para a reunião de planejamento anual é entrega da Livonno, não capricho.</div>
+
+  <h3>7.2 Playbook · Dia das Mães</h3>
+  <p><strong>Por que é a maior data do 1º semestre:</strong> concentra dois compradores — quem presenteia (muitas vezes homem, comprando para mulher, com medo de errar tamanho) e a própria cliente comprando para a mãe. Cada um precisa de mensagem oposta.</p>
+  <div class="scroll"><table>
+    <tr><th>Quando</th><th>Público</th><th>Mensagem</th><th>Canal</th></tr>
+    <tr><td>D-30</td><td>Base engajada</td><td>Teaser + <strong>captura de lista de interesse</strong> ("quer ser avisada primeiro?") — a lista é o ativo da campanha</td><td>E-mail</td></tr>
+    <tr><td>D-21</td><td>Lista de interesse</td><td>Guia de presente por perfil de mãe (clássica, moderna, prática) — conteúdo que vende sem preço</td><td>E-mail</td></tr>
+    <tr><td>D-14</td><td>Prime + Campeãs</td><td>Acesso antecipado à seleção + <strong>embalagem de presente grátis</strong></td><td>WhatsApp + e-mail</td></tr>
+    <tr><td>D-10</td><td>Base geral</td><td>Abertura oficial · <strong>vale-presente em destaque</strong> (resolve o medo de errar tamanho)</td><td>E-mail + WhatsApp</td></tr>
+    <tr><td>D-7</td><td>Quem clicou e não comprou</td><td>"Ainda dá tempo de chegar" — <strong>prazo de entrega é o argumento</strong></td><td>WhatsApp</td></tr>
+    <tr><td>D-4</td><td>Base</td><td>Último dia com garantia de entrega antes do domingo</td><td>E-mail + SMS</td></tr>
+    <tr><td>D-3 a D-1</td><td>Quem não comprou</td><td>Vale-presente digital: entrega instantânea, salva o atrasado</td><td>WhatsApp</td></tr>
+    <tr><td>D+1</td><td>Quem comprou</td><td>"Como foi?" + troca facilitada (tamanho errado é normal nessa data) + pedido de review</td><td>E-mail</td></tr>
+    <tr><td>D+7</td><td>Novas compradoras</td><td>Entram automaticamente na régua de 2ª compra (3.6)</td><td>Automático</td></tr>
+  </table></div>
+  <div class="copy"><span class="tag">D-7 · WhatsApp · o toque que mais converte da campanha</span><div class="msg">{{nome}}, ainda dá tempo! Pedidos feitos até {{data}} chegam antes do Dia das Mães — e se o tamanho não ficar bom, ela troca sem custo. Se preferir não arriscar o tamanho, o vale-presente é entregue na hora: {{link}}</div></div>
+  <div class="co warn"><b>⚠ Operação, não só marketing</b>Alinhar com o dono ANTES: data-limite real de despacho, se haverá embalagem de presente, e se o vale-presente digital está habilitado na Tray. Prometer prazo que a logística não cumpre transforma a maior data do semestre no maior volume de SAC do ano.</div>
+
+  <h3>7.3 Playbook · Black Friday</h3>
+  <p><strong>Começa em setembro, não em novembro.</strong> A campanha tem 3 fases: construir lista, aquecer, vender.</p>
+  <div class="scroll"><table>
+    <tr><th>Quando</th><th>Fase</th><th>O que fazer</th></tr>
+    <tr><td>Set, semana 4</td><td>Planejamento</td><td>Definir com o dono: quais SKUs entram, qual o piso de margem por categoria, se haverá pré-BF. <strong>Sem piso de margem definido por escrito, a Livonno não monta a campanha</strong></td></tr>
+    <tr><td>Out</td><td>Construção de lista</td><td>Pop-up e campanhas capturando "avise-me na Black Friday" — essa lista converte 3–5× a base geral</td></tr>
+    <tr><td>Nov, sem. 1–2</td><td>Aquecimento</td><td>Conteúdo, teaser, curadoria do que vai entrar. Aquecer também a <strong>reputação de envio</strong> (volume sobe muito na semana da data)</td></tr>
+    <tr><td>Nov, sem. 3</td><td>Pré-BF</td><td>Prime + Campeãs compram 48h antes, com a mesma condição. Exclusividade sem custo extra</td></tr>
+    <tr><td>Quinta (véspera)</td><td>Abertura</td><td>Lista de interesse primeiro, base geral depois — em ondas, para não estourar entrega nem o site</td></tr>
+    <tr><td>Sexta</td><td>O dia</td><td>3 toques máximo: manhã (abertura) · tarde (mais procurados) · noite (últimas horas). Carrinho abandonado com régua encurtada — 15min / 2h / 6h</td></tr>
+    <tr><td>Sábado–Domingo</td><td>Extensão</td><td>Só se houver estoque real. "Prorrogamos" sem motivo ensina a base que prazo é mentira</td></tr>
+    <tr><td>Segunda</td><td>Cyber Monday</td><td>Categoria específica ou frete, não repetição da BF</td></tr>
+    <tr><td>Dez, sem. 1</td><td>Colheita</td><td>Todas as novas compradoras entram na régua de boas-vindas e 2ª compra. <strong>É aqui que a Black Friday vira LTV em vez de prejuízo</strong></td></tr>
+  </table></div>
+  <div class="co rule"><b>A regra de margem da Livonno na BF</b>Oferta por barreira e por segmento — nunca percentual único na loja inteira. Premium e Prime recebem <strong>acesso e exclusividade</strong>, não desconto maior: quem paga preço cheio o ano todo não deve ser ensinado a esperar novembro. Caçadoras de cupom recebem a oferta agressiva, que é onde ela funciona. E todo item em oferta tem piso de margem aprovado por escrito pelo dono.</div>
+
+  <h3>7.4 Playbook · Natal e Ano Novo</h3>
+  <ul>
+    <li><strong>Nov, semana 1:</strong> guia de presentes por faixa de preço (até R$100, R$200, R$300) — formato que mais converte em dezembro</li>
+    <li><strong>Dez, semana 1–2:</strong> campanha de presente com embalagem e vale-presente em destaque</li>
+    <li><strong>Dez, semana 2–3:</strong> <strong>contagem regressiva de prazo</strong> — o argumento de dezembro é entrega, não preço. Comunicar a data-limite de despacho por região</li>
+    <li><strong>Após o prazo:</strong> vale-presente digital assume 100% da comunicação (entrega instantânea)</li>
+    <li><strong>Dez, semana 4:</strong> virada para <strong>look de réveillon</strong> — branco, festa, brilho. Público diferente, campanha diferente, e a única do mês que não é sobre presente</li>
+    <li><strong>Jan, semana 1:</strong> régua de troca ativa e reforçada (pós-Natal é pico de troca) — e cada troca bem resolvida é uma cliente nova retida</li>
+  </ul>
+
+  <h3>7.5 Ciclo de coleção — a camada por baixo do calendário</h3>
+  <p>Datas comerciais são picos; o ciclo de coleção é a batida de fundo. Toda troca de coleção segue a mesma sequência de 4 tempos:</p>
+  <div class="mer"><pre class="mermaid">
+flowchart LR
+    A["1 · Teaser\nbastidor, prévia\nsem preço"] --> B["2 · Acesso antecipado\nPrime + Campeãs\n48h antes"]
+    B --> C["3 · Abertura pública\nsegmentada por persona\nDescobridoras primeiro"]
+    C --> D["4 · Meia-estação\nreforço nos SKUs que giraram\ncuradoria dos que não"]
+    D --> E["5 · Queima\ncanal fechado antes da vitrine"]
+  </pre></div>
+  <p>Em moda, <strong>Descobridoras</strong> (6.1) são o público natural do lançamento e <strong>De hábito</strong> é o público natural da reposição — o mesmo lançamento gera duas campanhas diferentes, não uma. Registrar no playbook do cliente as datas de troca de coleção da marca; elas mandam mais no calendário do que qualquer data do varejo.</p>
+
+  <h3>7.6 Rotina anual da Livonno</h3>
+  <ul>
+    <li><strong>Dezembro/janeiro:</strong> reunião de planejamento anual com o dono — escolher as 4 datas com desconto, marcar as datas de coleção, definir pisos de margem</li>
+    <li><strong>Mensal (reunião quinzenal):</strong> a data do mês seguinte já entra montada no calendário 4.2, com ROI projetado</li>
+    <li><strong>Pós-data:</strong> registrar no playbook do cliente o que funcionou — a Black Friday deste ano é o rascunho da do ano que vem</li>
+  </ul>
+
+  <p class="foot-val">Última validação da Fase 7 em cliente real: ____/____/____ por ____________</p>
+</section>
+
+<!-- ============ MÓDULO GRAVIDADE ============ -->
+<section class="fase wrap" id="grav">
+  <span class="fase-num">G</span>
+  <p class="eyebrow">Módulo Gravidade · ativável</p>
+  <h2>As entregas exclusivas do plano Gravidade</h2>
+  <p class="fase-meta">Previsão de recompra por IA · next-best-offer avançado · leitura de conversas · SAC com IA · RCS</p>
+
+  <div class="co warn"><b>⚠ Escopo</b>Este módulo só é ativado para contratos Gravidade (R$ 6.900/mês). Cliente Órbita pedindo estas entregas = conversa comercial de upgrade, não favor operacional. Pré-requisito técnico: as 8 frentes do Órbita maduras e a operação estável.</div>
+
+  <h4>G.1 Previsão de recompra individual</h4>
+  <p>A régua de recompra da 3.6 usa a mediana da <em>categoria</em>. Aqui ela passa a usar a mediana da <em>cliente</em>: para quem tem 3+ compras, calcular a mediana dos intervalos pessoais (coluna nova na planilha do diagnóstico: <code>=MED(intervalos_da_cliente)</code>, atualizada mensalmente) e disparar a régua a <strong>80% da previsão pessoal</strong>. Quem tem menos de 3 compras continua na mediana da categoria. É a diferença entre "clientes de básicos voltam em 52 dias" e "a Júlia volta a cada 38".</p>
+
+  <h4>G.2 Next-best-offer avançado — a matriz de transição</h4>
+  <ol style="color:var(--dim)">
+    <li>Na planilha de pedidos, tabela dinâmica: linhas = categoria da compra N · colunas = categoria da compra N+1 · valores = contagem</li>
+    <li>Ler por linha: "quem comprou jeans, comprou em seguida: básicos 41% · alfaiataria 22% · vestidos 9%"</li>
+    <li>O top 3 de cada linha vira a curadoria dos toques de recompra e cross-sell — no lugar da recomendação genérica por IA da ferramenta</li>
+    <li>Atualizar por trimestre; registrar as transições no playbook do cliente</li>
+  </ol>
+
+  <h4>G.3 Leitura de conversas por IA — o SAC como radar de churn</h4>
+  <ol style="color:var(--dim)">
+    <li>n8n coleta diariamente as conversas do WhatsApp (via API oficial)</li>
+    <li>Classificação por IA em 4 etiquetas: <strong>intenção de compra</strong> · <strong>risco/insatisfação</strong> · <strong>dúvida de produto</strong> · <strong>neutro</strong></li>
+    <li>Saída: fila priorizada para o time (intenção de compra primeiro) + alerta imediato de risco ao ponto focal + contagem semanal no painel (ex.: "23 conversas com sinal de insatisfação — 9 sobre prazo de entrega")</li>
+    <li>🔒 A política de privacidade da loja precisa cobrir o tratamento das conversas; a IA <strong>etiqueta, o humano decide</strong> — nenhuma resposta automática nasce daqui</li>
+  </ol>
+
+  <h4>G.4 SAC com IA — em camadas, nunca de uma vez</h4>
+  <div class="scroll"><table>
+    <tr><th>Camada</th><th>O que a IA faz</th><th>O que o humano faz</th></tr>
+    <tr><td>1 · Rascunho supervisionado</td><td>Sugere a resposta com base no histórico e nos scripts da 3.13</td><td>Revisa, ajusta, envia — sempre</td></tr>
+    <tr><td>2 · Status automático</td><td>Responde sozinha SÓ "cadê meu pedido / rastreio / prazo" (dados objetivos do pedido)</td><td>Monitora e assume em 1 toque</td></tr>
+    <tr><td>Nunca</td><td colspan="2">Autonomia em objeção, troca, reclamação ou negociação — é onde a camada humana (frente 8) ganha o jogo</td></tr>
+  </table></div>
+  <p>Medir no painel: tempo médio de 1ª resposta antes × depois. É o número que justifica o plano.</p>
+
+  <h4>G.5 Personalização dinâmica de oferta</h4>
+  <p>No Órbita, a oferta é definida por segmento na hora de montar a campanha. No Gravidade, ela é resolvida <strong>no momento do envio</strong>, cruzando três variáveis já disponíveis: persona comportamental (6.1) × barreira do segmento (tabela de oferta) × elasticidade histórica da cliente (ela já comprou a preço cheio?).</p>
+  <div class="scroll"><table>
+    <tr><th>Perfil</th><th>Já comprou a preço cheio?</th><th>Oferta que o sistema entrega</th></tr>
+    <tr><td>Premium / Prime</td><td>Sim, sempre</td><td>Acesso antecipado — <strong>nunca</strong> desconto</td></tr>
+    <tr><td>De hábito</td><td>Sim</td><td>Frete ou brinde de reposição</td></tr>
+    <tr><td>Ticket baixo</td><td>Às vezes</td><td>Frete grátis a partir de valor</td></tr>
+    <tr><td>Caçadora de cupom</td><td>Não, nunca</td><td>Cupom controlado, espaçado, com validade curta</td></tr>
+  </table></div>
+  <p>Uma campanha, quatro ofertas diferentes, margem preservada. Implementação: blocos condicionais no template da edrone por segmento, com fallback definido para quem não se encaixa em nenhum.</p>
+
+  <h4>G.6 Prioridade de atendimento e roadmap trimestral</h4>
+  <ul>
+    <li><strong>Prioridade de atendimento:</strong> SLA de resposta da Livonno ao cliente Gravidade em até 4h úteis (contra 24h no Órbita) · canal direto de WhatsApp com o operador, não só a reunião quinzenal</li>
+    <li><strong>Roadmap trimestral:</strong> a cada 3 meses, sessão de 90 min com o dono — revisão do que foi feito, do que os dados mostraram, e definição das 3 prioridades do trimestre seguinte, com metas numéricas. Documento de 2 páginas entregue depois. É o que diferencia "operar" de "conduzir a estratégia de retenção da marca"</li>
+  </ul>
+
+  <h4>G.7 RCS — o canal em maturação</h4>
+  <ul>
+    <li><strong>O que é:</strong> a mensagem nativa do Android com remetente verificado, carrossel, imagem e botões — sem app instalado</li>
+    <li><strong>Pré-requisitos:</strong> agente de marca aprovado + provedor de disparo + base majoritariamente Android</li>
+    <li><strong>Uso Livonno:</strong> piloto em campanhas de alto valor visual (lançamento de coleção, acesso Prime) com fallback automático para SMS · medir custo por conversão contra o WhatsApp antes de escalar</li>
+    <li><strong>Cautela de promessa:</strong> canal em maturação no Brasil — vender como piloto de vanguarda, nunca como pilar da operação</li>
+  </ul>
+
+  <p class="foot-val">Última validação do módulo em cliente real: ____/____/____ por ____________</p>
+</section>
+
+<!-- ============ CRONOGRAMA ============ -->
+<section class="fase wrap" id="cron">
+  <span class="fase-num">45</span>
+  <p class="eyebrow">Mapa</p>
+  <h2>Cronograma-mestre do contrato</h2>
+  <p class="fase-meta">Duas escalas: os 45 dias de implantação, semana a semana · e o semestre inteiro, mês a mês</p>
+  <h3>Escala 1 — os 45 dias de implantação</h3>
+
+  <div class="mer"><pre class="mermaid">
+flowchart LR
+    F0["F0 · dia 0–2\nContrato → acessos → kickoff"] --> F1["F1 · dia 3–9\nDiagnóstico + relatório"]
+    F1 --> F2["F2 · dia 8–16\nFundação técnica\n(paralela ao fim da F1)"]
+    F2 --> P1["P1 · dia 15–21\nDinheiro quente"]
+    P1 --> P2["P2 · dia 22–35\nSegunda compra"]
+    P2 --> P3["P3 · dia 29–42\nReceita parada"]
+    P3 --> P4["P4 · dia 36–45\nExpansão + camada humana"]
+    P4 --> GL["Go-live completo\nchecklist 5.1 + painel + calendário"]
+  </pre></div>
+
+  <div class="scroll"><table>
+    <tr><th>Semana</th><th>Dias</th><th>Entregas</th><th>Marco / portão</th></tr>
+    <tr><td>1</td><td>0–7</td><td>Acessos completos · kickoff · exportação · RFM na planilha · janela de recompra · vazamentos · cliente oculto</td><td>Ata de kickoff enviada</td></tr>
+    <tr><td>2</td><td>8–14</td><td>Relatório entregue e apresentado · integração validada (6 eventos) · SPF/DKIM/DMARC · verificação Meta iniciada (dia 8!) · aquecimento semana 1</td><td>Diagnóstico aprovado · fundação verde</td></tr>
+    <tr><td>3</td><td>15–21</td><td>Réguas de carrinho + PIX/boleto + cartão no ar · templates aprovados · aquecimento semana 2</td><td><strong>Portão P1:</strong> 1º real recuperado no painel</td></tr>
+    <tr><td>4</td><td>22–28</td><td>Pop-up + boas-vindas · transacional 8 etapas · aquecimento semana 3</td><td>Transacional testada ponta a ponta</td></tr>
+    <tr><td>5</td><td>29–35</td><td>Recompra por janela (1ª categoria) · cross-sell · 8 segmentos vivos na edrone</td><td><strong>Portão P2</strong></td></tr>
+    <tr><td>6</td><td>36–42</td><td>Win-back no ar · 1ª campanha de reativação · estoque parado · Trustvox + interceptação</td><td><strong>Portão P3:</strong> resultado da 1ª campanha anotado</td></tr>
+    <tr><td>7</td><td>43–45</td><td>VIP 1:1 · scripts entregues · treinamento gravado · painel com linha de base · calendário do mês 1 aprovado</td><td><strong>Go-live:</strong> checklist 5.1 completo</td></tr>
+  </table></div>
+  <div class="co warn"><b>⚠ As duas dependências que atrasam projetos</b>1) Verificação da empresa na Meta (dia 8, prazo morto de até 5 dias úteis) — quem esquece, trava a P1. 2) Acesso ao DNS (Fase 0, item 3) — quem deixa para depois, trava o aquecimento inteiro.</div>
+
+  <h3>Escala 2 — o semestre inteiro</h3>
+  <p>Os 45 dias acima cabem inteiros dentro do mês 1. O contrato é de 6 meses, e cada mês seguinte sobe entregas novas — sempre na ordem de ROI, nunca todas de uma vez.</p>
+
+  <div class="mer"><pre class="mermaid">
+flowchart LR
+    M1["MÊS 1\nImplantação 45 dias\nP1 → P4 + go-live"] --> M2["MÊS 2\nComportamental\nAniversário · Avise-me"]
+    M2 --> M3["MÊS 3\nPré-risco · NPS\nIndicação"]
+    M3 --> M4["MÊS 4\nUGC · VIP Prime\nUnificação · Push"]
+    M4 --> M5["MÊS 5\nCoorte · sazonal\nLiquidação · limpeza"]
+    M5 --> M6["MÊS 6\nRelatório semestral\nRenovação"]
+  </pre></div>
+
+  <div class="scroll"><table>
+    <tr><th>Mês</th><th>Dias</th><th>Entregas novas</th><th>Marco do mês</th></tr>
+    <tr class="t-lima"><td>1</td><td>0–45</td><td>Diagnóstico · fundação técnica · P1 dinheiro quente · P2 segunda compra · P3 receita parada · P4 expansão</td><td>Go-live: checklist 5.1 completo</td></tr>
+    <tr><td>2</td><td>46–75</td><td>6 personas comportamentais · aniversário e datas · avise-me quando chegar</td><td>1ª campanha com filtro de persona</td></tr>
+    <tr><td>3</td><td>76–105</td><td>Régua de pré-risco · NPS com interceptação de detratoras · programa de indicação</td><td>1ª compra por indicação registrada · DMARC sobe para quarantine</td></tr>
+    <tr><td>4</td><td>106–135</td><td>UGC com autorização · Aurora Prime · unificação online+física+marketplace · push</td><td>Biblioteca de UGC alimentando as réguas</td></tr>
+    <tr><td>5</td><td>136–165</td><td>Coorte e poda de réguas · preparação sazonal · liquidação estratégica · limpeza semestral</td><td>Coorte pré × pós apresentada</td></tr>
+    <tr><td>6</td><td>166–195</td><td>Relatório semestral antes×depois · reunião de renovação · atualização do playbook do cliente</td><td><strong>Renovação decidida</strong></td></tr>
+  </table></div>
+  <div class="co rule"><b>A regra que atravessa o semestre</b>Nenhum mês abre com pendência do anterior. Se a P1 do mês 1 não estiver estável, o mês 2 não começa — a ordem de ROI vale do dia 1 ao dia 195.</div>
+</section>
+
+<!-- ============ ANEXOS ============ -->
+<section class="fase wrap" id="anexos">
+  <span class="fase-num">AX</span>
+  <p class="eyebrow">Anexos</p>
+  <h2>Referências rápidas</h2>
+
+  <h3>A · Janelas de recompra de referência por categoria</h3>
+  <p>Usar SÓ até calcular a janela real da loja (Fase 1.3) — referência não substitui mediana própria.</p>
+  <div class="scroll"><table>
+    <tr><th>Categoria</th><th>Janela típica</th><th>Nota</th></tr>
+    <tr><td>Básicos / camisetas</td><td>45–60 dias</td><td>Reposição e kit funcionam muito</td></tr>
+    <tr><td>Fitness</td><td>60–90</td><td>Ciclo puxado por treino e desgaste</td></tr>
+    <tr><td>Moda íntima</td><td>60–90</td><td>Recompra do MESMO item/tamanho</td></tr>
+    <tr><td>Jeans</td><td>90–120</td><td>Curadoria por modelagem</td></tr>
+    <tr><td>Infantil</td><td>90–120</td><td>Troca de tamanho puxa o ciclo — gancho natural</td></tr>
+    <tr><td>Moda praia</td><td>sazonal</td><td>Antecipação pré-verão, não reativação genérica</td></tr>
+    <tr><td>Vestidos / ocasião</td><td>120–180</td><td>Janela longa: conteúdo antes de oferta</td></tr>
+  </table></div>
+
+  <h3>B · Glossário mínimo</h3>
+  <ul>
+    <li><strong>RFM</strong> — recência, frequência, valor monetário: a base da segmentação</li>
+    <li><strong>Utility vs marketing</strong> — categorias de template do WhatsApp; utility = serviço sobre uma transação (aprova mais fácil, custa menos)</li>
+    <li><strong>Janela de 24h</strong> — após mensagem da cliente, a loja responde livremente por 24h; fora dela, só template aprovado</li>
+    <li><strong>Supressão</strong> — contato que não recebe mais nada (diferente de descadastrado: supressão é decisão nossa de higiene)</li>
+    <li><strong>Hard bounce</strong> — e-mail inexistente; remover imediatamente</li>
+    <li><strong>DMARC p=none / quarantine / reject</strong> — só monitora / manda para spam / rejeita</li>
+    <li><strong>Portão de saída</strong> — critério objetivo que autoriza abrir a prioridade seguinte</li>
+  </ul>
+
+  <h3>C · Modelo de ata quinzenal</h3>
+  <div class="copy"><span class="tag">Ata · Livonno × Aurora · [data]</span><div class="msg">Presentes: [nomes]
+3 números do período: [% base] · [recuperado R$] · [métrica destaque]
+Campanhas: [ação] — projetado R$ X · realizado R$ Y · leitura: [1 linha]
+Decisão tomada: [a decisão de hoje]
+Pendências: [item — dono — prazo]
+Próximos 15 dias: [3 linhas]</div></div>
+
+  <h3>D · E-mail de boas-vindas + acessos</h3>
+  <p>Modelo completo na Fase 0.2 deste manual. Versão viva para copiar: Drive <code>Livonno &gt; Modelos &gt; Onboarding</code>.</p>
+
+  <h3>E · Esqueleto de data sazonal (usar em toda grande data)</h3>
+  <p>Referenciado em 6.14. Toda data segue a mesma espinha — só mudam o tema e a intensidade.</p>
+  <div class="scroll"><table>
+    <tr><th>Momento</th><th>Quem recebe</th><th>Conteúdo</th><th>Canal</th></tr>
+    <tr><td>D-30 a D-21</td><td>Base engajada</td><td>Teaser sem preço: "vem coisa boa" + captura de interesse por categoria</td><td>E-mail</td></tr>
+    <tr><td>D-14</td><td>COMP · Descobridoras + Campeãs</td><td>Prévia da seleção, ainda sem condição</td><td>E-mail</td></tr>
+    <tr class="t-lima"><td>D-2 (48h antes)</td><td>Aurora Prime + Campeãs + Fiéis</td><td>Acesso antecipado real — compra liberada antes de todo mundo</td><td>WhatsApp + e-mail</td></tr>
+    <tr><td>D0</td><td>Base elegível, segmentada por persona</td><td>Abertura pública · oferta por barreira, nunca % geral</td><td>E-mail + WhatsApp</td></tr>
+    <tr><td>D+1</td><td>Quem clicou e não comprou</td><td>Lembrete com o que ela olhou</td><td>WhatsApp</td></tr>
+    <tr><td>D+2 (últimas horas)</td><td>Quem não comprou</td><td>Última chamada honesta com prazo real</td><td>E-mail + SMS</td></tr>
+    <tr><td>D+3 em diante</td><td>Novas compradoras da data</td><td>Caem automaticamente na régua de 2ª compra (3.6)</td><td>Automático</td></tr>
+  </table></div>
+  <div class="co warn"><b>⚠ Regra de margem em Black Friday</b>Oferta por barreira e por segmento — nunca percentual único na loja inteira. Quem paga preço cheio o ano todo (COMP · Premium) recebe exclusividade e acesso, não desconto maior. Data sazonal é onde a base aprende (ou desaprende) a esperar promoção.</div>
+
+  <h3>F · Paridade com o site — onde cada promessa é executada</h3>
+  <p>Checagem de honestidade: toda entrega prometida no site da Livonno tem endereço neste manual. Se alguma linha ficar sem endereço, ou o site muda, ou o playbook cresce.</p>
+  <div class="scroll"><table>
+    <tr><th>Frente do site</th><th>Entregas</th><th>Onde é executada</th></tr>
+    <tr><td>01 · Recuperação</td><td>Carrinho · checkout · browse · boleto/PIX · cartão recusado · avise-me</td><td>3.1 · 3.2 · 3.3 · 6.3</td></tr>
+    <tr><td>02 · RFM + comportamental</td><td>8 segmentos · 6 personas de comportamento</td><td>1.2 · 3.8 · 6.1</td></tr>
+    <tr><td>03 · Ciclo de vida</td><td>Boas-vindas · transacional 8 etapas · janela de recompra · cross-sell · aniversário · VIP</td><td>3.4 · 3.5 · 3.6 · 3.7 · 6.2 · 6.10</td></tr>
+    <tr><td>04 · Reativação</td><td>Win-back · next-best-offer · estoque parado · oferta por barreira</td><td>3.9 · 3.10 · 6.15 · G.2</td></tr>
+    <tr><td>05 · Prevenção</td><td>Pré-risco · NPS e detratoras · leitura de conversas</td><td>6.5 · 6.6 · G.3</td></tr>
+    <tr><td>06 · Base e inteligência</td><td>Painel · unificação online/física/marketplace · canais por função (incl. push e RCS)</td><td>4.1 · 6.11 · 6.12 · G.5</td></tr>
+    <tr><td>07 · Indicação e prova social</td><td>Review com caimento · interceptação ≤3★ · indicação · UGC</td><td>3.11 · 6.7 · 6.9</td></tr>
+    <tr><td>08 · Camada humana</td><td>Scripts de atendimento · treinamento · SAC com IA</td><td>3.13 · G.4</td></tr>
+    <tr><td>Recuperação de experiência ruim</td><td>Atraso · extravio · devolução → troca · playbook de reclamação</td><td>6.6b · scripts 3 e 5</td></tr>
+    <tr><td>Indicação · mensuração</td><td>Giftback integrado · novas clientes por indicação · efeito do review na conversão</td><td>6.7</td></tr>
+    <tr><td>Camada humana · conversa</td><td>Cross-sell e aumento de ticket no atendimento</td><td>Script 6 (3.13)</td></tr>
+    <tr><td>Plano Impulso</td><td>Entrega documentada — "o que foi montado é seu"</td><td>5.4</td></tr>
+    <tr><td>Plano Gravidade</td><td>Personalização dinâmica de oferta · prioridade de atendimento · roadmap trimestral</td><td>G.5 · G.6</td></tr>
+    <tr class="t-lima"><td>Calendário do ano</td><td>Dia das Mães · Black Friday · Natal · Dia do Consumidor · Namorados · Crianças · Dia do Cliente · volta às aulas · liquidações · ciclo de coleção</td><td>Fase 7 completa</td></tr>
+    <tr class="t-lima"><td>Operação (todos os planos)</td><td>Calendário mensal com ROI projetado · quinzenal com decisão · relatório semestral</td><td>4.2 · 4.5 · 6.17</td></tr>
+  </table></div>
+
+  <div style="border-top:1px solid var(--line);margin-top:3.5em;padding-top:1.6em;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1em">
+    <p class="mono" style="font-size:.72rem;color:var(--mut)">LIVONNO · PLAYBOOK DE ENTREGA v4.0 · CONTRATO DE 6 MESES + CALENDÁRIO ANUAL · JUL 2026</p>
+    <p class="mono" style="font-size:.72rem;color:var(--lima)">QUEM EXECUTA, ATUALIZA.</p>
+  </div>
+</section>
+
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script>
+mermaid.initialize({
+  startOnLoad: true,
+  theme: 'dark',
+  themeVariables: {
+    primaryColor: '#141414',
+    primaryBorderColor: '#ccff00',
+    primaryTextColor: '#f5f5f5',
+    lineColor: '#666666',
+    secondaryColor: '#1a1a1a',
+    tertiaryColor: '#101010',
+    fontFamily: 'Inter, sans-serif',
+    fontSize: '13px'
+  }
+});
+</script>
+</body>
+</html>
