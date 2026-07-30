@@ -74,9 +74,11 @@ tailwind.config = {
 <header class="fixed top-0 inset-x-0 z-50 border-b border-line bg-ink/85 backdrop-blur">
   <div class="mx-auto max-w-6xl px-5 h-16 flex items-center justify-between">
     <a href="#" class="font-display font-bold text-2xl md:text-[1.7rem] tracking-tight">Livonno<span class="text-lima">.</span></a>
-    <nav class="hidden md:flex items-center gap-7 text-sm text-dim">
+    <nav class="hidden md:flex items-center gap-6 text-sm text-dim">
+      <a href="#previsibilidade" class="hover:text-white transition-colors">Previsibilidade</a>
+      <a href="#escala" class="hover:text-white transition-colors">Escala</a>
       <a href="#servicos" class="hover:text-white transition-colors">O que fazemos</a>
-      <a href="#metodo" class="hover:text-white transition-colors">Como funciona</a>
+      <a href="#metodo" class="hover:text-white transition-colors">Método</a>
       <a href="#planos" class="hover:text-white transition-colors">Planos</a>
       <a href="#faq" class="hover:text-white transition-colors">Dúvidas</a>
     </nav>
@@ -286,6 +288,7 @@ tailwind.config = {
       <p class="eyebrow mb-4">O que a Livonno faz</p>
       <h2 class="font-display font-bold text-3xl md:text-4xl tracking-tight">Uma operação de retenção completa, dentro da ferramenta que você já paga</h2>
       <p class="mt-5 text-dim text-lg">Não vendemos software. Não trocamos seu stack. Não mexemos no seu tráfego.</p>
+      <p class="mt-4 text-neutral-500 text-[.92rem] border-l border-line pl-4">As oito frentes estão listadas na ordem em que o <strong class="text-neutral-300">resultado aparece</strong> para você. A ordem em que a gente <strong class="text-neutral-300">liga</strong> cada uma é outra — e está logo abaixo, em "como funciona".</p>
     </div>
 
     <div class="mt-14 space-y-14">
@@ -333,6 +336,67 @@ tailwind.config = {
           </div>
           <div>
             <p class="text-neutral-300 text-[.95rem] max-w-2xl">Sua base inteira segmentada por <strong class="text-white">Recência</strong> (quando comprou pela última vez), <strong class="text-white">Frequência</strong> (quantas vezes comprou) e <strong class="text-white">Valor</strong> (quanto já gastou). Disso saem os segmentos que definem toda a comunicação:</p>
+
+            <!-- Visual da matriz -->
+            <div class="mt-7 border border-line rounded-sm p-5 md:p-7 bg-ink">
+              <div class="flex items-start justify-between gap-4 mb-5">
+                <p class="font-mono text-xs tracking-widest uppercase text-lima">Como sua base se distribui</p>
+                <p class="font-mono text-[.62rem] tracking-wider uppercase text-neutral-600 text-right shrink-0">exemplo ilustrativo</p>
+              </div>
+
+              <div class="flex gap-3">
+                <!-- eixo Y -->
+                <div class="flex flex-col justify-between items-center shrink-0 pb-7">
+                  <span class="font-mono text-[.6rem] tracking-widest uppercase text-neutral-600" style="writing-mode:vertical-rl;transform:rotate(180deg)">valor + frequência</span>
+                </div>
+
+                <div class="flex-1 min-w-0">
+                  <div class="grid grid-cols-3 gap-1.5 text-center">
+                    <!-- linha alta -->
+                    <div class="bg-panel border border-line rounded-sm p-2.5 md:p-3">
+                      <p class="font-display font-bold text-[.8rem] md:text-sm text-white leading-tight">Não pode perder</p>
+                      <p class="font-mono text-[.65rem] text-neutral-500 mt-1">2%</p>
+                    </div>
+                    <div class="bg-panel border border-line rounded-sm p-2.5 md:p-3">
+                      <p class="font-display font-bold text-[.8rem] md:text-sm text-white leading-tight">Fiéis</p>
+                      <p class="font-mono text-[.65rem] text-neutral-500 mt-1">8%</p>
+                    </div>
+                    <div class="bg-lima/15 border-2 border-lima rounded-sm p-2.5 md:p-3">
+                      <p class="font-display font-bold text-[.8rem] md:text-sm text-lima leading-tight">Campeãs</p>
+                      <p class="font-mono text-[.65rem] text-lima/70 mt-1">4%</p>
+                    </div>
+                    <!-- linha média -->
+                    <div class="bg-panel border border-line rounded-sm p-2.5 md:p-3">
+                      <p class="font-display font-bold text-[.8rem] md:text-sm text-white leading-tight">Em risco</p>
+                      <p class="font-mono text-[.65rem] text-neutral-500 mt-1">11%</p>
+                    </div>
+                    <div class="bg-panel border border-line rounded-sm p-2.5 md:p-3">
+                      <p class="font-display font-bold text-[.8rem] md:text-sm text-white leading-tight">Promissoras</p>
+                      <p class="font-mono text-[.65rem] text-neutral-500 mt-1">15%</p>
+                    </div>
+                    <div class="bg-panel border border-line rounded-sm p-2.5 md:p-3">
+                      <p class="font-display font-bold text-[.8rem] md:text-sm text-white leading-tight">Novas</p>
+                      <p class="font-mono text-[.65rem] text-neutral-500 mt-1">12%</p>
+                    </div>
+                    <!-- linha baixa -->
+                    <div class="bg-panel/60 border border-line rounded-sm p-2.5 md:p-3">
+                      <p class="font-display font-bold text-[.8rem] md:text-sm text-neutral-500 leading-tight">Perdidas</p>
+                      <p class="font-mono text-[.65rem] text-neutral-600 mt-1">23%</p>
+                    </div>
+                    <div class="bg-panel/60 border border-line rounded-sm p-2.5 md:p-3">
+                      <p class="font-display font-bold text-[.8rem] md:text-sm text-neutral-400 leading-tight">Hibernando</p>
+                      <p class="font-mono text-[.65rem] text-neutral-600 mt-1">25%</p>
+                    </div>
+                    <div class="border border-dashed border-line rounded-sm p-2.5 md:p-3 flex items-center justify-center">
+                      <p class="font-mono text-[.6rem] text-neutral-700 leading-tight">quem entra<br>agora</p>
+                    </div>
+                  </div>
+                  <p class="font-mono text-[.6rem] tracking-widest uppercase text-neutral-600 text-center mt-3">← comprou há mais tempo &nbsp;·&nbsp; recência &nbsp;·&nbsp; comprou agora →</p>
+                </div>
+              </div>
+
+              <p class="mt-6 text-neutral-300 text-[.92rem] border-t border-line pt-5">Repare onde está o dinheiro parado: quase metade da base costuma cair em <span class="text-white">hibernando</span> e <span class="text-white">perdidas</span> — gente que você já pagou para conquistar e que hoje não recebe nada além do e-mail que vai para todo mundo igual.</p>
+            </div>
             <div class="mt-6 overflow-x-auto">
               <table class="w-full min-w-[560px] text-sm border-collapse">
                 <thead>
@@ -480,6 +544,76 @@ tailwind.config = {
             <li class="border-l-2 border-lima pl-4 text-white font-medium">IA aplicada onde muda o resultado: previsão do momento de recompra, next-best-offer por cliente, leitura de conversas como sinal de churn e SAC automatizado no WhatsApp</li>
             <li class="border-l border-line pl-4">Painel com o número que importa: % do faturamento vindo da base</li>
           </ul>
+
+          <!-- Mockup do painel -->
+          <div class="mt-8 border border-line rounded-sm overflow-hidden">
+            <div class="flex items-center justify-between gap-4 px-5 py-3.5 border-b border-line bg-panel">
+              <div class="flex items-center gap-2.5">
+                <span class="w-2 h-2 rounded-full bg-lima"></span>
+                <p class="font-display font-bold text-sm">Painel Livonno <span class="font-body font-normal text-neutral-500">· últimos 30 dias</span></p>
+              </div>
+              <p class="font-mono text-[.62rem] tracking-wider uppercase text-neutral-600 shrink-0">exemplo ilustrativo</p>
+            </div>
+
+            <div class="p-5 md:p-6">
+              <!-- métrica principal -->
+              <div class="border-l-2 border-lima pl-5 mb-6">
+                <p class="font-mono text-xs tracking-widest uppercase text-neutral-500">Faturamento vindo da base</p>
+                <div class="flex items-baseline gap-3 mt-1">
+                  <p class="font-display font-bold text-4xl md:text-5xl text-lima">24%</p>
+                  <p class="text-sm text-dim">contra 3% antes da operação</p>
+                </div>
+              </div>
+
+              <!-- grid de métricas -->
+              <div class="grid grid-cols-2 md:grid-cols-4 gap-px bg-line border border-line">
+                <div class="bg-ink p-4">
+                  <p class="font-mono text-[.62rem] tracking-widest uppercase text-neutral-500">Receita recuperada</p>
+                  <p class="font-display font-bold text-xl mt-1.5">R$ 46.200</p>
+                  <p class="font-mono text-[.62rem] text-neutral-600 mt-1">carrinho · boleto · PIX</p>
+                </div>
+                <div class="bg-ink p-4">
+                  <p class="font-mono text-[.62rem] tracking-widest uppercase text-neutral-500">Taxa de recompra</p>
+                  <p class="font-display font-bold text-xl mt-1.5">31%</p>
+                  <p class="font-mono text-[.62rem] text-neutral-600 mt-1">em 90 dias</p>
+                </div>
+                <div class="bg-ink p-4">
+                  <p class="font-mono text-[.62rem] tracking-widest uppercase text-neutral-500">Clientes reativadas</p>
+                  <p class="font-display font-bold text-xl mt-1.5">184</p>
+                  <p class="font-mono text-[.62rem] text-neutral-600 mt-1">inativas há 90d+</p>
+                </div>
+                <div class="bg-ink p-4">
+                  <p class="font-mono text-[.62rem] tracking-widest uppercase text-neutral-500">LTV médio</p>
+                  <p class="font-display font-bold text-xl mt-1.5">R$ 612</p>
+                  <p class="font-mono text-[.62rem] text-neutral-600 mt-1">era R$ 418</p>
+                </div>
+              </div>
+
+              <!-- réguas -->
+              <p class="font-mono text-xs tracking-widest uppercase text-neutral-500 mt-7 mb-3">Réguas em operação</p>
+              <div class="overflow-x-auto">
+                <table class="w-full min-w-[480px] text-sm border-collapse">
+                  <thead>
+                    <tr class="font-mono text-[.62rem] uppercase tracking-widest text-neutral-600">
+                      <th class="text-left py-2 pr-4 font-medium border-b border-line">Régua</th>
+                      <th class="text-left py-2 px-4 font-medium border-b border-line">Canal</th>
+                      <th class="text-left py-2 px-4 font-medium border-b border-line">Conversão</th>
+                      <th class="text-left py-2 px-4 font-medium border-b border-line">Receita</th>
+                      <th class="text-left py-2 pl-4 font-medium border-b border-line">Status</th>
+                    </tr>
+                  </thead>
+                  <tbody class="text-neutral-300">
+                    <tr class="border-b border-line"><td class="py-2.5 pr-4">Carrinho abandonado</td><td class="py-2.5 px-4 text-dim">WhatsApp</td><td class="py-2.5 px-4">12%</td><td class="py-2.5 px-4">R$ 18.400</td><td class="py-2.5 pl-4"><span class="font-mono text-[.62rem] text-lima">● ativa</span></td></tr>
+                    <tr class="border-b border-line"><td class="py-2.5 pr-4">Boleto e PIX não pagos</td><td class="py-2.5 px-4 text-dim">SMS + WhatsApp</td><td class="py-2.5 px-4">19%</td><td class="py-2.5 px-4">R$ 14.900</td><td class="py-2.5 pl-4"><span class="font-mono text-[.62rem] text-lima">● ativa</span></td></tr>
+                    <tr class="border-b border-line"><td class="py-2.5 pr-4">Janela de recompra</td><td class="py-2.5 px-4 text-dim">E-mail + WhatsApp</td><td class="py-2.5 px-4">8%</td><td class="py-2.5 px-4">R$ 22.100</td><td class="py-2.5 pl-4"><span class="font-mono text-[.62rem] text-lima">● ativa</span></td></tr>
+                    <tr><td class="py-2.5 pr-4">Win-back de inativas</td><td class="py-2.5 px-4 text-dim">E-mail</td><td class="py-2.5 px-4">3%</td><td class="py-2.5 px-4">R$ 7.300</td><td class="py-2.5 pl-4"><span class="font-mono text-[.62rem] text-neutral-500">● em teste</span></td></tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <p class="mt-5 text-neutral-400 text-[.9rem] border-t border-line pt-4">Nenhuma linha aqui é taxa de abertura. O painel responde uma pergunta só: <span class="text-white">quanto dinheiro a base gerou este mês.</span></p>
+            </div>
+          </div>
 
           <div class="mt-8 border border-line rounded-sm p-6">
             <p class="font-mono text-xs tracking-widest uppercase text-lima">Canal não é lista. Cada um tem uma função.</p>
@@ -769,15 +903,44 @@ tailwind.config = {
   </div>
 </section>
 
+<!-- ============ ANÁLISE GRATUITA ============ -->
+<section id="analise" class="py-20 md:py-28 border-b border-line">
+  <div class="mx-auto max-w-4xl px-5">
+    <div class="reveal border border-lima/30 rounded-sm p-8 md:p-12 bg-panel">
+      <p class="eyebrow mb-4">Antes de qualquer proposta</p>
+      <h2 class="font-display font-bold text-3xl md:text-4xl tracking-tight leading-tight">Não está pronto para contratar? Comece pelo que não custa nada.</h2>
+      <p class="mt-5 text-dim text-lg leading-relaxed">Eu olho a sua loja como uma cliente olharia — e te mando por escrito o que encontrei. Sem reunião, sem compromisso, sem apresentação de slides.</p>
+
+      <div class="mt-7 grid sm:grid-cols-2 gap-x-8 gap-y-3 text-neutral-300 text-[.95rem]">
+        <p class="flex gap-3"><span class="text-lima">→</span>Abandono um carrinho e cronometro quanto tempo até você me chamar</p>
+        <p class="flex gap-3"><span class="text-lima">→</span>Gero um pedido com boleto e vejo se alguém cobra</p>
+        <p class="flex gap-3"><span class="text-lima">→</span>Assino sua newsletter e vejo se você segmenta ou dispara igual para todo mundo</p>
+        <p class="flex gap-3"><span class="text-lima">→</span>Mando uma dúvida de tamanho no seu WhatsApp num sábado à noite</p>
+        <p class="flex gap-3"><span class="text-lima">→</span>Confiro se você paga por uma ferramenta de CRM que não está sendo usada</p>
+        <p class="flex gap-3"><span class="text-lima">→</span>Olho suas avaliações e se existe algum caminho de indicação</p>
+      </div>
+
+      <p class="mt-7 text-neutral-300">Se estiver tudo certo, eu te digo que está tudo certo — e você não ouve mais falar de mim. Se tiver buraco, você fica sabendo de qualquer jeito, tendo me contratado ou não.</p>
+
+      <div class="mt-8">
+        <a href="https://wa.me/5537958280657?text=Quero%20a%20an%C3%A1lise%20gratuita%20da%20minha%20loja" class="inline-block border border-lima text-lima font-display font-bold px-8 py-3.5 rounded-sm hover:bg-lima hover:text-ink transition">Quero a análise da minha loja</a>
+        <p class="mt-3 text-sm text-neutral-500">Faço um punhado por semana, então priorizo lojas dentro do perfil acima. Se a sua não estiver, eu digo na hora.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ============ QUEM ESTÁ POR TRÁS ============ -->
 <section id="quem" class="py-20 md:py-28 border-b border-line">
   <div class="mx-auto max-w-6xl px-5 grid md:grid-cols-[280px_1fr] gap-10 items-start">
     <div class="reveal">
-      <!-- SUBSTITUIR pelo caminho da sua foto real -->
-      <div class="aspect-[4/5] bg-panel border border-line rounded-sm flex items-center justify-center">
-        <span class="font-display font-bold text-6xl text-lima">D.</span>
-      </div>
-      <p class="mt-3 font-mono text-[.68rem] tracking-[.2em] uppercase text-neutral-600">Substituir por foto real</p>
+      <img
+        src="https://raw.githubusercontent.com/livonno/site/412ddd64c8a01f6a53e407a6a36bbef435228feb/WhatsApp%20Image%202026-07-20%20at%2013.20.55.jpeg"
+        alt="Damião Moreira, responsável pela operação de retenção da Livonno"
+        loading="lazy"
+        class="w-full aspect-[4/5] object-cover object-top rounded-sm border border-line">
+      <!-- Em produção, prefira hospedar a imagem junto do site e usar caminho relativo:
+           <img src="damiao.jpg" alt="Damião Moreira" class="w-full aspect-[4/5] object-cover object-top rounded-sm border border-line"> -->
     </div>
     <div class="reveal">
       <p class="eyebrow mb-4">Quem vai operar sua base</p>
