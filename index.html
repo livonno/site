@@ -240,12 +240,12 @@ tailwind.config = {
       <div class="reveal bg-panel border border-line rounded-sm p-7">
         <p class="font-mono text-xs text-lima tracking-widest uppercase">Vazamento 04</p>
         <h3 class="font-display font-bold text-xl mt-3">Na indicação que não acontece</h3>
-        <p class="mt-4 text-dim leading-relaxed text-[.95rem]">Moda é o produto mais social que existe: a peça aparece no corpo, a amiga pergunta onde comprou, e a resposta é uma venda de graça.</p>
-        <p class="mt-4 text-neutral-300 text-[.95rem]">Mas ninguém pede a indicação, ninguém facilita, ninguém recompensa. O canal de aquisição mais barato do mundo fica parado no zero.</p>
+        <p class="mt-4 text-dim leading-relaxed text-[.95rem]">Moda é o produto mais social que existe: a peça aparece no corpo, a amiga pergunta onde comprou, e a resposta é uma venda de graça. E a cliente satisfeita que poderia deixar uma avaliação — a que convence a próxima a comprar — não deixa, porque ninguém pediu.</p>
+        <p class="mt-4 text-neutral-300 text-[.95rem]">Ninguém pede, ninguém facilita, ninguém recompensa. O canal de aquisição mais barato do mundo fica parado no zero.</p>
       </div>
     </div>
 
-    <p class="reveal mt-10 text-lg text-dim max-w-3xl">Enquanto isso, o CAC sobe todo ano e a margem da moda continua apertada. <span class="text-white">É por isso que você fatura mais e não sobra mais.</span></p>
+        <p class="reveal mt-10 text-lg text-dim max-w-3xl">Enquanto isso, o CAC sobe todo ano e a margem da moda continua apertada. <span class="text-white">É por isso que você fatura mais e não sobra mais.</span></p>
   </div>
 </section>
 
@@ -297,14 +297,30 @@ tailwind.config = {
           <h3 class="font-display font-bold text-2xl mt-1">Recuperação</h3>
           <p class="text-neutral-500 text-sm mt-2 italic">A receita que estava a um passo de entrar</p>
         </div>
-        <ul class="grid sm:grid-cols-2 gap-x-8 gap-y-3 text-neutral-300 text-[.95rem]">
-          <li class="border-l border-line pl-4">Carrinho abandonado</li>
-          <li class="border-l border-line pl-4">Checkout abandonado</li>
-          <li class="border-l border-line pl-4">Navegação e produto abandonados</li>
-          <li class="border-l-2 border-lima pl-4 text-white font-medium">Boleto e PIX gerados e não pagos</li>
-          <li class="border-l border-line pl-4">Cartão recusado</li>
-          <li class="border-l border-line pl-4">Avise-me quando chegar (produto e grade em falta)</li>
-        </ul>
+        <div>
+          <ul class="grid sm:grid-cols-2 gap-x-8 gap-y-3 text-neutral-300 text-[.95rem]">
+            <li class="border-l border-line pl-4">Carrinho abandonado</li>
+            <li class="border-l border-line pl-4">Checkout abandonado</li>
+            <li class="border-l border-line pl-4">Navegação e produto abandonados</li>
+            <li class="border-l-2 border-lima pl-4 text-white font-medium">Boleto e PIX gerados e não pagos</li>
+            <li class="border-l border-line pl-4">Cartão recusado</li>
+            <li class="border-l border-line pl-4">Avise-me quando chegar (produto e grade em falta)</li>
+          </ul>
+
+          <div class="mt-8 border border-line rounded-sm p-6">
+            <p class="font-mono text-xs tracking-widest uppercase text-lima">A régua tem hora marcada</p>
+            <p class="mt-3 text-dim text-[.92rem]">Intenção de compra decai por minuto. A maioria das lojas dispara o carrinho no dia seguinte — quando a cliente já comprou em outro lugar ou esfriou.</p>
+            <div class="mt-5 space-y-2.5 text-[.92rem]">
+              <p class="text-neutral-300"><span class="font-mono text-lima">15 min</span> &nbsp;— lembrete simples, sem oferta. A maioria volta só com isso.</p>
+              <p class="text-neutral-300"><span class="font-mono text-lima">2 h</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;— reforço do produto: caimento, composição, tabela de medidas.</p>
+              <p class="text-neutral-300"><span class="font-mono text-lima">12 h</span> &nbsp;&nbsp;&nbsp;&nbsp;— prova social: avaliação de quem comprou a mesma peça.</p>
+              <p class="text-neutral-300"><span class="font-mono text-lima">24 h</span> &nbsp;&nbsp;&nbsp;&nbsp;— urgência real: grade acabando, últimas peças.</p>
+              <p class="text-neutral-300"><span class="font-mono text-lima">48 h</span> &nbsp;&nbsp;&nbsp;&nbsp;— só aqui entra incentivo, e só para quem não voltou.</p>
+            </div>
+            <p class="mt-5 text-neutral-300 text-[.92rem] border-t border-line pt-4"><strong class="text-white">Boleto e PIX correm mais:</strong> primeiro toque em 10 minutos, segundo em 2 horas. O código expira — não há tempo para régua longa.</p>
+            <p class="mt-4 text-neutral-500 text-sm">Repare que o desconto entra por último. Recuperação não convence quem não queria comprar: remove a fricção de quem já queria.</p>
+          </div>
+        </div>
       </div>
 
       <!-- 02 RFM -->
@@ -339,6 +355,24 @@ tailwind.config = {
               </table>
             </div>
             <p class="mt-4 text-neutral-500 text-sm">Cada segmento tem mensagem, canal, frequência e oferta próprios. Nenhum recebe a mesma coisa.</p>
+
+            <div class="mt-8 border border-line rounded-sm p-6">
+              <p class="font-mono text-xs tracking-widest uppercase text-lima">A segunda camada: como ela compra</p>
+              <p class="mt-3 text-dim text-[.92rem]">O RFM diz <em>com quem</em> falar primeiro. Ele não diz <em>que tipo</em> de cliente é. Duas pessoas com a mesma recência podem precisar de mensagens opostas — e em moda essa diferença é enorme.</p>
+              <div class="mt-5 overflow-x-auto">
+                <table class="w-full min-w-[520px] text-sm border-collapse">
+                  <tbody class="text-neutral-300">
+                    <tr class="border-b border-line"><td class="py-3 pr-4 text-lima font-medium w-[30%]">Descobridora</td><td class="py-3 pl-4 text-dim">Nunca repete peça, quer o que chegou. Recebe lançamento, curadoria, pré-venda de coleção.</td></tr>
+                    <tr class="border-b border-line"><td class="py-3 pr-4 text-white">De hábito</td><td class="py-3 pl-4 text-dim">Recompra o mesmo básico, a mesma numeração. Recebe reposição, kit, aviso de volta ao estoque.</td></tr>
+                    <tr class="border-b border-line"><td class="py-3 pr-4 text-white">Premium</td><td class="py-3 pl-4 text-dim">Ticket alto, valoriza exclusividade. Recebe atendimento 1:1 no WhatsApp e acesso antecipado — nunca cupom.</td></tr>
+                    <tr class="border-b border-line"><td class="py-3 pr-4 text-white">Compradora de volume</td><td class="py-3 pl-4 text-dim">Leva várias peças por pedido. Recebe combo, look completo, frete progressivo.</td></tr>
+                    <tr class="border-b border-line"><td class="py-3 pr-4 text-white">Sazonal</td><td class="py-3 pl-4 text-dim">Aparece em datas e trocas de estação. Recebe antecipação, não reativação genérica.</td></tr>
+                    <tr><td class="py-3 pr-4 text-white">Caçadora de cupom</td><td class="py-3 pl-4 text-dim">Só compra com desconto. Fica em lista separada, com oferta controlada — para não treinar sua base a esperar promoção.</td></tr>
+                  </tbody>
+                </table>
+              </div>
+              <p class="mt-5 text-neutral-500 text-sm">Prioridade vem do RFM. Conteúdo e oferta vêm do comportamento. As duas camadas juntas é o que faz a mensagem parecer escrita para uma pessoa.</p>
+            </div>
           </div>
         </div>
       </div>
@@ -350,14 +384,28 @@ tailwind.config = {
           <h3 class="font-display font-bold text-2xl mt-1">Ciclo de vida</h3>
           <p class="text-neutral-500 text-sm mt-2 italic">A jornada que a sua loja não tem</p>
         </div>
-        <ul class="grid sm:grid-cols-2 gap-x-8 gap-y-3 text-neutral-300 text-[.95rem]">
-          <li class="border-l border-line pl-4">Boas-vindas e ativação de primeira compra</li>
-          <li class="border-l border-line pl-4">Pós-compra e acompanhamento</li>
-          <li class="border-l-2 border-lima pl-4 text-white font-medium">Janela de recompra real, calculada por categoria — não chutada</li>
-          <li class="border-l border-line pl-4">Cross-sell e upsell por afinidade de produto</li>
-          <li class="border-l border-line pl-4">Aniversário e datas do cliente</li>
-          <li class="border-l border-line pl-4">Programa VIP para os clientes de maior valor</li>
-        </ul>
+        <div>
+          <ul class="grid sm:grid-cols-2 gap-x-8 gap-y-3 text-neutral-300 text-[.95rem]">
+            <li class="border-l border-line pl-4">Boas-vindas e ativação de primeira compra</li>
+            <li class="border-l-2 border-lima pl-4 text-white font-medium">Régua transacional completa: pedido criado, pagamento, separação, postado, em trânsito, entregue, como usar, avaliação</li>
+            <li class="border-l-2 border-lima pl-4 text-white font-medium">Janela de recompra real, calculada por categoria — e disparada entre 70% e 80% do ciclo, antes da cliente esquecer</li>
+            <li class="border-l border-line pl-4">Cross-sell e upsell por afinidade de produto</li>
+            <li class="border-l border-line pl-4">Aniversário e datas do cliente</li>
+            <li class="border-l border-line pl-4">Programa VIP para os clientes de maior valor</li>
+          </ul>
+
+          <div class="mt-8 border border-line rounded-sm p-6">
+            <p class="font-mono text-xs tracking-widest uppercase text-lima">O efeito colateral que ninguém vende</p>
+            <p class="mt-3 text-dim text-[.92rem]">A régua transacional bem feita esvazia o seu atendimento. Estas quatro perguntas somam a maior parte do volume de WhatsApp de qualquer loja de moda:</p>
+            <div class="mt-4 space-y-2 text-[.92rem] text-neutral-400 italic">
+              <p>"Cadê meu pedido?"</p>
+              <p>"Meu pagamento caiu?"</p>
+              <p>"Quando chega?"</p>
+              <p>"Já postou?"</p>
+            </div>
+            <p class="mt-5 text-neutral-300 text-[.92rem]">Cliente informado no tempo certo não pergunta. E quem atende o WhatsApp para de ser rastreador de encomenda e volta a vender — que é o que você paga essa pessoa para fazer.</p>
+          </div>
+        </div>
       </div>
 
       <!-- 04 Reativação -->
@@ -367,11 +415,38 @@ tailwind.config = {
           <h3 class="font-display font-bold text-2xl mt-1">Reativação</h3>
           <p class="text-neutral-500 text-sm mt-2 italic">A base parada volta a faturar</p>
         </div>
-        <ul class="grid sm:grid-cols-2 gap-x-8 gap-y-3 text-neutral-300 text-[.95rem]">
-          <li class="border-l border-line pl-4">Win-back por tempo de inatividade e valor histórico</li>
-          <li class="border-l border-line pl-4">Reativação de inativos com oferta calibrada por segmento</li>
-          <li class="border-l-2 border-lima pl-4 text-white font-medium">Escoamento de estoque parado disparando para o segmento certo — sem queimar preço na vitrine</li>
-        </ul>
+        <div>
+          <ul class="grid sm:grid-cols-2 gap-x-8 gap-y-3 text-neutral-300 text-[.95rem]">
+            <li class="border-l border-line pl-4">Win-back por tempo de inatividade e valor histórico</li>
+            <li class="border-l border-line pl-4">Reativação de inativos com oferta calibrada por segmento</li>
+            <li class="border-l-2 border-lima pl-4 text-white font-medium">Next-best-offer: qual produto oferecer a cada cliente, calculado pelo histórico de compra — segmentar diz para quem falar, isso diz o que oferecer</li>
+            <li class="border-l-2 border-lima pl-4 text-white font-medium">Escoamento de estoque parado disparando para o segmento certo — sem queimar preço na vitrine</li>
+          </ul>
+
+          <div class="mt-8 border-l-2 border-lima pl-6">
+            <p class="font-display font-bold text-xl">Oferta não é desconto. Oferta é remover a barreira certa.</p>
+            <p class="mt-3 text-dim text-[.95rem]">Cupom para todo mundo é o caminho mais rápido para destruir margem e ensinar sua base a esperar promoção. Cada grupo trava por um motivo diferente — e o que desbloqueia raramente é preço.</p>
+            <div class="mt-5 overflow-x-auto">
+              <table class="w-full min-w-[540px] text-sm border-collapse">
+                <thead>
+                  <tr class="font-mono text-xs uppercase tracking-widest text-neutral-500">
+                    <th class="text-left py-2.5 pr-4 font-medium border-b border-line">Grupo</th>
+                    <th class="text-left py-2.5 px-4 font-medium border-b border-line">O que realmente travou</th>
+                    <th class="text-left py-2.5 pl-4 font-medium border-b border-lima/40">Como destravar</th>
+                  </tr>
+                </thead>
+                <tbody class="text-neutral-300">
+                  <tr class="border-b border-line"><td class="py-3 pr-4 text-white">Ticket baixo</td><td class="py-3 px-4 text-dim">O frete pesa mais que a peça</td><td class="py-3 pl-4 bg-lima/5">Frete grátis a partir de um valor</td></tr>
+                  <tr class="border-b border-line"><td class="py-3 pr-4 text-white">VIP</td><td class="py-3 px-4 text-dim">Não é preço — é querer ser primeira</td><td class="py-3 pl-4 bg-lima/5">Acesso antecipado à coleção</td></tr>
+                  <tr class="border-b border-line"><td class="py-3 pr-4 text-white">Carrinho de 48h</td><td class="py-3 px-4 text-dim">Insegurança de tamanho e caimento</td><td class="py-3 pl-4 bg-lima/5">Troca facilitada e avaliação de quem comprou</td></tr>
+                  <tr class="border-b border-line"><td class="py-3 pr-4 text-white">Inativa há meses</td><td class="py-3 px-4 text-dim">Perdeu o hábito, não o interesse</td><td class="py-3 pl-4 bg-lima/5">Novidade da categoria que ela comprava</td></tr>
+                  <tr><td class="py-3 pr-4 text-white">Comprou uma vez</td><td class="py-3 px-4 text-dim">Não conhece o resto do catálogo</td><td class="py-3 pl-4 bg-lima/5">Curadoria do que combina com o que já levou</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <p class="mt-5 text-neutral-300 text-[.95rem]">Desconto é a última alavanca, não a primeira. É a diferença entre faturar mais e faturar mais <span class="text-white">com margem</span>.</p>
+          </div>
+        </div>
       </div>
 
       <!-- 05 Prevenção -->
@@ -383,6 +458,7 @@ tailwind.config = {
         </div>
         <ul class="grid sm:grid-cols-2 gap-x-8 gap-y-3 text-neutral-300 text-[.95rem]">
           <li class="border-l border-line pl-4">Identificação de clientes em risco de churn</li>
+          <li class="border-l-2 border-lima pl-4 text-white font-medium">Leitura das conversas de atendimento por IA: cliente insatisfeito sinalizado antes de sumir — não depois</li>
           <li class="border-l border-line pl-4">Recuperação de experiência ruim: atraso, troca, devolução</li>
           <li class="border-l border-line pl-4">Transformar devolução em troca</li>
           <li class="border-l border-line pl-4">NPS e loop de feedback</li>
@@ -396,28 +472,67 @@ tailwind.config = {
           <h3 class="font-display font-bold text-2xl mt-1">Base e inteligência</h3>
           <p class="text-neutral-500 text-sm mt-2 italic">A fundação de tudo</p>
         </div>
-        <ul class="grid sm:grid-cols-2 gap-x-8 gap-y-3 text-neutral-300 text-[.95rem]">
-          <li class="border-l border-line pl-4">Captura e crescimento da base dentro da loja</li>
-          <li class="border-l border-line pl-4">Higienização, consentimento e conformidade com a LGPD</li>
-          <li class="border-l-2 border-lima pl-4 text-white font-medium">IA aplicada: previsão do momento de recompra, personalização por segmento, SAC automatizado no WhatsApp</li>
-          <li class="border-l border-line pl-4">Operação multicanal: e-mail, WhatsApp, SMS e push</li>
-          <li class="border-l border-line pl-4">Painel com o número que importa: % do faturamento vindo da base</li>
-        </ul>
+        <div>
+          <ul class="grid sm:grid-cols-2 gap-x-8 gap-y-3 text-neutral-300 text-[.95rem]">
+            <li class="border-l-2 border-lima pl-4 text-white font-medium">Unificação da base: online, loja física e marketplace virando um cliente só — sem isso, o RFM nasce errado e o VIP da loja aparece como inativo</li>
+            <li class="border-l border-line pl-4">Captura e crescimento da base dentro da loja</li>
+            <li class="border-l border-line pl-4">Higienização, consentimento e conformidade com a LGPD</li>
+            <li class="border-l-2 border-lima pl-4 text-white font-medium">IA aplicada onde muda o resultado: previsão do momento de recompra, next-best-offer por cliente, leitura de conversas como sinal de churn e SAC automatizado no WhatsApp</li>
+            <li class="border-l border-line pl-4">Painel com o número que importa: % do faturamento vindo da base</li>
+          </ul>
+
+          <div class="mt-8 border border-line rounded-sm p-6">
+            <p class="font-mono text-xs tracking-widest uppercase text-lima">Canal não é lista. Cada um tem uma função.</p>
+            <div class="mt-4 space-y-3 text-[.92rem]">
+              <p class="text-neutral-300"><strong class="text-white">WhatsApp</strong> — conversa e venda. Maior alcance do país, e onde o cliente responde. Com régua anti-fadiga, porque é o canal que mais irrita quando mal usado.</p>
+              <p class="text-neutral-300"><strong class="text-white">E-mail</strong> — o motor dos fluxos. Custo marginal zero, espaço para argumentar, melhor canal para segmentação e reativação.</p>
+              <p class="text-neutral-300"><strong class="text-white">RCS</strong> — o sucessor do SMS, já em 145 milhões de celulares e nativo no Android e no iPhone. Carrossel de produto e botão de compra dentro da conversa, sem link externo e sem app. Ideal para carrinho abandonado e rastreio de pedido.</p>
+              <p class="text-neutral-300"><strong class="text-white">SMS</strong> — rede de segurança, não canal de campanha. Chega sem internet, sem app e sem opt-in de mensageria. Reservado para o urgente: boleto vencendo hoje, PIX expirando, entrega que falhou.</p>
+              <p class="text-neutral-300"><strong class="text-white">Push</strong> — complemento de custo quase zero para "voltou ao estoque", queda de preço e lançamento de coleção.</p>
+            </div>
+          </div>
+        </div>
       </div>
 
-      <!-- 07 Indicação -->
+      <!-- 07 Indicação e prova social -->
       <div class="reveal grid md:grid-cols-[220px_1fr] gap-6 md:gap-10">
         <div>
           <p class="font-mono text-lima text-sm">07</p>
-          <h3 class="font-display font-bold text-2xl mt-1">Indicação</h3>
+          <h3 class="font-display font-bold text-2xl mt-1">Indicação e prova social</h3>
           <p class="text-neutral-500 text-sm mt-2 italic">Retenção que gera aquisição</p>
         </div>
-        <ul class="grid sm:grid-cols-2 gap-x-8 gap-y-3 text-neutral-300 text-[.95rem]">
-          <li class="border-l border-line pl-4">Programa indique-e-ganhe estruturado, com recompensa dupla: para quem indica e para quem chega</li>
-          <li class="border-l-2 border-lima pl-4 text-white font-medium">O pedido de indicação disparado no momento certo: NPS alto, pós-entrega e segmento Campeões</li>
-          <li class="border-l border-line pl-4">Giftback de indicação integrado às campanhas de base</li>
-          <li class="border-l border-line pl-4">Mensuração: quantos clientes novos chegaram por indicação — a custo zero de mídia</li>
-        </ul>
+        <div>
+          <p class="text-neutral-300 text-[.95rem] max-w-2xl">Cliente satisfeito é o seu canal de aquisição mais barato — e o único que a maioria das lojas deixa parado no zero. Indicação e avaliação nascem do mesmo momento: alguém que acabou de receber e gostou.</p>
+          <ul class="mt-5 grid sm:grid-cols-2 gap-x-8 gap-y-3 text-neutral-300 text-[.95rem]">
+            <li class="border-l border-line pl-4">Programa indique-e-ganhe estruturado, com recompensa dupla: para quem indica e para quem chega</li>
+            <li class="border-l-2 border-lima pl-4 text-white font-medium">Pedido de avaliação e indicação disparado no momento certo: NPS alto, pós-entrega e segmento Campeões</li>
+            <li class="border-l-2 border-lima pl-4 text-white font-medium">Review com informação de caimento — "comprei M, tenho 1,70m, ficou justo" — que responde a maior objeção da moda e derruba devolução</li>
+            <li class="border-l border-line pl-4">Coleta de UGC: foto de cliente real usando a peça, para página de produto e criativo</li>
+            <li class="border-l border-line pl-4">Interceptação de insatisfeito: quem responde mal vai para o SAC, não para o Reclame Aqui</li>
+            <li class="border-l border-line pl-4">Giftback de indicação integrado às campanhas de base</li>
+            <li class="border-l border-line pl-4">Mensuração: clientes novos vindos de indicação e efeito da avaliação na conversão</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- 08 Camada humana -->
+      <div class="reveal grid md:grid-cols-[220px_1fr] gap-6 md:gap-10">
+        <div>
+          <p class="font-mono text-lima text-sm">08</p>
+          <h3 class="font-display font-bold text-2xl mt-1">Camada humana</h3>
+          <p class="text-neutral-500 text-sm mt-2 italic">Onde toda automação morre — ou converte</p>
+        </div>
+        <div>
+          <p class="text-neutral-300 text-[.95rem] max-w-2xl">O fluxo recupera o carrinho, o cliente responde no WhatsApp perguntando sobre tamanho — e quem atende decide se aquilo vira venda ou não. Automação nenhuma salva um atendimento despreparado.</p>
+          <ul class="mt-5 grid sm:grid-cols-2 gap-x-8 gap-y-3 text-neutral-300 text-[.95rem]">
+            <li class="border-l-2 border-lima pl-4 text-white font-medium">Scripts personalizados para quem atende no WhatsApp: dúvida de tamanho e caimento, objeção de preço, troca e devolução</li>
+            <li class="border-l border-line pl-4">Roteiro de abordagem para os segmentos de alto valor (Campeões e "não pode perder")</li>
+            <li class="border-l border-line pl-4">Script de recuperação: o que dizer para quem abandonou carrinho ou não pagou o boleto</li>
+            <li class="border-l border-line pl-4">Cross-sell e aumento de ticket na conversa, não só no e-mail</li>
+            <li class="border-l border-line pl-4">Playbook de experiência ruim: atraso, extravio, troca — transformando reclamação em recompra</li>
+            <li class="border-l border-line pl-4">Treinamento do time de atendimento e acompanhamento das conversas reais</li>
+          </ul>
+        </div>
       </div>
 
     </div>
@@ -440,13 +555,73 @@ tailwind.config = {
       <div class="reveal bg-panel border border-line rounded-sm p-7">
         <p class="font-mono text-lima text-sm">Fase 2 · 30 a 45 dias</p>
         <h3 class="font-display font-bold text-xl mt-2">Implantação</h3>
-        <p class="mt-4 text-dim text-[.95rem] leading-relaxed">Matriz RFM montada, integrações ligadas, fluxos de recuperação e ciclo de vida no ar, painel funcionando. A primeira campanha de reativação roda ainda nessa fase.</p>
+        <p class="mt-4 text-dim text-[.95rem] leading-relaxed">Matriz RFM montada, integrações ligadas, fluxos no ar, painel funcionando. Mas não ligamos tudo de uma vez — ligamos na ordem em que o dinheiro aparece.</p>
       </div>
       <div class="reveal bg-panel border border-line rounded-sm p-7">
         <p class="font-mono text-lima text-sm">Fase 3 · contínua</p>
         <h3 class="font-display font-bold text-xl mt-2">Operação</h3>
-        <p class="mt-4 text-dim text-[.95rem] leading-relaxed">Calendário de campanhas casado com o seu calendário de coleção. Testes, ajuste de régua, novos segmentos. Reunião quinzenal com decisão — não com relatório.</p>
+        <p class="mt-4 text-dim text-[.95rem] leading-relaxed">Calendário mensal de campanhas, cada uma com grupo, oferta, prazo e receita projetada antes de sair. Testes, ajuste de régua, novos segmentos. Reunião quinzenal com decisão — não com relatório.</p>
       </div>
+    </div>
+
+    <!-- Ordem de implantação por ROI -->
+    <div class="reveal mt-12 border border-line rounded-sm p-8 md:p-10">
+      <p class="eyebrow mb-4">A ordem importa mais que a quantidade</p>
+      <h3 class="font-display font-bold text-2xl md:text-3xl tracking-tight">Ligamos as réguas na ordem do retorno — não na ordem do organograma.</h3>
+      <p class="mt-4 text-dim text-[.95rem] max-w-3xl">Um projeto que tenta subir tudo no mês 1 atrasa, cansa a equipe do cliente e não mostra resultado. Então a sequência é sempre a mesma: primeiro o dinheiro que está quase entrando, por último a expansão.</p>
+
+      <div class="mt-8 grid md:grid-cols-4 gap-5">
+        <div class="border-l-2 border-lima pl-5">
+          <p class="font-mono text-xs tracking-widest uppercase text-lima">Prioridade 1</p>
+          <p class="font-display font-bold text-lg mt-2">Dinheiro quente</p>
+          <p class="mt-2 text-dim text-[.9rem]">Carrinho, checkout, boleto e PIX não pagos. Retorno em semanas, não meses. É o que paga o projeto.</p>
+        </div>
+        <div class="border-l-2 border-line pl-5">
+          <p class="font-mono text-xs tracking-widest uppercase text-neutral-500">Prioridade 2</p>
+          <p class="font-display font-bold text-lg mt-2">Segunda compra</p>
+          <p class="mt-2 text-dim text-[.9rem]">Boas-vindas, régua transacional, janela de recompra. Transforma comprador em cliente.</p>
+        </div>
+        <div class="border-l-2 border-line pl-5">
+          <p class="font-mono text-xs tracking-widest uppercase text-neutral-500">Prioridade 3</p>
+          <p class="font-display font-bold text-lg mt-2">Receita parada</p>
+          <p class="mt-2 text-dim text-[.9rem]">Reativação de inativos, win-back, escoamento de estoque encalhado.</p>
+        </div>
+        <div class="border-l-2 border-line pl-5">
+          <p class="font-mono text-xs tracking-widest uppercase text-neutral-500">Prioridade 4</p>
+          <p class="font-display font-bold text-lg mt-2">Expansão</p>
+          <p class="mt-2 text-dim text-[.9rem]">VIP, indicação, prova social, camada humana. Constrói o que dura.</p>
+        </div>
+      </div>
+      <p class="mt-8 font-display font-bold text-lg">Automação boa não é a que tem mais réguas. É a que ligou na ordem certa.</p>
+    </div>
+
+    <!-- Calendário mensal com ROI projetado -->
+    <div class="reveal mt-6 border border-line rounded-sm p-8 md:p-10">
+      <p class="eyebrow mb-4">Operação mês a mês</p>
+      <h3 class="font-display font-bold text-2xl md:text-3xl tracking-tight">Automação cuida do fluxo. Campanha cuida da oportunidade.</h3>
+      <p class="mt-4 text-dim text-[.95rem] max-w-3xl">Fluxo automatizado, depois de rodando, fica invisível — e é justamente aí que a maioria das assessorias desaparece. Além dos fluxos, sua loja recebe um calendário mensal de campanhas planejadas, cada uma com grupo definido, oferta específica, prazo e <strong class="text-white">receita projetada antes do disparo</strong>.</p>
+
+      <div class="mt-8 overflow-x-auto">
+        <table class="w-full min-w-[600px] text-sm border-collapse">
+          <thead>
+            <tr class="font-mono text-xs uppercase tracking-widest text-neutral-500">
+              <th class="text-left py-3 pr-4 font-medium border-b border-line">Semana</th>
+              <th class="text-left py-3 px-4 font-medium border-b border-line">Quem recebe</th>
+              <th class="text-left py-3 px-4 font-medium border-b border-line">Objetivo</th>
+              <th class="text-left py-3 pl-4 font-medium border-b border-lima/40">Receita projetada</th>
+            </tr>
+          </thead>
+          <tbody class="text-neutral-300">
+            <tr class="border-b border-line"><td class="py-3 pr-4 text-white">1</td><td class="py-3 px-4 text-dim">Comprou uma vez</td><td class="py-3 px-4 text-dim">Segunda compra</td><td class="py-3 pl-4 bg-lima/5 font-mono">projetada antes</td></tr>
+            <tr class="border-b border-line"><td class="py-3 pr-4 text-white">2</td><td class="py-3 px-4 text-dim">VIP e campeãs</td><td class="py-3 px-4 text-dim">Aumentar LTV</td><td class="py-3 pl-4 bg-lima/5 font-mono">projetada antes</td></tr>
+            <tr class="border-b border-line"><td class="py-3 pr-4 text-white">3</td><td class="py-3 px-4 text-dim">Inativas de 60 dias</td><td class="py-3 px-4 text-dim">Reativação</td><td class="py-3 pl-4 bg-lima/5 font-mono">projetada antes</td></tr>
+            <tr><td class="py-3 pr-4 text-white">4</td><td class="py-3 px-4 text-dim">Carrinho e coleção nova</td><td class="py-3 px-4 text-dim">Fechamento</td><td class="py-3 pl-4 bg-lima/5 font-mono">projetada antes</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p class="mt-7 text-neutral-300 text-[.95rem] max-w-3xl">A conta é simples e você aprova antes: quantas pessoas estão no grupo, quanto convertemos historicamente, qual seu ticket. Sai um número — e no fim do mês comparamos com o que aconteceu.</p>
+      <p class="mt-4 font-display font-bold text-lg">Campanha sem número projetado não é campanha. <span class="text-lima">É palpite com pressa.</span></p>
     </div>
   </div>
 </section>
@@ -492,8 +667,9 @@ tailwind.config = {
           <li class="flex gap-3"><span class="text-lima">→</span>Ciclo de vida completo: boas-vindas, pós-compra, janela de recompra por categoria, cross-sell, VIP</li>
           <li class="flex gap-3"><span class="text-lima">→</span>Reativação contínua: win-back, inativos, escoamento de estoque parado</li>
           <li class="flex gap-3"><span class="text-lima">→</span>Prevenção: risco de churn, experiência ruim, devolução → troca</li>
-          <li class="flex gap-3"><span class="text-lima">→</span>Sistema de indicação: indique-e-ganhe operado com Campeões e NPS alto</li>
-          <li class="flex gap-3"><span class="text-lima">→</span>Calendário de campanhas casado com o calendário de coleção</li>
+          <li class="flex gap-3"><span class="text-lima">→</span>Indicação e prova social: indique-e-ganhe, geração de avaliações e coleta de UGC</li>
+          <li class="flex gap-3"><span class="text-lima">→</span><strong class="text-white">Scripts para quem atende no WhatsApp</strong> — tamanho, preço, troca e recuperação — com treinamento do time</li>
+          <li class="flex gap-3"><span class="text-lima">→</span>Calendário mensal de campanhas com grupo, oferta, prazo e <strong class="text-white">receita projetada antes do disparo</strong></li>
           <li class="flex gap-3"><span class="text-lima">→</span>Reunião quinzenal com decisão — não com relatório</li>
         </ul>
         <div class="mt-8 pt-6 border-t border-lima/30">
@@ -511,9 +687,12 @@ tailwind.config = {
         <ul class="mt-6 space-y-3 text-[.92rem] text-neutral-300 flex-1">
           <li class="flex gap-3"><span class="text-lima">→</span><strong class="text-white">Tudo da Órbita</strong>, mais:</li>
           <li class="flex gap-3"><span class="text-lima">→</span>IA de previsão de recompra: o disparo no momento em que cada cliente está propenso a comprar — não no dia da campanha</li>
+          <li class="flex gap-3"><span class="text-lima">→</span><strong class="text-white">Next-best-offer por cliente</strong>: o que oferecer a cada um, calculado pelo histórico de compra</li>
+          <li class="flex gap-3"><span class="text-lima">→</span><strong class="text-white">Leitura de conversas por IA</strong>: insatisfação detectada como sinal de churn, antes do cliente sumir</li>
           <li class="flex gap-3"><span class="text-lima">→</span>Personalização dinâmica de oferta por segmento e comportamento</li>
           <li class="flex gap-3"><span class="text-lima">→</span>SAC automatizado no WhatsApp: status de pedido, troca, grade e tamanho respondidos em segundos, 24/7</li>
           <li class="flex gap-3"><span class="text-lima">→</span>Campanhas de WhatsApp em escala com régua anti-fadiga</li>
+          <li class="flex gap-3"><span class="text-lima">→</span><strong class="text-white">RCS ativado</strong>: carrossel de produto e botão de compra dentro da conversa, com verificação de marca junto às operadoras</li>
           <li class="flex gap-3"><span class="text-lima">→</span>Prioridade de atendimento e roadmap trimestral</li>
         </ul>
         <div class="mt-8 pt-6 border-t border-line">
@@ -613,6 +792,10 @@ tailwind.config = {
         <p class="font-display font-bold">Por que só retenção</p>
         <p class="mt-2 text-dim text-[.95rem]">Porque quem faz tudo não é especialista em nada. Não gerimos tráfego, não fazemos social media, não fazemos SEO. Uma frente só, com responsabilidade por um número isolado e verificável: quanto do seu faturamento vem da base.</p>
       </div>
+      <div class="mt-5 border-l-2 border-line pl-5 max-w-2xl">
+        <p class="font-display font-bold">E por que também mexemos no humano</p>
+        <p class="mt-2 text-dim text-[.95rem]">Antes de retenção, passei anos treinando times comerciais — de grandes empresas a equipes de atendimento. É o que me faz olhar a conversa no WhatsApp com o mesmo rigor que olho um fluxo automatizado. Ferramenta de CRM não treina vendedor; a gente treina.</p>
+      </div>
     </div>
   </div>
 </section>
@@ -628,6 +811,22 @@ tailwind.config = {
       <details>
         <summary class="font-display font-medium text-lg">Vocês têm experiência com moda?</summary>
         <p class="pb-6 text-dim leading-relaxed">Sim — e é a nossa única especialidade. Operamos retenção para marcas que vendem moda, e é dos números delas que vem o método: as réguas, as janelas de recompra e as ofertas que funcionam. É por isso que o seu projeto não começa do zero — começa do que já foi validado.</p>
+      </details>
+      <details>
+        <summary class="font-display font-medium text-lg">Ninguém abre mais e-mail. Isso ainda funciona?</summary>
+        <p class="pb-6 text-dim leading-relaxed">Newsletter, quase ninguém abre — você está certo. Mas fluxo disparado por comportamento é outro produto: em vestuário, e-mail de carrinho abandonado tem mais de 50% de abertura, e e-mail pós-compra passa de 75%. A diferença é que um interrompe e o outro responde a algo que a pessoa acabou de fazer. Nos dados de 2026, fluxos automatizados geraram cerca de 41% de toda a receita de e-mail com apenas 5% dos envios. E, de todo jeito, não trabalhamos só e-mail: WhatsApp, SMS e push entram na mesma régua.</p>
+      </details>
+      <details>
+        <summary class="font-display font-medium text-lg">Já faço remarketing para ir atrás de quem comprou. Não é a mesma coisa?</summary>
+        <p class="pb-6 text-dim leading-relaxed">Não — e essa é uma das trocas mais caras que uma loja faz. Remarketing é pagar ao Meta, por impressão, para falar com gente que já está no seu banco de dados. Além do custo, a plataforma não sabe quem é quem: mostra o mesmo anúncio para o cliente que compra todo mês e para quem comprou uma vez e nunca voltou. E se a conta cair, você perde o acesso aos seus próprios clientes. Canal próprio é ativo; remarketing é aluguel.</p>
+      </details>
+      <details>
+        <summary class="font-display font-medium text-lg">Já testei e-mail e WhatsApp e não funcionou.</summary>
+        <p class="pb-6 text-dim leading-relaxed">Acredito. Antes de discutir o porquê, uma pergunta: qual foi a sua taxa de recuperação de carrinho abandonado? Se a resposta não estiver na ponta da língua, o que houve foi tentativa, não teste. Quando não funciona, é quase sempre uma de quatro coisas: falta de segmentação, timing errado, oferta errada ou base suja. O diagnóstico diz qual das quatro é — com os seus números.</p>
+      </details>
+      <details>
+        <summary class="font-display font-medium text-lg">Vocês falam com o meu time ou só mexem em ferramenta?</summary>
+        <p class="pb-6 text-dim leading-relaxed">Falamos com o time. Automação leva o cliente até a conversa, e é quem atende no WhatsApp que decide se aquilo vira venda. Entregamos scripts para dúvida de tamanho, objeção de preço, troca e recuperação — e treinamos quem atende. É parte da retenção, não um extra.</p>
       </details>
       <details>
         <summary class="font-display font-medium text-lg">Já tenho agência de tráfego. Isso conflita?</summary>
